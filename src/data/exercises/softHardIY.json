@@ -1,0 +1,275 @@
+{
+  "category": "softHardIY",
+  "exercises": [
+    {
+      "id": "iy-001",
+      "word": "m_š",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Malé šedé zvířátko",
+      "rule": "Po tvrdé souhlásce M píšeme Y"
+    },
+    {
+      "id": "iy-002",
+      "word": "c_tit",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Vnímat něco nosem",
+      "rule": "Po měkké souhlásce C píšeme I/Í"
+    },
+    {
+      "id": "iy-003",
+      "word": "h_bný",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Rychlý a mrštný",
+      "rule": "Po tvrdé souhlásce H píšeme Y"
+    },
+    {
+      "id": "iy-004",
+      "word": "č_st",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Knížka se dá...",
+      "rule": "Po měkké souhlásce Č píšeme I/Í"
+    },
+    {
+      "id": "iy-005",
+      "word": "r_ba",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Plave v rybníku",
+      "rule": "Po tvrdé souhlásce R píšeme Y"
+    },
+    {
+      "id": "iy-006",
+      "word": "ž_t",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Být naživu",
+      "rule": "Po měkké souhlásce Ž píšeme I/Í"
+    },
+    {
+      "id": "iy-007",
+      "word": "d_m",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Kouř stoupá z komína",
+      "rule": "Po tvrdé souhlásce D píšeme Y/Ý"
+    },
+    {
+      "id": "iy-008",
+      "word": "š_t",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Vytvářet oděv jehlou",
+      "rule": "Po měkké souhlásce Š píšeme I/Í"
+    },
+    {
+      "id": "iy-009",
+      "word": "k_t",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Velryba je velký...",
+      "rule": "Po tvrdé souhlásce K píšeme Y"
+    },
+    {
+      "id": "iy-010",
+      "word": "ř_kat",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Mluvit, povídat",
+      "rule": "Po měkké souhlásce Ř píšeme I/Í"
+    },
+    {
+      "id": "iy-011",
+      "word": "t_gr",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Pruhovaná šelma",
+      "rule": "Po tvrdé souhlásce T píšeme Y"
+    },
+    {
+      "id": "iy-012",
+      "word": "j_stý",
+      "answer": "i",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Určitě, nepochybně",
+      "rule": "Po měkké souhlásce J píšeme I"
+    },
+    {
+      "id": "iy-013",
+      "word": "ch_ba",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Něco špatně",
+      "rule": "Po tvrdé souhlásce CH píšeme Y"
+    },
+    {
+      "id": "iy-014",
+      "word": "n_zký",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Opak vysokého",
+      "rule": "Po měkké souhlásce N píšeme I/Í"
+    },
+    {
+      "id": "iy-015",
+      "word": "v_r",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Noční pták",
+      "rule": "Po tvrdé souhlásce V píšeme Y/Ý"
+    },
+    {
+      "id": "iy-016",
+      "word": "d_vný",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Podivný, zvláštní",
+      "rule": "Po obojetné D záleží na slově"
+    },
+    {
+      "id": "iy-017",
+      "word": "s_r",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Mléčný výrobek",
+      "rule": "Po tvrdé souhlásce S píšeme Y/Ý"
+    },
+    {
+      "id": "iy-018",
+      "word": "c_vka",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Na šití potřebujeme nit a...",
+      "rule": "Po měkké souhlásce C píšeme I/Í"
+    },
+    {
+      "id": "iy-019",
+      "word": "kr_t",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Zakrývat, schovat",
+      "rule": "Po tvrdé souhlásce R píšeme Y/Ý"
+    },
+    {
+      "id": "iy-020",
+      "word": "ž_la",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Krev teče v...",
+      "rule": "Po měkké souhlásce Ž píšeme I/Í"
+    },
+    {
+      "id": "iy-021",
+      "word": "m_dla",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Na mytí rukou",
+      "rule": "Po tvrdé souhlásce M píšeme Y/Ý"
+    },
+    {
+      "id": "iy-022",
+      "word": "č_slo",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "1, 2, 3...",
+      "rule": "Po měkké souhlásce Č píšeme I/Í"
+    },
+    {
+      "id": "iy-023",
+      "word": "h_storie",
+      "answer": "i",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Dějiny, minulost",
+      "rule": "Slovo cizího původu"
+    },
+    {
+      "id": "iy-024",
+      "word": "š_kana",
+      "answer": "i",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Ubližování slabším",
+      "rule": "Po měkké souhlásce Š píšeme I"
+    },
+    {
+      "id": "iy-025",
+      "word": "r_chle",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Opak pomalu",
+      "rule": "Po tvrdé souhlásce R píšeme Y"
+    },
+    {
+      "id": "iy-026",
+      "word": "č_tat",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Být vzhůru v noci",
+      "rule": "Po měkké souhlásce Č píšeme I/Í"
+    },
+    {
+      "id": "iy-027",
+      "word": "k_tka",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Větvička s květy",
+      "rule": "Po tvrdé souhlásce K píšeme Y"
+    },
+    {
+      "id": "iy-028",
+      "word": "j_ní",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Mráz na oknech",
+      "rule": "Po měkké souhlásce J píšeme I/Í"
+    },
+    {
+      "id": "iy-029",
+      "word": "h_ena",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Africké zvíře co se směje",
+      "rule": "Po tvrdé souhlásce H píšeme Y"
+    },
+    {
+      "id": "iy-030",
+      "word": "ř_jen",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Měsíc po září",
+      "rule": "Po měkké souhlásce Ř píšeme I/Í"
+    }
+  ]
+}

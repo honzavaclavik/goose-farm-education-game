@@ -1,0 +1,275 @@
+{
+  "category": "vowelLength",
+  "exercises": [
+    {
+      "id": "vowel-001",
+      "word": "m_ma",
+      "answer": "á",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Maminka",
+      "rule": "Dlouhé Á ve slově máma"
+    },
+    {
+      "id": "vowel-002",
+      "word": "t_ta",
+      "answer": "á",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Tatínek",
+      "rule": "Dlouhé Á ve slově táta"
+    },
+    {
+      "id": "vowel-003",
+      "word": "kr_va",
+      "answer": "á",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Dává mléko",
+      "rule": "Dlouhé Á ve slově kráva"
+    },
+    {
+      "id": "vowel-004",
+      "word": "kol_č",
+      "answer": "á",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Sladké pečivo",
+      "rule": "Dlouhé Á ve slově koláč"
+    },
+    {
+      "id": "vowel-005",
+      "word": "m_č",
+      "answer": "í",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Na fotbal",
+      "rule": "Dlouhé Í ve slově míč"
+    },
+    {
+      "id": "vowel-006",
+      "word": "l_pa",
+      "answer": "í",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Strom ve městě",
+      "rule": "Dlouhé Í ve slově lípa"
+    },
+    {
+      "id": "vowel-007",
+      "word": "p_sek",
+      "answer": "í",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Na pláži",
+      "rule": "Dlouhé Í ve slově písek"
+    },
+    {
+      "id": "vowel-008",
+      "word": "kn_ha",
+      "answer": "í",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Čteme z ní",
+      "rule": "Dlouhé Í ve slově kniha"
+    },
+    {
+      "id": "vowel-009",
+      "word": "k_že",
+      "answer": "ů",
+      "options": ["u", "ů"],
+      "difficulty": 1,
+      "hint": "Máme ji na těle",
+      "rule": "Kroužkované Ů ve slově kůže"
+    },
+    {
+      "id": "vowel-010",
+      "word": "d_m",
+      "answer": "ů",
+      "options": ["u", "ů"],
+      "difficulty": 1,
+      "hint": "Budova, kde bydlíme",
+      "rule": "Kroužkované Ů ve slově dům"
+    },
+    {
+      "id": "vowel-011",
+      "word": "st_l",
+      "answer": "ů",
+      "options": ["u", "ů"],
+      "difficulty": 1,
+      "hint": "Nábytek na jídlo",
+      "rule": "Kroužkované Ů ve slově stůl"
+    },
+    {
+      "id": "vowel-012",
+      "word": "k_ň",
+      "answer": "ů",
+      "options": ["u", "ů"],
+      "difficulty": 1,
+      "hint": "Zvíře na ježdění",
+      "rule": "Kroužkované Ů ve slově kůň"
+    },
+    {
+      "id": "vowel-013",
+      "word": "l_ka",
+      "answer": "ou",
+      "options": ["u", "ou"],
+      "difficulty": 1,
+      "hint": "Travnatá plocha",
+      "rule": "Dvojhláska OU ve slově louka"
+    },
+    {
+      "id": "vowel-014",
+      "word": "m_ka",
+      "answer": "ou",
+      "options": ["u", "ou"],
+      "difficulty": 1,
+      "hint": "Na pečení",
+      "rule": "Dvojhláska OU ve slově mouka"
+    },
+    {
+      "id": "vowel-015",
+      "word": "h_ba",
+      "answer": "ou",
+      "options": ["u", "ou"],
+      "difficulty": 1,
+      "hint": "Roste v lese",
+      "rule": "Dvojhláska OU ve slově houba"
+    },
+    {
+      "id": "vowel-016",
+      "word": "r_že",
+      "answer": "ů",
+      "options": ["u", "ů"],
+      "difficulty": 1,
+      "hint": "Květina s trny",
+      "rule": "Kroužkované Ů ve slově růže"
+    },
+    {
+      "id": "vowel-017",
+      "word": "p_st",
+      "answer": "ě",
+      "options": ["e", "ě"],
+      "difficulty": 2,
+      "hint": "Zaťatá ruka",
+      "rule": "Měkké Ě ve slově pěst"
+    },
+    {
+      "id": "vowel-018",
+      "word": "m_sto",
+      "answer": "ě",
+      "options": ["e", "ě"],
+      "difficulty": 2,
+      "hint": "Velká obec",
+      "rule": "Měkké Ě ve slově město"
+    },
+    {
+      "id": "vowel-019",
+      "word": "sv_t",
+      "answer": "ě",
+      "options": ["e", "ě"],
+      "difficulty": 2,
+      "hint": "Celá planeta",
+      "rule": "Měkké Ě ve slově svět"
+    },
+    {
+      "id": "vowel-020",
+      "word": "neb_",
+      "answer": "e",
+      "options": ["e", "ě"],
+      "difficulty": 2,
+      "hint": "Nad námi je modré...",
+      "rule": "Krátké E ve slově nebe"
+    },
+    {
+      "id": "vowel-021",
+      "word": "v_tr",
+      "answer": "í",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Fouká venku",
+      "rule": "Dlouhé Í ve slově vítr"
+    },
+    {
+      "id": "vowel-022",
+      "word": "vl_k",
+      "answer": "a",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Jezdí po kolejích",
+      "rule": "Krátké A ve slově vlak"
+    },
+    {
+      "id": "vowel-023",
+      "word": "vl_s",
+      "answer": "a",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Rostou na hlavě",
+      "rule": "Krátké A ve slově vlas"
+    },
+    {
+      "id": "vowel-024",
+      "word": "l_s",
+      "answer": "e",
+      "options": ["e", "é"],
+      "difficulty": 1,
+      "hint": "Hodně stromů pohromadě",
+      "rule": "Krátké E ve slově les"
+    },
+    {
+      "id": "vowel-025",
+      "word": "l_to",
+      "answer": "é",
+      "options": ["e", "é"],
+      "difficulty": 1,
+      "hint": "Teplé roční období",
+      "rule": "Dlouhé É ve slově léto"
+    },
+    {
+      "id": "vowel-026",
+      "word": "j_ro",
+      "answer": "a",
+      "options": ["a", "á"],
+      "difficulty": 1,
+      "hint": "Roční období po zimě",
+      "rule": "Krátké A ve slově jaro"
+    },
+    {
+      "id": "vowel-027",
+      "word": "z_ma",
+      "answer": "i",
+      "options": ["i", "í"],
+      "difficulty": 1,
+      "hint": "Studené roční období",
+      "rule": "Krátké I ve slově zima"
+    },
+    {
+      "id": "vowel-028",
+      "word": "p_dzim",
+      "answer": "o",
+      "options": ["o", "ó"],
+      "difficulty": 1,
+      "hint": "Padá listí",
+      "rule": "Krátké O ve slově podzim"
+    },
+    {
+      "id": "vowel-029",
+      "word": "č_s",
+      "answer": "a",
+      "options": ["a", "á"],
+      "difficulty": 2,
+      "hint": "Minuta, hodina...",
+      "rule": "Krátké A ve slově čas"
+    },
+    {
+      "id": "vowel-030",
+      "word": "hr_d",
+      "answer": "a",
+      "options": ["a", "á"],
+      "difficulty": 2,
+      "hint": "Starý zámek",
+      "rule": "Krátké A ve slově hrad"
+    }
+  ]
+}

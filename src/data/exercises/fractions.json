@@ -1,0 +1,743 @@
+{
+  "category": "fractions",
+  "exercises": [
+    {
+      "id": "frac-001",
+      "word": "1/2 + 1/2 = ?",
+      "answer": "1",
+      "options": ["1/2", "1", "2", "1/4"],
+      "difficulty": 1,
+      "hint": "Kolik je polovina plus polovina?",
+      "rule": "Při sčítání zlomků se stejným jmenovatelem sčítáme čitatele"
+    },
+    {
+      "id": "frac-002",
+      "word": "1/4 + 1/4 = ?",
+      "answer": "2/4",
+      "options": ["1/4", "2/4", "1/8", "4/4"],
+      "difficulty": 1,
+      "hint": "Čtvrtina plus čtvrtina",
+      "rule": "1/4 + 1/4 = 2/4"
+    },
+    {
+      "id": "frac-003",
+      "word": "3/4 - 1/4 = ?",
+      "answer": "2/4",
+      "options": ["1/4", "2/4", "4/4", "3/4"],
+      "difficulty": 1,
+      "hint": "Tři čtvrtiny minus jedna čtvrtina",
+      "rule": "3/4 - 1/4 = 2/4"
+    },
+    {
+      "id": "frac-004",
+      "word": "Který zlomek je větší: 1/2 nebo 1/4?",
+      "answer": "1/2",
+      "options": ["1/2", "1/4", "jsou stejné"],
+      "difficulty": 1,
+      "hint": "Polovina koláče nebo čtvrtina?",
+      "rule": "Čím větší jmenovatel, tím menší díl"
+    },
+    {
+      "id": "frac-005",
+      "word": "1/3 + 1/3 = ?",
+      "answer": "2/3",
+      "options": ["1/3", "2/3", "1/6", "3/3"],
+      "difficulty": 1,
+      "hint": "Třetina plus třetina",
+      "rule": "Při sčítání zlomků se stejným jmenovatelem sčítáme čitatele"
+    },
+    {
+      "id": "frac-006",
+      "word": "2/5 + 1/5 = ?",
+      "answer": "3/5",
+      "options": ["3/5", "2/5", "3/10", "1/5"],
+      "difficulty": 1,
+      "hint": "Dvě pětiny plus jedna pětina",
+      "rule": "2/5 + 1/5 = 3/5"
+    },
+    {
+      "id": "frac-007",
+      "word": "5/5 = ?",
+      "answer": "1",
+      "options": ["0", "1", "5", "1/5"],
+      "difficulty": 1,
+      "hint": "Pět pětin tvoří...",
+      "rule": "Zlomek s rovným čitatelem a jmenovatelem = 1"
+    },
+    {
+      "id": "frac-008",
+      "word": "Kolik třetin má jeden celek?",
+      "answer": "3",
+      "options": ["1", "2", "3", "4"],
+      "difficulty": 1,
+      "hint": "Třetina znamená dělení na 3 části",
+      "rule": "Celek = jmenovatel/jmenovatel, tedy 3/3 = 1"
+    },
+    {
+      "id": "frac-009",
+      "word": "4/6 - 2/6 = ?",
+      "answer": "2/6",
+      "options": ["1/6", "2/6", "3/6", "6/6"],
+      "difficulty": 1,
+      "hint": "Čtyři šestiny minus dvě šestiny",
+      "rule": "Při odčítání zlomků se stejným jmenovatelem odčítáme čitatele"
+    },
+    {
+      "id": "frac-010",
+      "word": "Který zlomek je větší: 1/3 nebo 1/5?",
+      "answer": "1/3",
+      "options": ["1/3", "1/5", "jsou stejné"],
+      "difficulty": 1,
+      "hint": "Třetina nebo pětina koláče?",
+      "rule": "Čím větší jmenovatel, tím menší díl"
+    },
+    {
+      "id": "frac-011",
+      "word": "2/3 + 1/3 = ?",
+      "answer": "3/3",
+      "options": ["2/3", "3/3", "3/6", "1/3"],
+      "difficulty": 1,
+      "hint": "Dvě třetiny plus jedna třetina",
+      "rule": "2/3 + 1/3 = 3/3 = 1 celek"
+    },
+    {
+      "id": "frac-012",
+      "word": "5/8 - 3/8 = ?",
+      "answer": "2/8",
+      "options": ["2/8", "3/8", "8/8", "1/8"],
+      "difficulty": 1,
+      "hint": "Pět osmin minus tři osminy",
+      "rule": "5/8 - 3/8 = 2/8"
+    },
+    {
+      "id": "frac-013",
+      "word": "Kolik čtvrtin má jeden celek?",
+      "answer": "4",
+      "options": ["1", "2", "3", "4"],
+      "difficulty": 1,
+      "hint": "Čtvrtina znamená dělení na 4 části",
+      "rule": "Celek = 4/4"
+    },
+    {
+      "id": "frac-014",
+      "word": "1/6 + 3/6 = ?",
+      "answer": "4/6",
+      "options": ["2/6", "3/6", "4/6", "5/6"],
+      "difficulty": 1,
+      "hint": "Jedna šestina plus tři šestiny",
+      "rule": "1/6 + 3/6 = 4/6"
+    },
+    {
+      "id": "frac-015",
+      "word": "6/6 = ?",
+      "answer": "1",
+      "options": ["0", "1", "6", "1/6"],
+      "difficulty": 1,
+      "hint": "Šest šestin je...",
+      "rule": "6/6 = 1 celek"
+    },
+    {
+      "id": "frac-016",
+      "word": "2/5 + 2/5 = ?",
+      "answer": "4/5",
+      "options": ["4/5", "4/10", "2/5", "1/5"],
+      "difficulty": 2,
+      "hint": "Dvě pětiny plus dvě pětiny",
+      "rule": "Sčítáme čitatele: 2/5 + 2/5 = 4/5"
+    },
+    {
+      "id": "frac-017",
+      "word": "7/10 - 4/10 = ?",
+      "answer": "3/10",
+      "options": ["3/10", "4/10", "11/10", "2/10"],
+      "difficulty": 2,
+      "hint": "Sedm desetin minus čtyři desetiny",
+      "rule": "7/10 - 4/10 = 3/10"
+    },
+    {
+      "id": "frac-018",
+      "word": "Který zlomek je větší: 2/5 nebo 3/5?",
+      "answer": "3/5",
+      "options": ["2/5", "3/5", "jsou stejné"],
+      "difficulty": 2,
+      "hint": "Porovnej čitatele při stejném jmenovateli",
+      "rule": "Při stejném jmenovateli je větší zlomek s větším čitatelem"
+    },
+    {
+      "id": "frac-019",
+      "word": "1/4 + 2/4 + 1/4 = ?",
+      "answer": "4/4",
+      "options": ["3/4", "4/4", "4/12", "2/4"],
+      "difficulty": 2,
+      "hint": "Sečti všechny čtvrtiny",
+      "rule": "1/4 + 2/4 + 1/4 = 4/4 = 1"
+    },
+    {
+      "id": "frac-020",
+      "word": "Seřaď od nejmenšího: 1/2, 1/3, 1/4",
+      "answer": "1/4, 1/3, 1/2",
+      "options": ["1/4, 1/3, 1/2", "1/2, 1/3, 1/4", "1/3, 1/2, 1/4"],
+      "difficulty": 2,
+      "hint": "Čím větší jmenovatel, tím menší zlomek",
+      "rule": "U zlomků s čitatelem 1: větší jmenovatel = menší hodnota"
+    },
+    {
+      "id": "frac-021",
+      "word": "8/9 - 5/9 = ?",
+      "answer": "3/9",
+      "options": ["3/9", "4/9", "13/9", "2/9"],
+      "difficulty": 2,
+      "hint": "Osm devítin minus pět devítin",
+      "rule": "8/9 - 5/9 = 3/9"
+    },
+    {
+      "id": "frac-022",
+      "word": "Který zlomek je větší: 5/8 nebo 3/8?",
+      "answer": "5/8",
+      "options": ["5/8", "3/8", "jsou stejné"],
+      "difficulty": 2,
+      "hint": "Při stejném jmenovateli porovnej čitatele",
+      "rule": "5/8 > 3/8, protože 5 > 3"
+    },
+    {
+      "id": "frac-023",
+      "word": "3/7 + 2/7 = ?",
+      "answer": "5/7",
+      "options": ["5/7", "5/14", "1/7", "6/7"],
+      "difficulty": 2,
+      "hint": "Tři sedminy plus dvě sedminy",
+      "rule": "3/7 + 2/7 = 5/7"
+    },
+    {
+      "id": "frac-024",
+      "word": "9/10 - 6/10 = ?",
+      "answer": "3/10",
+      "options": ["3/10", "15/10", "6/10", "4/10"],
+      "difficulty": 2,
+      "hint": "Devět desetin minus šest desetin",
+      "rule": "9/10 - 6/10 = 3/10"
+    },
+    {
+      "id": "frac-025",
+      "word": "Kolik osmin má jeden celek?",
+      "answer": "8",
+      "options": ["4", "6", "8", "10"],
+      "difficulty": 2,
+      "hint": "Osmina znamená dělení na 8 částí",
+      "rule": "Celek = 8/8"
+    },
+    {
+      "id": "frac-026",
+      "word": "1/5 + 1/5 + 1/5 = ?",
+      "answer": "3/5",
+      "options": ["3/5", "3/15", "1/5", "5/5"],
+      "difficulty": 2,
+      "hint": "Tři pětiny dohromady",
+      "rule": "1/5 + 1/5 + 1/5 = 3/5"
+    },
+    {
+      "id": "frac-027",
+      "word": "Který zlomek je menší: 2/3 nebo 2/5?",
+      "answer": "2/5",
+      "options": ["2/3", "2/5", "jsou stejné"],
+      "difficulty": 2,
+      "hint": "Při stejném čitateli porovnej jmenovatele",
+      "rule": "2/5 < 2/3, protože pětiny jsou menší než třetiny"
+    },
+    {
+      "id": "frac-028",
+      "word": "4/5 - 1/5 = ?",
+      "answer": "3/5",
+      "options": ["3/5", "5/5", "2/5", "4/5"],
+      "difficulty": 2,
+      "hint": "Čtyři pětiny minus jedna pětina",
+      "rule": "4/5 - 1/5 = 3/5"
+    },
+    {
+      "id": "frac-029",
+      "word": "5/6 + 1/6 = ?",
+      "answer": "6/6",
+      "options": ["4/6", "5/6", "6/6", "6/12"],
+      "difficulty": 2,
+      "hint": "Pět šestin plus jedna šestina",
+      "rule": "5/6 + 1/6 = 6/6 = 1 celek"
+    },
+    {
+      "id": "frac-030",
+      "word": "Který zlomek je větší: 4/7 nebo 5/7?",
+      "answer": "5/7",
+      "options": ["4/7", "5/7", "jsou stejné"],
+      "difficulty": 2,
+      "hint": "Porovnej čitatele",
+      "rule": "5/7 > 4/7"
+    },
+    {
+      "id": "frac-031",
+      "word": "Kolik je 1/2 ze 10?",
+      "answer": "5",
+      "options": ["2", "5", "10", "20"],
+      "difficulty": 3,
+      "hint": "Polovina z deseti",
+      "rule": "1/2 × 10 = 10 : 2 = 5"
+    },
+    {
+      "id": "frac-032",
+      "word": "Kolik je 1/4 ze 20?",
+      "answer": "5",
+      "options": ["4", "5", "10", "80"],
+      "difficulty": 3,
+      "hint": "Čtvrtina z dvaceti",
+      "rule": "1/4 × 20 = 20 : 4 = 5"
+    },
+    {
+      "id": "frac-033",
+      "word": "Kolik je 1/3 z 15?",
+      "answer": "5",
+      "options": ["3", "5", "15", "45"],
+      "difficulty": 3,
+      "hint": "Třetina z patnácti",
+      "rule": "1/3 × 15 = 15 : 3 = 5"
+    },
+    {
+      "id": "frac-034",
+      "word": "Kolik je 1/5 ze 25?",
+      "answer": "5",
+      "options": ["5", "25", "125", "1"],
+      "difficulty": 3,
+      "hint": "Pětina z dvaceti pěti",
+      "rule": "1/5 × 25 = 25 : 5 = 5"
+    },
+    {
+      "id": "frac-035",
+      "word": "Kolik je 1/2 z 18?",
+      "answer": "9",
+      "options": ["6", "9", "12", "36"],
+      "difficulty": 3,
+      "hint": "Polovina z osmnácti",
+      "rule": "1/2 × 18 = 18 : 2 = 9"
+    },
+    {
+      "id": "frac-036",
+      "word": "Kolik je 1/4 ze 100?",
+      "answer": "25",
+      "options": ["25", "50", "20", "40"],
+      "difficulty": 3,
+      "hint": "Čtvrtina ze sta",
+      "rule": "1/4 × 100 = 100 : 4 = 25"
+    },
+    {
+      "id": "frac-037",
+      "word": "Kolik je 1/10 ze 50?",
+      "answer": "5",
+      "options": ["5", "10", "50", "500"],
+      "difficulty": 3,
+      "hint": "Desetina z padesáti",
+      "rule": "1/10 × 50 = 50 : 10 = 5"
+    },
+    {
+      "id": "frac-038",
+      "word": "Kolik je 1/3 z 21?",
+      "answer": "7",
+      "options": ["3", "7", "21", "63"],
+      "difficulty": 3,
+      "hint": "Třetina z dvaceti jedna",
+      "rule": "1/3 × 21 = 21 : 3 = 7"
+    },
+    {
+      "id": "frac-039",
+      "word": "Kolik je 1/6 z 30?",
+      "answer": "5",
+      "options": ["5", "6", "30", "180"],
+      "difficulty": 3,
+      "hint": "Šestina z třiceti",
+      "rule": "1/6 × 30 = 30 : 6 = 5"
+    },
+    {
+      "id": "frac-040",
+      "word": "Kolik je 1/5 ze 40?",
+      "answer": "8",
+      "options": ["5", "8", "40", "200"],
+      "difficulty": 3,
+      "hint": "Pětina ze čtyřiceti",
+      "rule": "1/5 × 40 = 40 : 5 = 8"
+    },
+    {
+      "id": "frac-041",
+      "word": "Kolik je 2/5 ze 20?",
+      "answer": "8",
+      "options": ["4", "8", "10", "40"],
+      "difficulty": 4,
+      "hint": "Nejdřív pětina, pak krát dva",
+      "rule": "2/5 × 20 = (20 : 5) × 2 = 4 × 2 = 8"
+    },
+    {
+      "id": "frac-042",
+      "word": "Kolik je 3/4 ze 20?",
+      "answer": "15",
+      "options": ["5", "10", "15", "60"],
+      "difficulty": 4,
+      "hint": "Nejdřív čtvrtina, pak krát tři",
+      "rule": "3/4 × 20 = (20 : 4) × 3 = 5 × 3 = 15"
+    },
+    {
+      "id": "frac-043",
+      "word": "Kolik je 2/3 z 18?",
+      "answer": "12",
+      "options": ["6", "9", "12", "36"],
+      "difficulty": 4,
+      "hint": "Nejdřív třetina, pak krát dva",
+      "rule": "2/3 × 18 = (18 : 3) × 2 = 6 × 2 = 12"
+    },
+    {
+      "id": "frac-044",
+      "word": "Kolik je 3/5 z 25?",
+      "answer": "15",
+      "options": ["5", "10", "15", "75"],
+      "difficulty": 4,
+      "hint": "Nejdřív pětina, pak krát tři",
+      "rule": "3/5 × 25 = (25 : 5) × 3 = 5 × 3 = 15"
+    },
+    {
+      "id": "frac-045",
+      "word": "Kolik je 2/5 ze 30?",
+      "answer": "12",
+      "options": ["6", "10", "12", "60"],
+      "difficulty": 4,
+      "hint": "Nejdřív pětina, pak krát dva",
+      "rule": "2/5 × 30 = (30 : 5) × 2 = 6 × 2 = 12"
+    },
+    {
+      "id": "frac-046",
+      "word": "Kolik je 3/4 z 40?",
+      "answer": "30",
+      "options": ["10", "20", "30", "120"],
+      "difficulty": 4,
+      "hint": "Nejdřív čtvrtina, pak krát tři",
+      "rule": "3/4 × 40 = (40 : 4) × 3 = 10 × 3 = 30"
+    },
+    {
+      "id": "frac-047",
+      "word": "Kolik je 4/5 z 35?",
+      "answer": "28",
+      "options": ["7", "14", "28", "140"],
+      "difficulty": 4,
+      "hint": "Nejdřív pětina, pak krát čtyři",
+      "rule": "4/5 × 35 = (35 : 5) × 4 = 7 × 4 = 28"
+    },
+    {
+      "id": "frac-048",
+      "word": "Kolik je 2/3 z 27?",
+      "answer": "18",
+      "options": ["9", "18", "27", "54"],
+      "difficulty": 4,
+      "hint": "Nejdřív třetina, pak krát dva",
+      "rule": "2/3 × 27 = (27 : 3) × 2 = 9 × 2 = 18"
+    },
+    {
+      "id": "frac-049",
+      "word": "Kolik je 3/10 ze 50?",
+      "answer": "15",
+      "options": ["5", "10", "15", "150"],
+      "difficulty": 4,
+      "hint": "Nejdřív desetina, pak krát tři",
+      "rule": "3/10 × 50 = (50 : 10) × 3 = 5 × 3 = 15"
+    },
+    {
+      "id": "frac-050",
+      "word": "Kolik je 5/6 ze 24?",
+      "answer": "20",
+      "options": ["4", "12", "20", "120"],
+      "difficulty": 4,
+      "hint": "Nejdřív šestina, pak krát pět",
+      "rule": "5/6 × 24 = (24 : 6) × 5 = 4 × 5 = 20"
+    },
+    {
+      "id": "frac-051",
+      "word": "V 5 stejných nádobách je celkem 25 litrů vody. Kolik litrů je v jedné nádobě?",
+      "answer": "5",
+      "options": ["4", "5", "6", "25"],
+      "difficulty": 5,
+      "hint": "Celkový objem vyděl počtem nádob",
+      "rule": "25 : 5 = 5 litrů v jedné nádobě"
+    },
+    {
+      "id": "frac-052",
+      "word": "Devět stejných váz váží 6 300 g. Kolik gramů váží jedna váza?",
+      "answer": "700",
+      "options": ["600", "700", "800", "900"],
+      "difficulty": 5,
+      "hint": "Celkovou hmotnost vyděl počtem váz",
+      "rule": "6 300 : 9 = 700 g"
+    },
+    {
+      "id": "frac-053",
+      "word": "Tři stejné myčky nádobí stojí 42 000 Kč. Kolik stojí jedna myčka?",
+      "answer": "14 000",
+      "options": ["12 000", "14 000", "16 000", "21 000"],
+      "difficulty": 5,
+      "hint": "Celkovou cenu vyděl počtem myček",
+      "rule": "42 000 : 3 = 14 000 Kč"
+    },
+    {
+      "id": "frac-054",
+      "word": "V jedné lahvi je 7 dl džusu. Kolik decilitrů je v osmi stejných lahvích?",
+      "answer": "56",
+      "options": ["48", "56", "64", "72"],
+      "difficulty": 5,
+      "hint": "Objem jedné lahve vynásob počtem lahví",
+      "rule": "7 × 8 = 56 dl"
+    },
+    {
+      "id": "frac-055",
+      "word": "Jedna učebnice váží 40 dag. Kolik váží pět stejných učebnic?",
+      "answer": "200",
+      "options": ["160", "180", "200", "240"],
+      "difficulty": 5,
+      "hint": "Hmotnost jedné učebnice vynásob počtem",
+      "rule": "40 × 5 = 200 dag"
+    },
+    {
+      "id": "frac-056",
+      "word": "Cena jednoho auta je 240 000 Kč. Kolik zaplatíme za tři stejná auta?",
+      "answer": "720 000",
+      "options": ["480 000", "600 000", "720 000", "960 000"],
+      "difficulty": 5,
+      "hint": "Cenu jednoho auta vynásob počtem aut",
+      "rule": "240 000 × 3 = 720 000 Kč"
+    },
+    {
+      "id": "frac-057",
+      "word": "V šesti lahvích je celkem 12 l vody. Kolik je v jedné lahvi?",
+      "answer": "2",
+      "options": ["1", "2", "3", "6"],
+      "difficulty": 5,
+      "hint": "Celkový objem vyděl počtem lahví",
+      "rule": "12 : 6 = 2 litry v jedné lahvi"
+    },
+    {
+      "id": "frac-058",
+      "word": "V šesti lahvích je celkem 12 l vody. Kolik litrů je v devíti lahvích?",
+      "answer": "18",
+      "options": ["15", "16", "18", "21"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti objem jedné lahve, pak vynásob devíti",
+      "rule": "12 : 6 = 2 l v jedné, 2 × 9 = 18 l"
+    },
+    {
+      "id": "frac-059",
+      "word": "Čtyři stejné sešity váží celkem 240 g. Kolik váží jeden sešit?",
+      "answer": "60",
+      "options": ["40", "50", "60", "80"],
+      "difficulty": 5,
+      "hint": "Celkovou hmotnost vyděl počtem sešitů",
+      "rule": "240 : 4 = 60 g"
+    },
+    {
+      "id": "frac-060",
+      "word": "Čtyři sešity váží 240 g. Kolik váží pět sešitů?",
+      "answer": "300",
+      "options": ["250", "280", "300", "320"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti hmotnost jednoho sešitu",
+      "rule": "240 : 4 = 60 g, 60 × 5 = 300 g"
+    },
+    {
+      "id": "frac-061",
+      "word": "Za dvě stejná kola zaplatíme 48 000 Kč. Kolik stojí jedno kolo?",
+      "answer": "24 000",
+      "options": ["20 000", "22 000", "24 000", "26 000"],
+      "difficulty": 5,
+      "hint": "Celkovou cenu vyděl počtem kol",
+      "rule": "48 000 : 2 = 24 000 Kč"
+    },
+    {
+      "id": "frac-062",
+      "word": "Za dvě kola zaplatíme 48 000 Kč. Kolik stojí tři kola?",
+      "answer": "72 000",
+      "options": ["60 000", "66 000", "72 000", "96 000"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti cenu jednoho kola",
+      "rule": "48 000 : 2 = 24 000 Kč, 24 000 × 3 = 72 000 Kč"
+    },
+    {
+      "id": "frac-063",
+      "word": "Ve čtyřech krabicích je celkem 36 jablek. Kolik je v jedné krabici?",
+      "answer": "9",
+      "options": ["6", "8", "9", "12"],
+      "difficulty": 5,
+      "hint": "Celkový počet vyděl počtem krabic",
+      "rule": "36 : 4 = 9 jablek"
+    },
+    {
+      "id": "frac-064",
+      "word": "Ve čtyřech krabicích je 36 jablek. Kolik je v sedmi krabicích?",
+      "answer": "63",
+      "options": ["54", "56", "63", "72"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti počet v jedné krabici",
+      "rule": "36 : 4 = 9, pak 9 × 7 = 63 jablek"
+    },
+    {
+      "id": "frac-065",
+      "word": "Jeden sáček bonbónů váží 125 g. Kolik váží 6 sáčků?",
+      "answer": "750",
+      "options": ["625", "700", "750", "800"],
+      "difficulty": 5,
+      "hint": "Hmotnost jednoho sáčku vynásob šesti",
+      "rule": "125 × 6 = 750 g"
+    },
+    {
+      "id": "frac-066",
+      "word": "Pět stejných knih stojí 750 Kč. Kolik stojí jedna kniha?",
+      "answer": "150",
+      "options": ["125", "150", "175", "200"],
+      "difficulty": 5,
+      "hint": "Celkovou cenu vyděl počtem knih",
+      "rule": "750 : 5 = 150 Kč"
+    },
+    {
+      "id": "frac-067",
+      "word": "Pět knih stojí 750 Kč. Kolik stojí 8 knih?",
+      "answer": "1 200",
+      "options": ["1 000", "1 100", "1 200", "1 350"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti cenu jedné knihy",
+      "rule": "750 : 5 = 150 Kč, 150 × 8 = 1 200 Kč"
+    },
+    {
+      "id": "frac-068",
+      "word": "Do tří sklenic se vejde 1,5 litru džusu. Kolik se vejde do jedné?",
+      "answer": "0,5",
+      "options": ["0,3", "0,5", "1", "1,5"],
+      "difficulty": 5,
+      "hint": "Celkový objem vyděl počtem sklenic",
+      "rule": "1,5 : 3 = 0,5 litru"
+    },
+    {
+      "id": "frac-069",
+      "word": "Do tří sklenic se vejde 1,5 l džusu. Kolik se vejde do pěti sklenic?",
+      "answer": "2,5",
+      "options": ["2", "2,5", "3", "3,5"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti objem jedné sklenice",
+      "rule": "1,5 : 3 = 0,5 l, 0,5 × 5 = 2,5 l"
+    },
+    {
+      "id": "frac-070",
+      "word": "Pokud 3/5 žáků ze třídy tvoří 15 žáků, kolik je 1/5 žáků?",
+      "answer": "5",
+      "options": ["3", "5", "10", "15"],
+      "difficulty": 5,
+      "hint": "Tři pětiny vyděl třemi",
+      "rule": "15 : 3 = 5 žáků (to je 1/5)"
+    },
+    {
+      "id": "frac-071",
+      "word": "Pokud 4/8 žáků ze třídy tvoří 12 žáků, kolik je 1/8 žáků?",
+      "answer": "3",
+      "options": ["2", "3", "4", "6"],
+      "difficulty": 5,
+      "hint": "Čtyři osminy vyděl čtyřmi",
+      "rule": "12 : 4 = 3 žáci (to je 1/8)"
+    },
+    {
+      "id": "frac-072",
+      "word": "Pokud 4/10 žáků ze třídy tvoří 8 žáků, kolik je 1/10 žáků?",
+      "answer": "2",
+      "options": ["1", "2", "4", "8"],
+      "difficulty": 5,
+      "hint": "Čtyři desetiny vyděl čtyřmi",
+      "rule": "8 : 4 = 2 žáci (to je 1/10)"
+    },
+    {
+      "id": "frac-073",
+      "word": "Pokud je 1/6 sportovců 7 sportovců, kolik je 2/6 sportovců?",
+      "answer": "14",
+      "options": ["7", "12", "14", "21"],
+      "difficulty": 5,
+      "hint": "Jednu šestinu vynásob dvěma",
+      "rule": "7 × 2 = 14 sportovců"
+    },
+    {
+      "id": "frac-074",
+      "word": "Pokud je 1/3 žáků 12 žáků, kolik je 2/3 žáků?",
+      "answer": "24",
+      "options": ["18", "20", "24", "36"],
+      "difficulty": 5,
+      "hint": "Jednu třetinu vynásob dvěma",
+      "rule": "12 × 2 = 24 žáků"
+    },
+    {
+      "id": "frac-075",
+      "word": "Pokud je 1/9 bodů 10 bodů, kolik je 4/9 bodů?",
+      "answer": "40",
+      "options": ["30", "36", "40", "45"],
+      "difficulty": 5,
+      "hint": "Jednu devítinu vynásob čtyřmi",
+      "rule": "10 × 4 = 40 bodů"
+    },
+    {
+      "id": "frac-076",
+      "word": "Pokud 4/5 žáků tvoří 16 žáků, kolik je 2/5 žáků?",
+      "answer": "8",
+      "options": ["4", "6", "8", "10"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/5, pak vynásob dvěma",
+      "rule": "16 : 4 = 4 (1/5), 4 × 2 = 8 žáků"
+    },
+    {
+      "id": "frac-077",
+      "word": "Pokud 4/8 žáků tvoří 12 žáků, kolik je 7/8 žáků?",
+      "answer": "21",
+      "options": ["18", "20", "21", "24"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/8, pak vynásob sedmi",
+      "rule": "12 : 4 = 3 (1/8), 3 × 7 = 21 žáků"
+    },
+    {
+      "id": "frac-078",
+      "word": "Pokud 4/10 žáků tvoří 12 žáků, kolik žáků je v celé třídě?",
+      "answer": "30",
+      "options": ["24", "28", "30", "36"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/10, pak vynásob deseti",
+      "rule": "12 : 4 = 3 (1/10), 3 × 10 = 30 žáků"
+    },
+    {
+      "id": "frac-079",
+      "word": "Pokud 2/7 třídy tvoří 8 žáků, kolik žáků je v celé třídě?",
+      "answer": "28",
+      "options": ["21", "24", "28", "35"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/7, pak vynásob sedmi",
+      "rule": "8 : 2 = 4 (1/7), 4 × 7 = 28 žáků"
+    },
+    {
+      "id": "frac-080",
+      "word": "Ve třídě je 24 dětí. 3/8 z nich hraje fotbal. Kolik dětí hraje fotbal?",
+      "answer": "9",
+      "options": ["6", "8", "9", "12"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/8 z 24, pak vynásob třemi",
+      "rule": "24 : 8 = 3 (1/8), 3 × 3 = 9 dětí"
+    },
+    {
+      "id": "frac-081",
+      "word": "Pokud 3/4 dortu váží 450 g, kolik váží celý dort?",
+      "answer": "600",
+      "options": ["500", "550", "600", "675"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/4, pak vynásob čtyřmi",
+      "rule": "450 : 3 = 150 g (1/4), 150 × 4 = 600 g"
+    },
+    {
+      "id": "frac-082",
+      "word": "V krabici je 35 pastelek. 2/5 z nich jsou červené. Kolik je červených pastelek?",
+      "answer": "14",
+      "options": ["10", "12", "14", "17"],
+      "difficulty": 5,
+      "hint": "Nejdřív zjisti 1/5 z 35, pak vynásob dvěma",
+      "rule": "35 : 5 = 7 (1/5), 7 × 2 = 14 pastelek"
+    }
+  ]
+}

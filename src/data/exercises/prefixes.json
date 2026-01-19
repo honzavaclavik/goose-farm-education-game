@@ -1,0 +1,185 @@
+{
+  "category": "prefixes",
+  "exercises": [
+    {
+      "id": "pref-001",
+      "word": "_trávit",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Jídlo zmizí v žaludku",
+      "rule": "Předpona Z- značí změnu stavu"
+    },
+    {
+      "id": "pref-002",
+      "word": "_pěv",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Ptáčci zpívají písničku",
+      "rule": "Předpona Z- u slov od 'zpívat'"
+    },
+    {
+      "id": "pref-003",
+      "word": "_pomínka",
+      "answer": "vz",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Pamatuješ si na to?",
+      "rule": "Předpona VZ- značí směr nahoru nebo počátek děje"
+    },
+    {
+      "id": "pref-004",
+      "word": "_házet",
+      "answer": "s",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Házíme dolů ze schodů",
+      "rule": "Předpona S- značí směr dolů nebo dohromady"
+    },
+    {
+      "id": "pref-005",
+      "word": "_bouřit",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Lidé se bouří proti něčemu",
+      "rule": "Předpona Z- u slovesa zbouřit"
+    },
+    {
+      "id": "pref-006",
+      "word": "_dvihnout",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Zvednout něco ze země",
+      "rule": "Předpona Z- značí změnu polohy"
+    },
+    {
+      "id": "pref-007",
+      "word": "_hledět",
+      "answer": "vz",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Díváme se nahoru na hvězdy",
+      "rule": "Předpona VZ- značí směr nahoru"
+    },
+    {
+      "id": "pref-008",
+      "word": "_klidnit",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Být klidný a v pohodě",
+      "rule": "Předpona Z- značí změnu stavu"
+    },
+    {
+      "id": "pref-009",
+      "word": "_balit",
+      "answer": "s",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Dáme věci dohromady",
+      "rule": "Předpona S- značí dohromady"
+    },
+    {
+      "id": "pref-010",
+      "word": "_měna",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Něco je jinak než předtím",
+      "rule": "Předpona Z- značí změnu"
+    },
+    {
+      "id": "pref-011",
+      "word": "_pátky",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Jdeme pozpátku",
+      "rule": "Z- u slova zpátky"
+    },
+    {
+      "id": "pref-012",
+      "word": "_pálit",
+      "answer": "s",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Oheň spálí papír na popel",
+      "rule": "S- značí dokončení děje"
+    },
+    {
+      "id": "pref-013",
+      "word": "_křížit",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 3,
+      "hint": "Překřížit plány",
+      "rule": "Z- u slovesa zkřížit"
+    },
+    {
+      "id": "pref-014",
+      "word": "_létnout",
+      "answer": "vz",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Letadlo letí nahoru",
+      "rule": "VZ- značí směr nahoru"
+    },
+    {
+      "id": "pref-015",
+      "word": "_chovat",
+      "answer": "s",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Schovat se v úkrytu",
+      "rule": "S- u slovesa schovat"
+    },
+    {
+      "id": "pref-016",
+      "word": "_pracovat",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 1,
+      "hint": "Udělat práci hotovou",
+      "rule": "Z- značí dokončení"
+    },
+    {
+      "id": "pref-017",
+      "word": "_týčit",
+      "answer": "vz",
+      "options": ["vz", "z", "s"],
+      "difficulty": 3,
+      "hint": "Hora se tyčí k nebi",
+      "rule": "VZ- značí směr nahoru"
+    },
+    {
+      "id": "pref-018",
+      "word": "_ničit",
+      "answer": "z",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Úplně to rozbít",
+      "rule": "Z- značí úplnost děje"
+    },
+    {
+      "id": "pref-019",
+      "word": "_těžovat",
+      "answer": "s",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Lidé si stěžují",
+      "rule": "S- u slovesa stěžovat"
+    },
+    {
+      "id": "pref-020",
+      "word": "_budit",
+      "answer": "vz",
+      "options": ["vz", "z", "s"],
+      "difficulty": 2,
+      "hint": "Probudit někoho ze spánku",
+      "rule": "VZ- značí počátek děje"
+    }
+  ]
+}

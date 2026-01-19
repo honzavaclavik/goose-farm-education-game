@@ -1,0 +1,275 @@
+{
+  "category": "sentences",
+  "exercises": [
+    {
+      "id": "sent-001",
+      "word": "Máma vařý oběd.",
+      "answer": "vaří",
+      "options": ["vařý", "vaří"],
+      "difficulty": 1,
+      "hint": "Po měkké souhlásce Ř",
+      "rule": "Po Ř píšeme vždy I/Í"
+    },
+    {
+      "id": "sent-002",
+      "word": "Pes běhá po zahradě.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-003",
+      "word": "Kočka chytila miš.",
+      "answer": "myš",
+      "options": ["miš", "myš"],
+      "difficulty": 1,
+      "hint": "Vyjmenované slovo po M",
+      "rule": "Myš je vyjmenované slovo"
+    },
+    {
+      "id": "sent-004",
+      "word": "Babička plete svetr.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-005",
+      "word": "Viděl jsem velkou ribu.",
+      "answer": "rybu",
+      "options": ["ribu", "rybu"],
+      "difficulty": 1,
+      "hint": "Po tvrdé souhlásce R",
+      "rule": "Po R píšeme Y"
+    },
+    {
+      "id": "sent-006",
+      "word": "Dnes je krásný den.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-007",
+      "word": "Sýsel žije v noře.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 2,
+      "hint": "Sysel je vyjmenované slovo",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-008",
+      "word": "Koupil jsem si nový byt.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 2,
+      "hint": "Byt je od slova být",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-009",
+      "word": "Chlapci hráli fotbal.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 2,
+      "hint": "Zkontroluj i/y",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-010",
+      "word": "Holki skákaly přes švihadlo.",
+      "answer": "Holky",
+      "options": ["Holki", "Holky"],
+      "difficulty": 2,
+      "hint": "Po tvrdé souhlásce K",
+      "rule": "Po K píšeme Y"
+    },
+    {
+      "id": "sent-011",
+      "word": "Učitelka viklá se zvonek.",
+      "answer": "viklá",
+      "options": ["viklá", "správně"],
+      "difficulty": 2,
+      "hint": "Chybné sloveso",
+      "rule": "Správně: zvonila/cinkala"
+    },
+    {
+      "id": "sent-012",
+      "word": "Ptáci zpívají na stromě.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-013",
+      "word": "Kocour sedý na plotě.",
+      "answer": "sedí",
+      "options": ["sedý", "sedí"],
+      "difficulty": 2,
+      "hint": "Sloveso sedět",
+      "rule": "Sedí - sloveso, sedý by bylo přídavné jméno"
+    },
+    {
+      "id": "sent-014",
+      "word": "Máme doma bílou kočku.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-015",
+      "word": "Sluníčko svítý jasně.",
+      "answer": "svítí",
+      "options": ["svítý", "svítí"],
+      "difficulty": 1,
+      "hint": "Po měkké souhlásce Ť",
+      "rule": "Po Ť píšeme I/Í"
+    },
+    {
+      "id": "sent-016",
+      "word": "Děti si hrají na pískovišti.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 2,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-017",
+      "word": "Na obloze létají ptáci.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-018",
+      "word": "Viděl sem zajíce v lese.",
+      "answer": "jsem",
+      "options": ["sem", "jsem"],
+      "difficulty": 1,
+      "hint": "Pomocné sloveso",
+      "rule": "Jsem - sloveso být, sem - směr"
+    },
+    {
+      "id": "sent-019",
+      "word": "Vlak prijel na nádraží.",
+      "answer": "přijel",
+      "options": ["prijel", "přijel"],
+      "difficulty": 2,
+      "hint": "Předpona při-",
+      "rule": "Přijel - s háčkem (směr k)"
+    },
+    {
+      "id": "sent-020",
+      "word": "Byli jsme na výletě.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 2,
+      "hint": "Byli je od být",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-021",
+      "word": "Čtu zajímavou kníhu.",
+      "answer": "knihu",
+      "options": ["kníhu", "knihu"],
+      "difficulty": 2,
+      "hint": "Délka samohlásky",
+      "rule": "Kniha - krátké i"
+    },
+    {
+      "id": "sent-022",
+      "word": "Koupili jsme nové auto.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-023",
+      "word": "Malý chlapec běžel domů.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-024",
+      "word": "Ráno jsem snídaljednička.",
+      "answer": "snídal/snídala",
+      "options": ["chyba ve slově", "správně"],
+      "difficulty": 3,
+      "hint": "Chybí mezera",
+      "rule": "Slova se píší zvlášť"
+    },
+    {
+      "id": "sent-025",
+      "word": "Vitr fouká venku.",
+      "answer": "Vítr",
+      "options": ["Vitr", "Vítr"],
+      "difficulty": 1,
+      "hint": "Délka samohlásky",
+      "rule": "Vítr - dlouhé í"
+    },
+    {
+      "id": "sent-026",
+      "word": "Sníh padá z nebe.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-027",
+      "word": "Maminka peče kolač.",
+      "answer": "koláč",
+      "options": ["kolač", "koláč"],
+      "difficulty": 1,
+      "hint": "Délka samohlásky",
+      "rule": "Koláč - dlouhé á"
+    },
+    {
+      "id": "sent-028",
+      "word": "Tatínek čte noviny.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    },
+    {
+      "id": "sent-029",
+      "word": "Vidym hvězdy na nebi.",
+      "answer": "Vidím",
+      "options": ["Vidym", "Vidím"],
+      "difficulty": 2,
+      "hint": "Sloveso vidět",
+      "rule": "Já vidím - měkké í"
+    },
+    {
+      "id": "sent-030",
+      "word": "Včera pršelo celý den.",
+      "answer": "správně",
+      "options": ["správně", "chyba"],
+      "difficulty": 1,
+      "hint": "Zkontroluj všechna slova",
+      "rule": "Věta je správně"
+    }
+  ]
+}

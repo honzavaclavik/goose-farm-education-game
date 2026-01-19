@@ -1,0 +1,275 @@
+{
+  "category": "declaredWords",
+  "exercises": [
+    {
+      "id": "decl-001",
+      "word": "b_t",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Existovat, žít",
+      "rule": "Vyjmenované slovo po B: být"
+    },
+    {
+      "id": "decl-002",
+      "word": "ob_čej",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Tradice, zvyk",
+      "rule": "Vyjmenované slovo po B: obyčej"
+    },
+    {
+      "id": "decl-003",
+      "word": "m_t",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Čistit vodou",
+      "rule": "Vyjmenované slovo po M: mýt"
+    },
+    {
+      "id": "decl-004",
+      "word": "m_š",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Malý hlodavec",
+      "rule": "Vyjmenované slovo po M: myš"
+    },
+    {
+      "id": "decl-005",
+      "word": "v_r",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Noční dravec",
+      "rule": "Vyjmenované slovo po V: výr"
+    },
+    {
+      "id": "decl-006",
+      "word": "v_ska",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Malá obec",
+      "rule": "Vyjmenované slovo po V: vysoký → vyska (zdrobnělina)"
+    },
+    {
+      "id": "decl-007",
+      "word": "p_cha",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Nadutost, domýšlivost",
+      "rule": "Vyjmenované slovo po P: pýcha"
+    },
+    {
+      "id": "decl-008",
+      "word": "op_ce",
+      "answer": "i",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Zvíře, co skáče po stromech",
+      "rule": "POZOR: opice NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-009",
+      "word": "s_r",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Mléčný výrobek",
+      "rule": "Vyjmenované slovo po S: sýr"
+    },
+    {
+      "id": "decl-010",
+      "word": "s_n",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Mužský potomek",
+      "rule": "Vyjmenované slovo po S: syn"
+    },
+    {
+      "id": "decl-011",
+      "word": "l_že",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Na sníh",
+      "rule": "Vyjmenované slovo po L: lyže"
+    },
+    {
+      "id": "decl-012",
+      "word": "pl_n",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Hořlavý plyn",
+      "rule": "Vyjmenované slovo po L: plynouti → plyn"
+    },
+    {
+      "id": "decl-013",
+      "word": "z_ma",
+      "answer": "i",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Roční období se sněhem",
+      "rule": "POZOR: zima NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-014",
+      "word": "z_sk",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Prospěch, výdělek",
+      "rule": "Vyjmenované slovo po Z: zisk"
+    },
+    {
+      "id": "decl-015",
+      "word": "b_k",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Samec krávy",
+      "rule": "Vyjmenované slovo po B: býk"
+    },
+    {
+      "id": "decl-016",
+      "word": "kob_la",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Samice koně",
+      "rule": "Vyjmenované slovo po B: kobyla"
+    },
+    {
+      "id": "decl-017",
+      "word": "m_dlo",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Na mytí",
+      "rule": "Vyjmenované slovo po M: mýdlo"
+    },
+    {
+      "id": "decl-018",
+      "word": "zv_k",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Tradice, návyk",
+      "rule": "Vyjmenované slovo po V: zvyk"
+    },
+    {
+      "id": "decl-019",
+      "word": "p_tel",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Na květech",
+      "rule": "Vyjmenované slovo po P: pytel → pyl"
+    },
+    {
+      "id": "decl-020",
+      "word": "s_sel",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Hlodavec podobný křečkovi",
+      "rule": "Vyjmenované slovo po S: sysel"
+    },
+    {
+      "id": "decl-021",
+      "word": "l_ska",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Keř s oříšky",
+      "rule": "POZOR: líska NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-022",
+      "word": "bl_kat",
+      "answer": "ý",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Zvuk ovce",
+      "rule": "Vyjmenované slovo po L: blýkat se → blyštět"
+    },
+    {
+      "id": "decl-023",
+      "word": "z_tra",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Den po dnešku",
+      "rule": "POZOR: zítra NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-024",
+      "word": "b_dlít",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Bývat, žít někde",
+      "rule": "Vyjmenované slovo po B: bydlit"
+    },
+    {
+      "id": "decl-025",
+      "word": "m_slít",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Přemýšlet",
+      "rule": "Vyjmenované slovo po M: myslit"
+    },
+    {
+      "id": "decl-026",
+      "word": "v_kat",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 1,
+      "hint": "Křičet, volat",
+      "rule": "Vyjmenované slovo po V: vykat"
+    },
+    {
+      "id": "decl-027",
+      "word": "p_sk",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 1,
+      "hint": "Zrnka na pláži",
+      "rule": "POZOR: písek NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-028",
+      "word": "s_pal",
+      "answer": "y",
+      "options": ["i", "y"],
+      "difficulty": 2,
+      "hint": "Házel dolů",
+      "rule": "Vyjmenované slovo po S: sypat"
+    },
+    {
+      "id": "decl-029",
+      "word": "l_tost",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Soucit, lítostivost",
+      "rule": "POZOR: lítost NENÍ vyjmenované slovo!"
+    },
+    {
+      "id": "decl-030",
+      "word": "zab_t",
+      "answer": "í",
+      "options": ["í", "ý"],
+      "difficulty": 2,
+      "hint": "Usmrtit",
+      "rule": "POZOR: zabít NENÍ vyjmenované - pochází od bít (udeřit)"
+    }
+  ]
+}
