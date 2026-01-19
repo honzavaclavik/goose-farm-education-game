@@ -10,13 +10,14 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
 
 body {
+  overflow-y: auto;
+  overflow-x: hidden;
   font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: linear-gradient(180deg, #87ceeb 0%, #98fb98 100%);
-  touch-action: none;
+  touch-action: pan-y;
 }
 
 #root {

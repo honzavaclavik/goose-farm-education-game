@@ -5,7 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   define: {
     __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-    __APP_VERSION__: JSON.stringify('1.0.6'),
+    __APP_VERSION__: JSON.stringify('1.0.7'),
   },
   plugins: [
     react(),
@@ -50,7 +50,6 @@ export default defineConfig({
     host: true
   },
   preview: {
-    host: true,
-    allowedHosts: ['localhost', '.trycloudflare.com', '.loca.lt']
+    host: true
   }
 })
