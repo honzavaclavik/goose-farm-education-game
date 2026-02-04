@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
 import { Button } from '../common/Button';
-import { CurrencyDisplay } from '../common/CurrencyDisplay';
 import { useGameStore } from '../../store/gameStore';
 import type { MinigameType, ExerciseCategory } from '../../types/farm';
 
@@ -68,102 +67,98 @@ export function MinigameSelector() {
   const { setScreen, startMinigame } = useGameStore();
 
   const containerStyle: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
     minHeight: '100vh',
-    padding: '20px',
-    background: 'linear-gradient(180deg, #87ceeb 0%, #98fb98 100%)',
+    padding: 'var(--space-6)',
+    background: 'linear-gradient(180deg, var(--color-sky-start) 0%, var(--color-grass-end) 100%)',
   };
 
   const headerStyle: CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '20px',
-    flexWrap: 'wrap',
-    gap: '10px',
+    textAlign: 'center',
+    marginBottom: 'var(--space-8)',
   };
 
   const titleStyle: CSSProperties = {
-    fontSize: '28px',
-    fontWeight: 'bold',
-    color: '#2e7d32',
-    margin: 0,
+    fontSize: 'var(--text-4xl)',
+    fontWeight: 'var(--font-extrabold)',
+    color: 'white',
+    textShadow: '3px 3px 0 rgba(0,0,0,0.2), 0 0 20px rgba(255,255,255,0.3)',
+    marginBottom: 'var(--space-4)',
   };
 
   const gridStyle: CSSProperties = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '16px',
-    flex: 1,
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+    gap: 'var(--space-5)',
+    maxWidth: '1200px',
+    margin: '0 auto var(--space-8)',
   };
 
-  const cardStyle = (color: string): CSSProperties => ({
-    background: 'white',
-    borderRadius: '20px',
-    padding: '20px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+  const cardStyle = (): CSSProperties => ({
+    background: 'var(--color-bg-card)',
+    borderRadius: 'var(--radius-2xl)',
+    padding: 'var(--space-6)',
+    boxShadow: 'var(--shadow-xl)',
     cursor: 'pointer',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-    borderLeft: `6px solid ${color}`,
+    transition: 'all var(--transition-base)',
+    position: 'relative',
+    overflow: 'hidden',
+    border: '3px solid white',
   });
 
+  const cardIconStyle: CSSProperties = {
+    fontSize: '64px',
+    marginBottom: 'var(--space-3)',
+    filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))',
+    animation: 'float 3s ease-in-out infinite',
+  };
+
   const cardTitleStyle: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    fontSize: '20px',
-    fontWeight: 'bold',
-    marginBottom: '8px',
-    color: '#333',
+    fontSize: 'var(--text-xl)',
+    fontWeight: 'var(--font-bold)',
+    color: 'var(--color-text-primary)',
+    marginBottom: 'var(--space-2)',
   };
 
   const cardDescStyle: CSSProperties = {
-    fontSize: '14px',
-    color: '#666',
-    marginBottom: '16px',
-  };
-
-  const emojiStyle: CSSProperties = {
-    fontSize: '32px',
+    fontSize: 'var(--text-sm)',
+    color: 'var(--color-text-secondary)',
+    lineHeight: 1.5,
+    marginBottom: 'var(--space-4)',
   };
 
   return (
     <div style={containerStyle}>
       <div style={headerStyle}>
         <h1 style={titleStyle}>📚 Procvičování</h1>
-        <CurrencyDisplay compact />
       </div>
 
       <div style={gridStyle}>
         {minigames.map((game) => (
           <div
             key={game.type}
-            style={cardStyle(game.color)}
+            style={cardStyle()}
             onClick={() => startMinigame(game.type)}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+              e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-xl), 0 0 30px rgba(76, 175, 80, 0.3)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+              e.currentTarget.style.transform = 'translateY(0) scale(1)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-xl)';
             }}
           >
-            <div style={cardTitleStyle}>
-              <span style={emojiStyle}>{game.emoji}</span>
-              {game.name}
-            </div>
+            <div style={cardIconStyle}>{game.emoji}</div>
+            <div style={cardTitleStyle}>{game.name}</div>
             <p style={cardDescStyle}>{game.description}</p>
-            <Button variant="primary" size="small">
+            <Button variant="primary" size="small" fullWidth>
               Hrát
             </Button>
           </div>
         ))}
       </div>
 
-      <div style={{ marginTop: '20px', textAlign: 'center' }}>
-        <Button onClick={() => setScreen('farm')} variant="secondary">
+      <div style={{ textAlign: 'center' }}>
+        <Button onClick={() => setScreen('farm')} variant="secondary" size="medium">
           ← Zpět na farmu
         </Button>
       </div>

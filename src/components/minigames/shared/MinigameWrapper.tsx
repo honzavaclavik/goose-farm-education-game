@@ -188,22 +188,25 @@ export function MinigameWrapper({
   };
 
   const headerStyle: CSSProperties = {
-    padding: '16px',
-    background: 'rgba(255, 255, 255, 0.9)',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)',
+    padding: 'var(--space-4) var(--space-5)',
+    borderRadius: 'var(--radius-xl)',
+    boxShadow: 'var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.3)',
+    color: 'white',
+    margin: 'var(--space-4)',
   };
 
   const titleRowStyle: CSSProperties = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '12px',
+    marginBottom: 'var(--space-3)',
   };
 
   const titleStyle: CSSProperties = {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#1976d2',
+    fontSize: 'var(--text-xl)',
+    fontWeight: 'var(--font-bold)',
+    color: 'white',
     margin: 0,
   };
 

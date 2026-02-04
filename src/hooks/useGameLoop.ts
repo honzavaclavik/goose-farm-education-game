@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 export function useGameLoop(callback: () => void, isRunning: boolean) {
   const callbackRef = useRef(callback);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     callbackRef.current = callback;

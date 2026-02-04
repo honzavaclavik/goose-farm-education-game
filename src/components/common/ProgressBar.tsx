@@ -4,6 +4,7 @@ interface ProgressBarProps {
   current: number;
   max: number;
   color?: string;
+  backgroundColor?: string;
   height?: number;
   showLabel?: boolean;
   label?: string;
@@ -12,8 +13,9 @@ interface ProgressBarProps {
 export function ProgressBar({
   current,
   max,
-  color = '#4CAF50',
-  height = 20,
+  color = 'var(--color-accent)',
+  backgroundColor = 'rgba(255, 255, 255, 0.3)',
+  height = 16,
   showLabel = true,
   label,
 }: ProgressBarProps) {
@@ -21,60 +23,59 @@ export function ProgressBar({
 
   const containerStyle: CSSProperties = {
     width: '100%',
-    background: '#e0e0e0',
-    borderRadius: height / 2,
-    overflow: 'hidden',
-    position: 'relative',
-    height,
-    boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)',
   };
 
-  const fillStyle: CSSProperties = {
-    width: `${percentage}%`,
+  const barBackgroundStyle: CSSProperties = {
+    width: '100%',
+    height: `${height}px`,
+    backgroundColor,
+    borderRadius: 'var(--radius-full)',
+    overflow: 'hidden',
+    position: 'relative',
+    boxShadow: 'var(--shadow-inner), 0 2px 4px rgba(0,0,0,0.1)',
+    border: '2px solid rgba(255, 255, 255, 0.4)',
+  };
+
+  const barFillStyle: CSSProperties = {
     height: '100%',
-    background: `linear-gradient(90deg, ${color} 0%, ${lightenColor(color, 20)} 100%)`,
-    transition: 'width 0.3s ease',
-    borderRadius: height / 2,
+    width: `${percentage}%`,
+    background: `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`,
+    transition: 'width var(--transition-slow) ease',
+    position: 'relative',
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4)',
+  };
+
+  const glossyOverlayStyle: CSSProperties = {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '50%',
+    background: 'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%)',
+    pointerEvents: 'none',
   };
 
   const labelStyle: CSSProperties = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    fontSize: height * 0.6,
-    fontWeight: 'bold',
-    color: percentage > 50 ? 'white' : '#333',
-    textShadow: percentage > 50 ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
+    fontSize: 'var(--text-xs)',
+    color: 'var(--color-text-secondary)',
+    marginTop: 'var(--space-1)',
+    textAlign: 'center',
+    fontWeight: 'var(--font-semibold)',
+    textShadow: '0 1px 2px rgba(255,255,255,0.8)',
   };
 
   return (
     <div style={containerStyle}>
-      <div style={fillStyle} />
+      <div style={barBackgroundStyle}>
+        <div style={barFillStyle}>
+          <div style={glossyOverlayStyle} />
+        </div>
+      </div>
       {showLabel && (
         <div style={labelStyle}>
-          {label || `${current}/${max}`}
+          {label || `${current} / ${max}`}
         </div>
       )}
     </div>
-  );
-}
-
-function lightenColor(color: string, percent: number): string {
-  const num = parseInt(color.replace('#', ''), 16);
-  const amt = Math.round(2.55 * percent);
-  const R = (num >> 16) + amt;
-  const G = ((num >> 8) & 0x00ff) + amt;
-  const B = (num & 0x0000ff) + amt;
-  return (
-    '#' +
-    (
-      0x1000000 +
-      (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
-      (G < 255 ? (G < 1 ? 0 : G) : 255) * 0x100 +
-      (B < 255 ? (B < 1 ? 0 : B) : 255)
-    )
-      .toString(16)
-      .slice(1)
   );
 }

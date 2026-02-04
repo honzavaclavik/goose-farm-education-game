@@ -3,11 +3,11 @@ import { CSSProperties, ReactNode } from 'react';
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
   children: ReactNode;
+  title?: string;
 }
 
-export function Modal({ isOpen, onClose, title, children }: ModalProps) {
+export function Modal({ isOpen, onClose, children, title }: ModalProps) {
   if (!isOpen) return null;
 
   const overlayStyle: CSSProperties = {
@@ -16,53 +16,89 @@ export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     left: 0,
     right: 0,
     bottom: 0,
-    background: 'rgba(0, 0, 0, 0.5)',
+    background: 'rgba(0, 0, 0, 0.6)',
+    backdropFilter: 'blur(4px)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1000,
-    padding: '20px',
+    padding: 'var(--space-4)',
+    animation: 'fadeIn var(--transition-base) ease',
   };
 
-  const contentStyle: CSSProperties = {
-    background: 'white',
-    borderRadius: '20px',
-    padding: '24px',
-    maxWidth: '90%',
-    maxHeight: '90%',
+  const modalStyle: CSSProperties = {
+    background: 'var(--color-bg-card)',
+    borderRadius: 'var(--radius-2xl)',
+    boxShadow: 'var(--shadow-xl)',
+    maxWidth: '500px',
+    width: '100%',
+    maxHeight: '90vh',
     overflow: 'auto',
     position: 'relative',
-    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.2)',
-    animation: 'modalIn 0.2s ease',
+    animation: 'slideInUp var(--transition-slow) ease',
   };
 
-  const closeButtonStyle: CSSProperties = {
-    position: 'absolute',
-    top: '12px',
-    right: '12px',
-    background: 'none',
-    border: 'none',
-    fontSize: '24px',
-    cursor: 'pointer',
-    padding: '4px',
-    lineHeight: 1,
+  const headerStyle: CSSProperties = {
+    padding: 'var(--space-6)',
+    borderBottom: '2px solid rgba(0, 0, 0, 0.05)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 100%)',
+    borderTopLeftRadius: 'var(--radius-2xl)',
+    borderTopRightRadius: 'var(--radius-2xl)',
   };
 
   const titleStyle: CSSProperties = {
-    margin: '0 0 16px 0',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: '#333',
+    fontSize: 'var(--text-2xl)',
+    fontWeight: 'var(--font-bold)',
+    color: 'var(--color-text-primary)',
+    margin: 0,
+  };
+
+  const closeButtonStyle: CSSProperties = {
+    background: 'rgba(0, 0, 0, 0.1)',
+    border: 'none',
+    borderRadius: 'var(--radius-full)',
+    width: '32px',
+    height: '32px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    fontSize: 'var(--text-xl)',
+    color: 'var(--color-text-secondary)',
+    transition: 'all var(--transition-base)',
+    boxShadow: 'var(--shadow-sm)',
+  };
+
+  const contentStyle: CSSProperties = {
+    padding: 'var(--space-6)',
   };
 
   return (
     <div style={overlayStyle} onClick={onClose}>
-      <div style={contentStyle} onClick={(e) => e.stopPropagation()}>
-        <button style={closeButtonStyle} onClick={onClose}>
-          ×
-        </button>
-        {title && <h2 style={titleStyle}>{title}</h2>}
-        {children}
+      <div style={modalStyle} onClick={(e) => e.stopPropagation()}>
+        {title && (
+          <div style={headerStyle}>
+            <h2 style={titleStyle}>{title}</h2>
+            <button
+              style={closeButtonStyle}
+              onClick={onClose}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.transform = 'scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+        <div style={contentStyle}>{children}</div>
       </div>
     </div>
   );

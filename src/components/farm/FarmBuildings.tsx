@@ -342,44 +342,51 @@ function MarketSVG({ level }: { level: number }) {
 export function FarmBuildings({ buildings }: FarmBuildingsProps) {
   const containerStyle: CSSProperties = {
     display: 'flex',
-    gap: '15px',
+    gap: 'var(--space-5)',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: '10px',
+    padding: 'var(--space-4)',
   };
 
   const buildingContainerStyle: CSSProperties = {
     width: '120px',
     height: '120px',
     position: 'relative',
-    transition: 'transform 0.2s',
+    transition: 'all var(--transition-base)',
     cursor: 'pointer',
-    filter: 'drop-shadow(2px 4px 6px rgba(0,0,0,0.3))',
+    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.25))',
   };
 
   const labelStyle: CSSProperties = {
     position: 'absolute',
-    bottom: '-25px',
+    bottom: '-28px',
     left: '50%',
     transform: 'translateX(-50%)',
-    background: 'rgba(0, 0, 0, 0.7)',
-    color: 'white',
-    padding: '4px 10px',
-    borderRadius: '10px',
-    fontSize: '11px',
+    background: 'var(--color-bg-card)',
+    color: 'var(--color-text-primary)',
+    padding: 'var(--space-1) var(--space-3)',
+    borderRadius: 'var(--radius-full)',
+    fontSize: 'var(--text-xs)',
     whiteSpace: 'nowrap',
-    fontWeight: 'bold',
+    fontWeight: 'var(--font-bold)',
+    boxShadow: 'var(--shadow-md)',
+    border: '2px solid rgba(255, 255, 255, 0.8)',
   };
 
   const effectStyle: CSSProperties = {
     position: 'absolute',
-    bottom: '-42px',
+    bottom: '-48px',
     left: '50%',
     transform: 'translateX(-50%)',
-    color: '#90EE90',
-    fontSize: '10px',
+    background: 'rgba(76, 175, 80, 0.95)',
+    color: 'white',
+    fontSize: 'var(--text-xs)',
     whiteSpace: 'nowrap',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+    fontWeight: 'var(--font-bold)',
+    padding: 'var(--space-1) var(--space-3)',
+    borderRadius: 'var(--radius-full)',
+    boxShadow: 'var(--shadow-md), 0 0 10px rgba(76,175,80,0.4)',
+    border: '2px solid rgba(255, 255, 255, 0.6)',
   };
 
   const getBuildingComponent = (building: Building) => {
@@ -415,13 +422,27 @@ export function FarmBuildings({ buildings }: FarmBuildingsProps) {
           key={building.id}
           style={buildingContainerStyle}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.05)';
+            (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-8px) scale(1.05)';
+            (e.currentTarget as HTMLDivElement).style.filter = 'drop-shadow(0 8px 20px rgba(0,0,0,0.3))';
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
+            (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0) scale(1)';
+            (e.currentTarget as HTMLDivElement).style.filter = 'drop-shadow(0 4px 12px rgba(0,0,0,0.25))';
           }}
         >
           {getBuildingComponent(building)}
+          {building.level >= 3 && (
+            <div style={{
+              position: 'absolute',
+              top: '-5px',
+              right: '-5px',
+              fontSize: '20px',
+              animation: 'pulse 2s ease-in-out infinite',
+              filter: 'drop-shadow(0 0 4px rgba(255,215,0,0.8))',
+            }}>
+              ✨
+            </div>
+          )}
           <div style={labelStyle}>{building.name}</div>
           {getBuildingEffect(building) && (
             <div style={effectStyle}>{getBuildingEffect(building)}</div>

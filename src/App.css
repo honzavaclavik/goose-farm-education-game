@@ -1,196 +1,22 @@
+/* Global overrides only - components handle their own styles */
 .game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100%;
-  padding: 10px;
+  min-height: 100vh;
 }
 
-.game-area {
-  position: relative;
-  background: linear-gradient(
-    180deg,
-    #87ceeb 0%,
-    #87ceeb 70%,
-    #90ee90 70%,
-    #90ee90 100%
-  );
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  touch-action: none;
-  max-width: 100%;
-}
-
-.scoreboard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
-  padding: 10px 15px;
-  background: #4caf50;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
-  gap: 10px;
-}
-
-.scoreboard .score {
-  flex: 1;
-}
-
-.scoreboard .level {
-  flex: 1;
-  text-align: center;
-}
-
-.scoreboard .lives {
-  display: flex;
-  gap: 2px;
-  font-size: 1.2rem;
-}
-
-.scoreboard .pause-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-}
-
-.basket {
-  transition: left 0.05s ease-out;
-}
-
-.falling-object {
-  pointer-events: none;
-}
-
-.start-screen,
-.game-over-screen {
-  text-align: center;
-  background: white;
-  padding: 40px 30px;
-  border-radius: 30px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  max-width: 350px;
-  width: 90%;
-}
-
-.start-screen h1,
-.game-over-screen h1 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #4caf50;
-}
-
-.instructions {
-  color: #666;
-  margin: 15px 0;
-  line-height: 1.6;
-  font-size: 1.1rem;
-}
-
-.high-score {
-  color: #ff6b6b;
-  font-size: 1.2rem;
-  margin: 10px 0;
-}
-
-.final-score {
-  font-size: 1.5rem;
-  color: #333;
-  margin: 15px 0;
-}
-
-.new-record {
-  color: #ffd700;
-  font-size: 1.3rem;
-  animation: pulse 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes pulse {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.1);
-  }
-}
-
-.start-button,
-.restart-button {
-  background: #ff6b6b;
-  color: white;
-  border: none;
-  padding: 15px 40px;
-  font-size: 1.4rem;
-  border-radius: 50px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-family: inherit;
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-  transition: transform 0.2s;
-}
-
-.start-button:active,
-.restart-button:active {
-  transform: scale(0.95);
-}
-
+/* Legacy support - can be removed if not used */
 .pause-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
   display: flex;
-  flex-direction: column;
+  flex-direction: 'column';
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2rem;
   z-index: 100;
-  gap: 20px;
-}
-
-.pause-overlay button {
-  background: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 30px;
-  font-size: 1.2rem;
-  border-radius: 25px;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.goose-parade {
-  font-size: 2rem;
-  margin: 10px 0;
-  animation: waddle 1s ease-in-out infinite;
-}
-
-@keyframes waddle {
-  0%, 100% { transform: translateX(-5px) rotate(-3deg); }
-  50% { transform: translateX(5px) rotate(3deg); }
-}
-
-.goose-info {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 15px 0;
-  font-size: 1.1rem;
-}
-
-.sad-geese {
-  font-size: 2.5rem;
-  margin: 15px 0;
+  animation: fadeIn var(--transition-base);
 }

@@ -62,6 +62,19 @@ export function FarmView() {
 
   const capacity = getGooseCapacity();
 
+  const GlossyOverlay = () => (
+    <div style={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: '50%',
+      background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%)',
+      pointerEvents: 'none',
+      borderRadius: 'inherit',
+    }} />
+  );
+
   const containerStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
@@ -74,21 +87,25 @@ export function FarmView() {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    padding: '16px',
-    background: 'rgba(255, 255, 255, 0.1)',
-    backdropFilter: 'blur(10px)',
+    padding: 'var(--space-4)',
+    background: 'rgba(255, 255, 255, 0.15)',
+    backdropFilter: 'blur(20px)',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.2)',
     flexWrap: 'wrap',
-    gap: '10px',
+    gap: 'var(--space-3)',
+    boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
   };
 
   const levelBadgeStyle: CSSProperties = {
     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     color: 'white',
-    padding: '8px 16px',
-    borderRadius: '20px',
-    fontWeight: 'bold',
-    fontSize: '14px',
-    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+    padding: 'var(--space-3) var(--space-5)',
+    borderRadius: 'var(--radius-full)',
+    fontWeight: 'var(--font-bold)',
+    fontSize: 'var(--text-base)',
+    boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.3)',
+    position: 'relative',
+    overflow: 'hidden',
   };
 
   const xpContainerStyle: CSSProperties = {
@@ -114,36 +131,43 @@ export function FarmView() {
 
   const gooseAreaStyle: CSSProperties = {
     display: 'flex',
-    gap: '10px',
+    gap: 'var(--space-3)',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: '20px',
-    background: 'rgba(124, 179, 66, 0.4)',
-    borderRadius: '20px',
-    minHeight: '150px',
-    maxWidth: '550px',
-    backdropFilter: 'blur(5px)',
-    border: '3px solid rgba(85, 139, 47, 0.5)',
-    boxShadow: 'inset 0 0 20px rgba(0,0,0,0.1)',
+    padding: 'var(--space-6)',
+    background: 'linear-gradient(135deg, rgba(124, 179, 66, 0.4) 0%, rgba(139, 195, 74, 0.6) 100%)',
+    borderRadius: 'var(--radius-2xl)',
+    minHeight: '180px',
+    maxWidth: '600px',
+    backdropFilter: 'blur(15px)',
+    border: '5px solid rgba(255, 255, 255, 0.4)',
+    boxShadow: 'var(--shadow-xl), inset 0 3px 12px rgba(0,0,0,0.15), 0 0 20px rgba(139,195,74,0.3)',
+    position: 'relative',
   };
 
   const capacityStyle: CSSProperties = {
-    background: 'rgba(255, 255, 255, 0.9)',
-    padding: '8px 16px',
-    borderRadius: '10px',
-    marginTop: '10px',
-    fontSize: '14px',
-    color: '#333',
+    background: 'linear-gradient(135deg, var(--color-bg-card) 0%, rgba(255,255,255,0.9) 100%)',
+    padding: 'var(--space-3) var(--space-6)',
+    borderRadius: 'var(--radius-full)',
+    marginTop: 'var(--space-4)',
+    fontSize: 'var(--text-base)',
+    fontWeight: 'var(--font-bold)',
+    color: 'var(--color-text-primary)',
+    boxShadow: 'var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.9)',
+    border: '3px solid rgba(255, 255, 255, 0.8)',
+    display: 'inline-block',
   };
 
   const productionInfoStyle: CSSProperties = {
-    background: 'rgba(255, 193, 7, 0.9)',
-    padding: '8px 16px',
-    borderRadius: '10px',
-    marginBottom: '15px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    color: '#333',
+    background: 'linear-gradient(135deg, var(--color-warning) 0%, var(--color-secondary) 100%)',
+    padding: 'var(--space-3) var(--space-5)',
+    borderRadius: 'var(--radius-full)',
+    marginBottom: 'var(--space-4)',
+    fontSize: 'var(--text-base)',
+    fontWeight: 'var(--font-bold)',
+    color: 'white',
+    boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.4)',
+    animation: 'pulse 2s ease-in-out infinite',
   };
 
 
@@ -166,24 +190,29 @@ export function FarmView() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    background: 'rgba(0, 0, 0, 0.85)',
-    color: 'white',
-    padding: '16px 24px',
-    borderRadius: '12px',
-    fontSize: '16px',
+    background: 'var(--color-bg-card)',
+    color: 'var(--color-text-primary)',
+    padding: 'var(--space-5) var(--space-8)',
+    borderRadius: 'var(--radius-xl)',
+    fontSize: 'var(--text-xl)',
+    fontWeight: 'var(--font-bold)',
     zIndex: 1000,
     animation: 'fadeIn 0.3s ease',
+    boxShadow: 'var(--shadow-xl)',
+    border: '3px solid white',
   };
 
   const actionsStyle: CSSProperties = {
     display: 'flex',
-    gap: '12px',
-    padding: '20px',
+    gap: 'var(--space-3)',
+    padding: 'var(--space-5)',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    background: 'rgba(0, 0, 0, 0.3)',
-    backdropFilter: 'blur(10px)',
+    background: 'rgba(0, 0, 0, 0.25)',
+    backdropFilter: 'blur(20px)',
+    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
     zIndex: 1,
+    boxShadow: '0 -4px 16px rgba(0,0,0,0.1)',
   };
 
   return (
@@ -191,7 +220,12 @@ export function FarmView() {
       <FarmBackground />
       <div style={{ ...headerStyle, zIndex: 1 }}>
         <div>
-          <div style={levelBadgeStyle}>Level {level}</div>
+          <div style={{ position: 'relative' }}>
+            <div style={levelBadgeStyle}>
+              <GlossyOverlay />
+              <span style={{ position: 'relative', zIndex: 1 }}>Level {level}</span>
+            </div>
+          </div>
           <div style={xpContainerStyle}>
             <ProgressBar
               current={xp}
@@ -209,13 +243,14 @@ export function FarmView() {
         {/* Info panel - jak husy fungují */}
         <div
           style={{
-            background: 'rgba(255, 255, 255, 0.95)',
-            padding: '12px 16px',
-            borderRadius: '12px',
-            marginBottom: '15px',
-            fontSize: '13px',
+            background: 'var(--color-bg-card)',
+            padding: 'var(--space-4)',
+            borderRadius: 'var(--radius-xl)',
+            marginBottom: 'var(--space-4)',
+            fontSize: 'var(--text-sm)',
             maxWidth: '400px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+            boxShadow: 'var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.8)',
+            border: '2px solid rgba(255, 255, 255, 0.5)',
           }}
         >
           <div style={{ fontWeight: 'bold', marginBottom: '6px', fontSize: '14px' }}>
@@ -264,7 +299,15 @@ export function FarmView() {
                 )}
               </>
             ) : (
-              <div style={{ color: '#4caf50', fontSize: '14px', fontWeight: 'bold' }}>
+              <div style={{
+                background: 'linear-gradient(135deg, #4caf50 0%, #66bb6a 100%)',
+                color: 'white',
+                fontSize: 'var(--text-sm)',
+                fontWeight: 'var(--font-bold)',
+                padding: 'var(--space-2) var(--space-4)',
+                borderRadius: 'var(--radius-full)',
+                boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.3)',
+              }}>
                 ✓ Husy jsou nakrmené
               </div>
             )}
@@ -272,6 +315,44 @@ export function FarmView() {
         )}
 
         <div style={gooseAreaStyle}>
+          {/* Dekorativní prvky - tráva */}
+          <div style={{
+            position: 'absolute',
+            bottom: '10px',
+            left: '10px',
+            fontSize: '24px',
+            opacity: 0.6,
+          }}>
+            🌿
+          </div>
+          <div style={{
+            position: 'absolute',
+            bottom: '15px',
+            right: '15px',
+            fontSize: '20px',
+            opacity: 0.6,
+          }}>
+            🌸
+          </div>
+          <div style={{
+            position: 'absolute',
+            top: '12px',
+            left: '20px',
+            fontSize: '18px',
+            opacity: 0.5,
+          }}>
+            🌼
+          </div>
+          <div style={{
+            position: 'absolute',
+            top: '10px',
+            right: '25px',
+            fontSize: '22px',
+            opacity: 0.5,
+          }}>
+            🌿
+          </div>
+
           {geese.map((goose, index) => (
             <GooseSVG
               key={goose.id}
@@ -286,7 +367,13 @@ export function FarmView() {
             />
           ))}
           {geese.length === 0 && (
-            <div style={{ color: 'white', fontSize: '18px', textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}>
+            <div style={{
+              color: 'white',
+              fontSize: 'var(--text-xl)',
+              fontWeight: 'var(--font-bold)',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+              zIndex: 1,
+            }}>
               Zatím nemáš žádné husy! 🪿
             </div>
           )}
