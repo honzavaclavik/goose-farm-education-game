@@ -14,259 +14,169 @@ export function FarmBackground() {
   return (
     <div style={containerStyle}>
       <svg
-        viewBox="0 0 800 600"
+        viewBox="0 0 1024 768"
         preserveAspectRatio="xMidYMid slice"
         style={{ width: '100%', height: '100%' }}
       >
         <defs>
-          {/* Sky gradient */}
-          <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#87CEEB" />
-            <stop offset="50%" stopColor="#B0E0E6" />
-            <stop offset="100%" stopColor="#E0F4FF" />
+          <linearGradient id="iso-sky" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#7EC8E3" />
+            <stop offset="60%" stopColor="#C5E8F7" />
+            <stop offset="100%" stopColor="#E8F4F8" />
           </linearGradient>
 
-          {/* Ground gradient */}
-          <linearGradient id="groundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#7CB342" />
-            <stop offset="50%" stopColor="#689F38" />
-            <stop offset="100%" stopColor="#558B2F" />
+          <linearGradient id="iso-grass" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#6DBE45" />
+            <stop offset="50%" stopColor="#5DAE35" />
+            <stop offset="100%" stopColor="#4D9E28" />
           </linearGradient>
 
-          {/* Dirt path gradient */}
-          <linearGradient id="dirtGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#8D6E63" />
-            <stop offset="100%" stopColor="#6D4C41" />
+          <linearGradient id="iso-earth-left" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#8B6914" />
+            <stop offset="100%" stopColor="#6B4E0A" />
+          </linearGradient>
+          <linearGradient id="iso-earth-right" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#7A5C10" />
+            <stop offset="100%" stopColor="#5A3E06" />
           </linearGradient>
 
-          {/* Sun glow */}
-          <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#FFF59D" />
-            <stop offset="50%" stopColor="#FFEB3B" />
-            <stop offset="100%" stopColor="#FFC107" />
-          </radialGradient>
+          <linearGradient id="iso-stone" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#C8BEB4" />
+            <stop offset="100%" stopColor="#A89888" />
+          </linearGradient>
 
-          {/* Cloud filter */}
-          <filter id="cloudShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="2" dy="2" stdDeviation="3" floodOpacity="0.1" />
+          <filter id="cloudBlur" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" />
           </filter>
 
-          {/* Grass texture pattern */}
-          <pattern id="grassPattern" patternUnits="userSpaceOnUse" width="20" height="20">
-            <rect width="20" height="20" fill="#7CB342" />
-            <path d="M5 20 Q5 15 3 10" stroke="#8BC34A" strokeWidth="1" fill="none" />
-            <path d="M10 20 Q10 12 8 5" stroke="#9CCC65" strokeWidth="1" fill="none" />
-            <path d="M15 20 Q15 14 17 8" stroke="#8BC34A" strokeWidth="1" fill="none" />
+          <filter id="islandShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="12" />
+          </filter>
+
+          <pattern id="grassStripes" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(30)">
+            <rect width="40" height="40" fill="transparent" />
+            <rect width="40" height="20" fill="rgba(255,255,255,0.04)" />
           </pattern>
         </defs>
 
         {/* Sky */}
-        <rect x="0" y="0" width="800" height="350" fill="url(#skyGradient)" />
+        <rect x="0" y="0" width="1024" height="768" fill="url(#iso-sky)" />
 
         {/* Sun */}
-        <circle cx="650" cy="80" r="50" fill="url(#sunGlow)">
-          <animate
-            attributeName="r"
-            values="50;55;50"
-            dur="4s"
-            repeatCount="indefinite"
-          />
-        </circle>
+        <circle cx="900" cy="100" r="60" fill="#FFF9C4" opacity="0.6" />
+        <circle cx="900" cy="100" r="45" fill="#FFF176" opacity="0.4" />
+        <circle cx="900" cy="100" r="30" fill="#FFEE58" opacity="0.5" />
 
-        {/* Sun rays */}
-        <g opacity="0.3">
-          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
-            <line
-              key={i}
-              x1="650"
-              y1="80"
-              x2={650 + Math.cos((angle * Math.PI) / 180) * 80}
-              y2={80 + Math.sin((angle * Math.PI) / 180) * 80}
-              stroke="#FFF59D"
-              strokeWidth="3"
-              strokeLinecap="round"
-            >
-              <animate
-                attributeName="opacity"
-                values="0.3;0.6;0.3"
-                dur="3s"
-                begin={`${i * 0.3}s`}
-                repeatCount="indefinite"
-              />
-            </line>
+        {/* Clouds */}
+        <g opacity="0.7">
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="0,0;60,0;0,0" dur="80s" repeatCount="indefinite" />
+            <ellipse cx="180" cy="120" rx="70" ry="30" fill="white" />
+            <ellipse cx="230" cy="110" rx="55" ry="25" fill="white" />
+            <ellipse cx="140" cy="125" rx="45" ry="20" fill="white" />
+            <ellipse cx="185" cy="135" rx="50" ry="15" fill="#f0f0f0" opacity="0.5" />
+          </g>
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="0,0;-50,0;0,0" dur="60s" repeatCount="indefinite" />
+            <ellipse cx="550" cy="80" rx="60" ry="28" fill="white" />
+            <ellipse cx="600" cy="72" rx="50" ry="22" fill="white" />
+            <ellipse cx="510" cy="85" rx="40" ry="18" fill="white" />
+            <ellipse cx="555" cy="95" rx="45" ry="14" fill="#f0f0f0" opacity="0.5" />
+          </g>
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="0,0;40,0;0,0" dur="90s" repeatCount="indefinite" />
+            <ellipse cx="800" cy="150" rx="50" ry="22" fill="white" />
+            <ellipse cx="840" cy="142" rx="40" ry="18" fill="white" />
+            <ellipse cx="770" cy="155" rx="35" ry="15" fill="white" />
+          </g>
+        </g>
+
+        {/* Island shadow */}
+        <ellipse cx="512" cy="620" rx="320" ry="50" fill="rgba(0,0,0,0.15)" filter="url(#islandShadow)" />
+
+        {/* Floating island top face (grass) */}
+        <polygon points="512,200 832,360 512,520 192,360" fill="url(#iso-grass)" />
+        <polygon points="512,200 832,360 512,520 192,360" fill="url(#grassStripes)" />
+
+        {/* Island left side (earth) */}
+        <polygon points="192,360 512,520 512,580 192,420" fill="url(#iso-earth-left)" />
+
+        {/* Island right side (earth darker) */}
+        <polygon points="832,360 512,520 512,580 832,420" fill="url(#iso-earth-right)" />
+
+        {/* Grass edge highlight */}
+        <polyline points="512,200 832,360 512,520 192,360 512,200" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="2" />
+
+        {/* Stone path on island */}
+        <g opacity="0.6">
+          {[
+            { cx: 420, cy: 340 },
+            { cx: 450, cy: 355 },
+            { cx: 480, cy: 365 },
+            { cx: 510, cy: 370 },
+            { cx: 540, cy: 365 },
+            { cx: 570, cy: 355 },
+            { cx: 600, cy: 340 },
+          ].map((stone, i) => (
+            <ellipse key={i} cx={stone.cx} cy={stone.cy} rx={12 + (i % 3) * 2} ry={6 + (i % 2) * 2} fill="url(#iso-stone)" stroke="#B8A898" strokeWidth="0.5" />
           ))}
         </g>
 
-        {/* Clouds */}
-        <g filter="url(#cloudShadow)">
-          {/* Cloud 1 */}
-          <g>
-            <animateTransform
-              attributeName="transform"
-              type="translate"
-              values="0,0;100,0;0,0"
-              dur="60s"
-              repeatCount="indefinite"
-            />
-            <ellipse cx="120" cy="80" rx="50" ry="30" fill="white" opacity="0.9" />
-            <ellipse cx="160" cy="70" rx="40" ry="25" fill="white" opacity="0.9" />
-            <ellipse cx="90" cy="85" rx="35" ry="20" fill="white" opacity="0.9" />
-          </g>
-
-          {/* Cloud 2 */}
-          <g>
-            <animateTransform
-              attributeName="transform"
-              type="translate"
-              values="0,0;-80,0;0,0"
-              dur="45s"
-              repeatCount="indefinite"
-            />
-            <ellipse cx="350" cy="60" rx="45" ry="28" fill="white" opacity="0.85" />
-            <ellipse cx="390" cy="55" rx="35" ry="22" fill="white" opacity="0.85" />
-            <ellipse cx="320" cy="65" rx="30" ry="18" fill="white" opacity="0.85" />
-          </g>
-
-          {/* Cloud 3 */}
-          <g>
-            <animateTransform
-              attributeName="transform"
-              type="translate"
-              values="0,0;120,0;0,0"
-              dur="70s"
-              repeatCount="indefinite"
-            />
-            <ellipse cx="550" cy="100" rx="55" ry="32" fill="white" opacity="0.8" />
-            <ellipse cx="600" cy="90" rx="45" ry="28" fill="white" opacity="0.8" />
-            <ellipse cx="510" cy="105" rx="40" ry="24" fill="white" opacity="0.8" />
-          </g>
-        </g>
-
-        {/* Distant hills */}
-        <ellipse cx="200" cy="350" rx="250" ry="80" fill="#81C784" />
-        <ellipse cx="550" cy="360" rx="300" ry="90" fill="#66BB6A" />
-        <ellipse cx="750" cy="355" rx="200" ry="70" fill="#81C784" />
-
-        {/* Main ground */}
-        <rect x="0" y="320" width="800" height="280" fill="url(#groundGradient)" />
-
-        {/* Grass texture overlay */}
-        <rect x="0" y="320" width="800" height="280" fill="url(#grassPattern)" opacity="0.3" />
-
-        {/* Dirt path */}
-        <path
-          d="M400 600 Q380 500 350 450 Q320 400 380 350"
-          fill="none"
-          stroke="url(#dirtGradient)"
-          strokeWidth="40"
-          strokeLinecap="round"
-        />
-        <path
-          d="M400 600 Q420 550 480 500 Q550 450 500 380"
-          fill="none"
-          stroke="url(#dirtGradient)"
-          strokeWidth="35"
-          strokeLinecap="round"
-        />
-
-        {/* Fence posts */}
-        {[50, 120, 190, 610, 680, 750].map((x, i) => (
-          <g key={i}>
-            <rect x={x - 4} y="340" width="8" height="50" fill="#8D6E63" />
-            <rect x={x - 6} y="335" width="12" height="8" fill="#A1887F" rx="2" />
-          </g>
-        ))}
-
-        {/* Fence rails */}
-        <rect x="40" y="350" width="160" height="6" fill="#A1887F" rx="2" />
-        <rect x="40" y="370" width="160" height="6" fill="#A1887F" rx="2" />
-        <rect x="600" y="350" width="160" height="6" fill="#A1887F" rx="2" />
-        <rect x="600" y="370" width="160" height="6" fill="#A1887F" rx="2" />
-
-        {/* Flowers scattered */}
+        {/* Flowers */}
         {[
-          { x: 80, y: 420, color: '#E91E63' },
-          { x: 150, y: 450, color: '#FFEB3B' },
-          { x: 100, y: 480, color: '#E91E63' },
-          { x: 700, y: 430, color: '#FFEB3B' },
-          { x: 720, y: 470, color: '#E91E63' },
-          { x: 680, y: 500, color: '#9C27B0' },
-          { x: 60, y: 520, color: '#9C27B0' },
-          { x: 740, y: 520, color: '#FFEB3B' },
-        ].map((flower, i) => (
+          { x: 350, y: 320, color: '#FF6B9D' },
+          { x: 680, y: 330, color: '#FFD93D' },
+          { x: 300, y: 370, color: '#FF6B9D' },
+          { x: 720, y: 370, color: '#C77DFF' },
+          { x: 400, y: 440, color: '#FFD93D' },
+          { x: 620, y: 450, color: '#FF6B9D' },
+          { x: 280, y: 400, color: '#C77DFF' },
+          { x: 740, y: 400, color: '#FFD93D' },
+        ].map((f, i) => (
           <g key={i}>
-            <circle cx={flower.x} cy={flower.y} r="4" fill={flower.color}>
-              <animate
-                attributeName="r"
-                values="4;5;4"
-                dur="2s"
-                begin={`${i * 0.2}s`}
-                repeatCount="indefinite"
-              />
+            <circle cx={f.x} cy={f.y} r="3" fill={f.color} opacity="0.8">
+              <animate attributeName="r" values="3;3.5;3" dur="3s" begin={`${i * 0.4}s`} repeatCount="indefinite" />
             </circle>
-            <line
-              x1={flower.x}
-              y1={flower.y + 4}
-              x2={flower.x}
-              y2={flower.y + 15}
-              stroke="#4CAF50"
-              strokeWidth="2"
-            />
+            <line x1={f.x} y1={f.y + 3} x2={f.x} y2={f.y + 10} stroke="#4CAF50" strokeWidth="1.5" />
           </g>
         ))}
 
-        {/* Animated grass tufts */}
+        {/* Bushes */}
         {[
-          { x: 30, y: 400 },
-          { x: 180, y: 520 },
-          { x: 250, y: 580 },
-          { x: 620, y: 410 },
-          { x: 770, y: 550 },
-        ].map((tuft, i) => (
+          { x: 260, y: 345 },
+          { x: 760, y: 350 },
+          { x: 320, y: 430 },
+          { x: 700, y: 435 },
+        ].map((bush, i) => (
           <g key={i}>
-            <path
-              d={`M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 20} ${tuft.x - 5} ${tuft.y - 30}`}
-              stroke="#4CAF50"
-              strokeWidth="3"
-              fill="none"
-            >
-              <animate
-                attributeName="d"
-                values={`M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 20} ${tuft.x - 5} ${tuft.y - 30};M${tuft.x} ${tuft.y} Q${tuft.x + 2} ${tuft.y - 20} ${tuft.x} ${tuft.y - 30};M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 20} ${tuft.x - 5} ${tuft.y - 30}`}
-                dur="3s"
-                begin={`${i * 0.5}s`}
-                repeatCount="indefinite"
-              />
-            </path>
-            <path
-              d={`M${tuft.x} ${tuft.y} Q${tuft.x + 5} ${tuft.y - 18} ${tuft.x + 8} ${tuft.y - 28}`}
-              stroke="#66BB6A"
-              strokeWidth="2"
-              fill="none"
-            >
-              <animate
-                attributeName="d"
-                values={`M${tuft.x} ${tuft.y} Q${tuft.x + 5} ${tuft.y - 18} ${tuft.x + 8} ${tuft.y - 28};M${tuft.x} ${tuft.y} Q${tuft.x} ${tuft.y - 18} ${tuft.x + 3} ${tuft.y - 28};M${tuft.x} ${tuft.y} Q${tuft.x + 5} ${tuft.y - 18} ${tuft.x + 8} ${tuft.y - 28}`}
-                dur="2.5s"
-                begin={`${i * 0.3}s`}
-                repeatCount="indefinite"
-              />
-            </path>
+            <ellipse cx={bush.x} cy={bush.y} rx="15" ry="10" fill="#3D8B37" />
+            <ellipse cx={bush.x - 5} cy={bush.y - 3} rx="12" ry="9" fill="#4CAF50" />
+            <ellipse cx={bush.x + 5} cy={bush.y - 5} rx="10" ry="8" fill="#66BB6A" />
           </g>
         ))}
 
-        {/* Birds in the distance */}
-        <g>
-          <animateTransform
-            attributeName="transform"
-            type="translate"
-            values="0,0;400,50;800,0"
-            dur="30s"
-            repeatCount="indefinite"
-          />
-          <path d="M50 150 Q55 145 60 150 Q65 145 70 150" fill="none" stroke="#333" strokeWidth="2" />
-          <path d="M80 160 Q85 155 90 160 Q95 155 100 160" fill="none" stroke="#333" strokeWidth="1.5" />
-        </g>
+        {/* Grass tufts on edge */}
+        {[
+          { x: 220, y: 365 },
+          { x: 350, y: 470 },
+          { x: 680, y: 475 },
+          { x: 800, y: 365 },
+        ].map((tuft, i) => (
+          <g key={i} opacity="0.7">
+            <path d={`M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 12} ${tuft.x - 6} ${tuft.y - 18}`}
+              stroke="#4CAF50" strokeWidth="2" fill="none">
+              <animate attributeName="d"
+                values={`M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 12} ${tuft.x - 6} ${tuft.y - 18};M${tuft.x} ${tuft.y} Q${tuft.x + 1} ${tuft.y - 12} ${tuft.x - 2} ${tuft.y - 18};M${tuft.x} ${tuft.y} Q${tuft.x - 3} ${tuft.y - 12} ${tuft.x - 6} ${tuft.y - 18}`}
+                dur="4s" begin={`${i * 0.7}s`} repeatCount="indefinite" />
+            </path>
+            <path d={`M${tuft.x} ${tuft.y} Q${tuft.x + 4} ${tuft.y - 10} ${tuft.x + 7} ${tuft.y - 16}`}
+              stroke="#66BB6A" strokeWidth="1.5" fill="none">
+              <animate attributeName="d"
+                values={`M${tuft.x} ${tuft.y} Q${tuft.x + 4} ${tuft.y - 10} ${tuft.x + 7} ${tuft.y - 16};M${tuft.x} ${tuft.y} Q${tuft.x} ${tuft.y - 10} ${tuft.x + 3} ${tuft.y - 16};M${tuft.x} ${tuft.y} Q${tuft.x + 4} ${tuft.y - 10} ${tuft.x + 7} ${tuft.y - 16}`}
+                dur="3.5s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+            </path>
+          </g>
+        ))}
       </svg>
     </div>
   );
