@@ -14,13 +14,32 @@ import { FarmBackground } from './FarmBackground';
 import { FarmBuildings } from './FarmBuildings';
 import { GooseSVG } from './GooseSVG';
 
+const FenceDecoration = () => (
+  <svg viewBox="0 0 400 30" style={{
+    width: '380px',
+    height: '30px',
+    marginTop: '-4px',
+  }}>
+    {/* Fence posts */}
+    {[20, 80, 140, 200, 260, 320, 380].map((x, i) => (
+      <g key={i}>
+        <rect x={x - 3} y="2" width="6" height="26" fill="#8D6E63" rx="1" />
+        <rect x={x - 4} y="0" width="8" height="4" fill="#A1887F" rx="1" />
+      </g>
+    ))}
+    {/* Rails */}
+    <rect x="17" y="8" width="366" height="4" fill="#A1887F" rx="1" />
+    <rect x="17" y="20" width="366" height="4" fill="#A1887F" rx="1" />
+  </svg>
+);
+
 export function FarmView() {
   const { setScreen } = useGameStore();
   const { geese, buildings, getGooseCapacity } = useFarmStore();
   const { level, xp, xpToNextLevel } = useProgressStore();
   const { grain } = useCurrencyStore();
-  const { grainPerMinute, feedingCost, feedGeese } = useFarmProduction();
-  const { totalEggMultiplier, isAnyGooseHungry } = useGooseBonus();
+  const { feedingCost, feedGeese } = useFarmProduction();
+  const { isAnyGooseHungry } = useGooseBonus();
   const { collectEgg, hasEgg } = useEggProduction();
   const { addEggs } = useCurrencyStore();
   const { play } = useSound();
@@ -61,19 +80,6 @@ export function FarmView() {
   }, [collectingEggs, collectEgg, addEggs, play]);
 
   const capacity = getGooseCapacity();
-
-  const GlossyOverlay = () => (
-    <div style={{
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      height: '50%',
-      background: 'linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%)',
-      pointerEvents: 'none',
-      borderRadius: 'inherit',
-    }} />
-  );
 
   const containerStyle: CSSProperties = {
     display: 'flex',
@@ -118,65 +124,78 @@ export function FarmView() {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px',
     position: 'relative',
     zIndex: 1,
+    padding: '10px',
   };
 
-  const buildingAreaStyle: CSSProperties = {
-    marginBottom: '50px',
+  const buildingsAndGooseContainer: CSSProperties = {
+    position: 'relative',
     width: '100%',
-    maxWidth: '600px',
+    maxWidth: '800px',
+    height: '450px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  };
+
+  const getBuildingPosition = (type: string, index: number): CSSProperties => {
+    const base: CSSProperties = {
+      position: 'absolute',
+      width: '140px',
+      height: '130px',
+      zIndex: 2,
+      transition: 'transform 0.2s',
+    };
+    switch (type) {
+      case 'coop':
+        return { ...base, left: '5%', top: '10%' };
+      case 'field':
+        return { ...base, right: '5%', top: '10%' };
+      case 'mill':
+        return { ...base, left: '2%', bottom: '15%' };
+      case 'market':
+        return { ...base, right: '2%', bottom: '15%' };
+      default:
+        return { ...base, left: `${10 + index * 20}%`, top: '20%' };
+    }
+  };
+
+  const gooseEnclosureStyle: CSSProperties = {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 3,
   };
 
   const gooseAreaStyle: CSSProperties = {
     display: 'flex',
-    gap: 'var(--space-3)',
+    gap: '12px',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    padding: 'var(--space-6)',
-    background: 'linear-gradient(135deg, rgba(124, 179, 66, 0.4) 0%, rgba(139, 195, 74, 0.6) 100%)',
-    borderRadius: 'var(--radius-2xl)',
-    minHeight: '180px',
-    maxWidth: '600px',
+    alignItems: 'center',
+    padding: '30px 40px',
+    background: 'linear-gradient(135deg, rgba(124, 179, 66, 0.5) 0%, rgba(139, 195, 74, 0.7) 100%)',
+    borderRadius: '24px',
+    minHeight: '160px',
+    minWidth: '260px',
+    maxWidth: '380px',
     backdropFilter: 'blur(15px)',
-    border: '5px solid rgba(255, 255, 255, 0.4)',
-    boxShadow: 'var(--shadow-xl), inset 0 3px 12px rgba(0,0,0,0.15), 0 0 20px rgba(139,195,74,0.3)',
-    position: 'relative',
+    border: '4px solid rgba(255, 255, 255, 0.5)',
+    boxShadow: '0 8px 32px rgba(0,0,0,0.2), inset 0 2px 8px rgba(0,0,0,0.1)',
   };
 
   const capacityStyle: CSSProperties = {
     background: 'linear-gradient(135deg, var(--color-bg-card) 0%, rgba(255,255,255,0.9) 100%)',
     padding: 'var(--space-3) var(--space-6)',
     borderRadius: 'var(--radius-full)',
-    marginTop: 'var(--space-4)',
     fontSize: 'var(--text-base)',
     fontWeight: 'var(--font-bold)',
     color: 'var(--color-text-primary)',
     boxShadow: 'var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.9)',
     border: '3px solid rgba(255, 255, 255, 0.8)',
     display: 'inline-block',
-  };
-
-  const productionInfoStyle: CSSProperties = {
-    background: 'linear-gradient(135deg, var(--color-warning) 0%, var(--color-secondary) 100%)',
-    padding: 'var(--space-3) var(--space-5)',
-    borderRadius: 'var(--radius-full)',
-    marginBottom: 'var(--space-4)',
-    fontSize: 'var(--text-base)',
-    fontWeight: 'var(--font-bold)',
-    color: 'white',
-    boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.4)',
-    animation: 'pulse 2s ease-in-out infinite',
-  };
-
-
-  const feedingAreaStyle: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '8px',
-    marginBottom: '15px',
   };
 
   const warningStyle: CSSProperties = {
@@ -222,7 +241,6 @@ export function FarmView() {
         <div>
           <div style={{ position: 'relative' }}>
             <div style={levelBadgeStyle}>
-              <GlossyOverlay />
               <span style={{ position: 'relative', zIndex: 1 }}>Level {level}</span>
             </div>
           </div>
@@ -240,153 +258,79 @@ export function FarmView() {
       </div>
 
       <div style={farmAreaStyle}>
-        {/* Info panel - jak husy fungují */}
-        <div
-          style={{
-            background: 'var(--color-bg-card)',
-            padding: 'var(--space-4)',
-            borderRadius: 'var(--radius-xl)',
-            marginBottom: 'var(--space-4)',
-            fontSize: 'var(--text-sm)',
-            maxWidth: '400px',
-            boxShadow: 'var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.8)',
-            border: '2px solid rgba(255, 255, 255, 0.5)',
-          }}
-        >
-          <div style={{ fontWeight: 'bold', marginBottom: '6px', fontSize: '14px' }}>
-            🪿 Jak husy fungují:
-          </div>
-          <div style={{ lineHeight: '1.5', color: '#555' }}>
-            Každá husa zvyšuje odměny z mini-her.
-            {geese.length > 0 && (
-              <span style={{ fontWeight: 'bold', color: '#4caf50' }}>
-                {' '}Aktuální bonus: x{totalEggMultiplier.toFixed(1)}
-              </span>
-            )}
-            {isAnyGooseHungry && (
-              <span style={{ color: '#ff9800', fontWeight: 'bold' }}>
-                {' '}(hladové = 50%)
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Produkce zrní info */}
-        {grainPerMinute > 0 && (
-          <div style={productionInfoStyle}>
-            🌾 +{grainPerMinute} zrní/min
-          </div>
-        )}
-
-        <div style={buildingAreaStyle}>
-          <FarmBuildings buildings={buildings} />
-        </div>
-
-        {/* Krmení hus */}
-        {geese.length > 0 && (
-          <div style={feedingAreaStyle}>
-            {isAnyGooseHungry ? (
-              <>
-                <Button
-                  onClick={handleFeedGeese}
-                  variant="warning"
-                  size="small"
-                >
-                  ⚠️ Nakrmit husy ({feedingCost} zrní)
-                </Button>
-                {grain < feedingCost && (
-                  <div style={warningStyle}>Málo zrní!</div>
-                )}
-              </>
-            ) : (
-              <div style={{
-                background: 'linear-gradient(135deg, #4caf50 0%, #66bb6a 100%)',
-                color: 'white',
-                fontSize: 'var(--text-sm)',
-                fontWeight: 'var(--font-bold)',
-                padding: 'var(--space-2) var(--space-4)',
-                borderRadius: 'var(--radius-full)',
-                boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.3)',
-              }}>
-                ✓ Husy jsou nakrmené
-              </div>
-            )}
-          </div>
-        )}
-
-        <div style={gooseAreaStyle}>
-          {/* Dekorativní prvky - tráva */}
-          <div style={{
-            position: 'absolute',
-            bottom: '10px',
-            left: '10px',
-            fontSize: '24px',
-            opacity: 0.6,
-          }}>
-            🌿
-          </div>
-          <div style={{
-            position: 'absolute',
-            bottom: '15px',
-            right: '15px',
-            fontSize: '20px',
-            opacity: 0.6,
-          }}>
-            🌸
-          </div>
-          <div style={{
-            position: 'absolute',
-            top: '12px',
-            left: '20px',
-            fontSize: '18px',
-            opacity: 0.5,
-          }}>
-            🌼
-          </div>
-          <div style={{
-            position: 'absolute',
-            top: '10px',
-            right: '25px',
-            fontSize: '22px',
-            opacity: 0.5,
-          }}>
-            🌿
-          </div>
-
-          {geese.map((goose, index) => (
-            <GooseSVG
-              key={goose.id}
-              rarity={goose.rarity}
-              isCollecting={collectingEggs.includes(goose.id)}
-              animationDelay={index * 0.3}
-              onClick={() => handleCollectEgg(goose.id)}
-              name={goose.name}
-              eggProduction={goose.eggProduction}
-              isHungry={isAnyGooseHungry}
-              hasEgg={hasEgg(goose.id)}
-            />
-          ))}
-          {geese.length === 0 && (
-            <div style={{
-              color: 'white',
-              fontSize: 'var(--text-xl)',
-              fontWeight: 'var(--font-bold)',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-              zIndex: 1,
-            }}>
-              Zatím nemáš žádné husy! 🪿
+        <div style={buildingsAndGooseContainer}>
+          {/* Buildings positioned absolutely */}
+          {buildings.map((building, index) => (
+            <div key={building.id} style={getBuildingPosition(building.type, index)}>
+              <FarmBuildings buildings={[building]} />
             </div>
+          ))}
+
+          {/* Goose enclosure centered */}
+          <div style={gooseEnclosureStyle}>
+            <FenceDecoration />
+            <div style={gooseAreaStyle}>
+              {geese.map((goose, index) => (
+                <GooseSVG
+                  key={goose.id}
+                  rarity={goose.rarity}
+                  isCollecting={collectingEggs.includes(goose.id)}
+                  animationDelay={index * 0.3}
+                  onClick={() => handleCollectEgg(goose.id)}
+                  name={goose.name}
+                  eggProduction={goose.eggProduction}
+                  isHungry={isAnyGooseHungry}
+                  hasEgg={hasEgg(goose.id)}
+                />
+              ))}
+              {geese.length === 0 && (
+                <div style={{
+                  color: 'white',
+                  fontSize: 'var(--text-xl)',
+                  fontWeight: 'var(--font-bold)',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                  zIndex: 1,
+                }}>
+                  Zatím nemáš žádné husy! 🪿
+                </div>
+              )}
+            </div>
+            <FenceDecoration />
+          </div>
+        </div>
+
+        {/* Capacity + feeding below the island area */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '8px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={capacityStyle}>
+            🪿 {geese.length}/{capacity} hus
+          </div>
+          {geese.length > 0 && (
+            <>
+              {isAnyGooseHungry ? (
+                <>
+                  <Button onClick={handleFeedGeese} variant="warning" size="small">
+                    ⚠️ Nakrmit husy ({feedingCost} zrní)
+                  </Button>
+                  {grain < feedingCost && <div style={warningStyle}>Málo zrní!</div>}
+                </>
+              ) : (
+                <div style={{
+                  background: 'linear-gradient(135deg, #4caf50 0%, #66bb6a 100%)',
+                  color: 'white',
+                  fontSize: 'var(--text-sm)',
+                  fontWeight: 'var(--font-bold)',
+                  padding: 'var(--space-2) var(--space-4)',
+                  borderRadius: 'var(--radius-full)',
+                  boxShadow: 'var(--shadow-md), inset 0 1px 0 rgba(255,255,255,0.3)',
+                }}>
+                  ✓ Nakrmené
+                </div>
+              )}
+            </>
           )}
         </div>
 
-        <div style={capacityStyle}>
-          🪿 {geese.length}/{capacity} hus
-        </div>
-
-        {/* Feed message */}
-        {feedMessage && (
-          <div style={feedMessageStyle}>{feedMessage}</div>
-        )}
+        {feedMessage && <div style={feedMessageStyle}>{feedMessage}</div>}
       </div>
 
       <div style={actionsStyle}>
