@@ -72,8 +72,8 @@ export function GooseSVG({
   const colors = getColors();
 
   const containerStyle: CSSProperties = {
-    width: '70px',
-    height: '70px',
+    width: '80px',
+    height: '80px',
     cursor: 'pointer',
     transition: 'transform 0.2s',
     filter: isHungry ? `grayscale(50%) ${colors.glow}` : colors.glow,
@@ -96,140 +96,92 @@ export function GooseSVG({
   };
 
   const renderCommonGoose = () => (
-    <svg viewBox="0 0 60 50" style={svgStyle}>
+    <svg viewBox="0 0 80 65" style={svgStyle}>
       <defs>
         <linearGradient id={`bodyGrad-${rarity}`} x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor={colors.body} />
           <stop offset="100%" stopColor={colors.bodyShade} />
         </linearGradient>
+        <linearGradient id={`wingGrad-${rarity}`} x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={colors.wing} />
+          <stop offset="100%" stopColor={colors.bodyShade} />
+        </linearGradient>
       </defs>
 
-      {/* Body */}
-      <ellipse cx="30" cy="35" rx="18" ry="12" fill={`url(#bodyGrad-${rarity})`}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </ellipse>
-
-      {/* Wing */}
-      <ellipse cx="32" cy="33" rx="10" ry="7" fill={colors.wing}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </ellipse>
-
-      {/* Neck */}
-      <path
-        d="M20 32 Q15 25 18 15 Q20 10 22 15 Q25 25 22 32"
-        fill={`url(#bodyGrad-${rarity})`}
-      >
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-
-      {/* Head */}
-      <circle cx="18" cy="12" r="7" fill={colors.body}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
-
-      {/* Beak */}
-      <path d="M11 12 L6 14 L11 15" fill={colors.beak}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-
-      {/* Eye */}
-      <circle cx="15" cy="10" r="2" fill={colors.eye}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
-      <circle cx="14.5" cy="9.5" r="0.5" fill="white">
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
-
-      {/* Feet */}
       <g>
-        <path d="M25 46 L22 50 M25 46 L25 50 M25 46 L28 50" stroke={colors.feet} strokeWidth="2" fill="none">
-          <animate
-            attributeName="d"
-            values="M25 46 L22 50 M25 46 L25 50 M25 46 L28 50;M23 46 L20 50 M23 46 L23 50 M23 46 L26 50;M25 46 L22 50 M25 46 L25 50 M25 46 L28 50"
-            dur="0.8s"
-            begin={`${animationDelay}s`}
-            repeatCount="indefinite"
-          />
-        </path>
-        <path d="M35 46 L32 50 M35 46 L35 50 M35 46 L38 50" stroke={colors.feet} strokeWidth="2" fill="none">
-          <animate
-            attributeName="d"
-            values="M35 46 L32 50 M35 46 L35 50 M35 46 L38 50;M37 46 L34 50 M37 46 L37 50 M37 46 L40 50;M35 46 L32 50 M35 46 L35 50 M35 46 L38 50"
-            dur="0.8s"
-            begin={`${animationDelay + 0.4}s`}
-            repeatCount="indefinite"
-          />
-        </path>
-      </g>
-
-      {/* Tail feathers */}
-      <path d="M47 32 Q52 30 50 35 Q48 38 45 35" fill={colors.wing}>
         <animateTransform
           attributeName="transform"
           type="rotate"
-          values="-3 30 35;3 30 35;-3 30 35"
-          dur="1.5s"
+          values="-1.5 40 40;1.5 40 40;-1.5 40 40"
+          dur="2s"
           begin={`${animationDelay}s`}
           repeatCount="indefinite"
         />
-      </path>
+
+        {/* Shadow */}
+        <ellipse cx="40" cy="60" rx="18" ry="4" fill="rgba(0,0,0,0.1)" />
+
+        {/* Tail feathers */}
+        <path d="M56 38 Q64 32 62 40 Q60 44 55 42" fill={colors.wing} />
+        <path d="M58 36 Q66 30 64 38 Q62 42 57 40" fill={colors.bodyShade} opacity="0.7" />
+
+        {/* Body */}
+        <ellipse cx="38" cy="40" rx="20" ry="14" fill={`url(#bodyGrad-${rarity})`} />
+
+        {/* Body feather texture */}
+        <path d="M28 36 Q32 34 36 36" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.3" />
+        <path d="M32 40 Q36 38 40 40" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.3" />
+        <path d="M30 44 Q34 42 38 44" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.3" />
+
+        {/* Wing */}
+        <path d="M35 34 Q50 30 52 38 Q50 44 35 46 Q30 42 35 34" fill={`url(#wingGrad-${rarity})`} />
+        <path d="M38 36 Q44 34 48 37" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.4" />
+        <path d="M37 40 Q43 38 47 40" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.4" />
+        <path d="M36 44 Q42 42 46 43" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.4" />
+
+        {/* Neck */}
+        <path d="M24 36 Q18 28 20 18 Q22 12 25 18 Q28 26 26 36" fill={`url(#bodyGrad-${rarity})`} />
+
+        {/* Head */}
+        <circle cx="22" cy="14" r="8" fill={colors.body} />
+
+        {/* Beak */}
+        <path d="M14 14 L7 16.5 L14 17.5" fill={colors.beak} />
+        <line x1="14" y1="15.5" x2="8" y2="16.5" stroke={colors.beak} strokeWidth="0.5" opacity="0.5" />
+
+        {/* Eye */}
+        <circle cx="19" cy="12" r="2.5" fill={colors.eye} />
+        <circle cx="18.5" cy="11.5" r="1" fill="white" />
+
+        {/* Cheek blush */}
+        <circle cx="17" cy="16" r="2.5" fill="#FFAB91" opacity="0.3" />
+
+        {/* Feet */}
+        <g>
+          <path d="M32 53 L28 58 L32 57 L36 58 L32 53" fill={colors.feet} opacity="0.9">
+            <animate attributeName="d"
+              values="M32 53 L28 58 L32 57 L36 58 L32 53;M30 53 L26 58 L30 57 L34 58 L30 53;M32 53 L28 58 L32 57 L36 58 L32 53"
+              dur="0.8s" begin={`${animationDelay}s`} repeatCount="indefinite" />
+          </path>
+          <path d="M42 53 L38 58 L42 57 L46 58 L42 53" fill={colors.feet} opacity="0.9">
+            <animate attributeName="d"
+              values="M42 53 L38 58 L42 57 L46 58 L42 53;M44 53 L40 58 L44 57 L48 58 L44 53;M42 53 L38 58 L42 57 L46 58 L42 53"
+              dur="0.8s" begin={`${animationDelay + 0.4}s`} repeatCount="indefinite" />
+          </path>
+        </g>
+      </g>
     </svg>
   );
 
   const renderLegendaryGoose = () => (
-    <svg viewBox="0 0 70 55" style={svgStyle}>
+    <svg viewBox="0 0 90 70" style={svgStyle}>
       <defs>
         <linearGradient id="legendaryBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
           <stop offset="0%" stopColor={colors.body} />
+          <stop offset="100%" stopColor={colors.bodyShade} />
+        </linearGradient>
+        <linearGradient id="legendaryWingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor={colors.wing} />
           <stop offset="100%" stopColor={colors.bodyShade} />
         </linearGradient>
         <linearGradient id="peacockFeather" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -239,207 +191,100 @@ export function GooseSVG({
         </linearGradient>
       </defs>
 
-      {/* Peacock tail feathers */}
-      {[0, 1, 2, 3, 4].map((i) => {
-        const angle = -40 + i * 20;
-        const length = 25 + Math.abs(2 - i) * -3;
-        return (
-          <g key={i}>
-            <line
-              x1="45"
-              y1="35"
-              x2={45 + Math.cos((angle * Math.PI) / 180) * length}
-              y2={35 + Math.sin((angle * Math.PI) / 180) * length}
-              stroke="url(#peacockFeather)"
-              strokeWidth="3"
-            >
-              <animateTransform
-                attributeName="transform"
-                type="rotate"
-                values={`-5 45 35;5 45 35;-5 45 35`}
-                dur="2s"
-                begin={`${i * 0.1}s`}
-                repeatCount="indefinite"
-              />
-            </line>
-            <circle
-              cx={45 + Math.cos((angle * Math.PI) / 180) * length}
-              cy={35 + Math.sin((angle * Math.PI) / 180) * length}
-              r="4"
-              fill="#3F51B5"
-            >
-              <animateTransform
-                attributeName="transform"
-                type="rotate"
-                values={`-5 45 35;5 45 35;-5 45 35`}
-                dur="2s"
-                begin={`${i * 0.1}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-            <circle
-              cx={45 + Math.cos((angle * Math.PI) / 180) * length}
-              cy={35 + Math.sin((angle * Math.PI) / 180) * length}
-              r="2"
-              fill="#00BCD4"
-            >
-              <animateTransform
-                attributeName="transform"
-                type="rotate"
-                values={`-5 45 35;5 45 35;-5 45 35`}
-                dur="2s"
-                begin={`${i * 0.1}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-          </g>
-        );
-      })}
-
-      {/* Body */}
-      <ellipse cx="35" cy="38" rx="16" ry="10" fill="url(#legendaryBodyGrad)">
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </ellipse>
-
-      {/* Wing */}
-      <ellipse cx="37" cy="36" rx="9" ry="6" fill={colors.wing}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </ellipse>
-
-      {/* Neck */}
-      <path d="M25 35 Q20 28 23 18 Q25 13 27 18 Q30 28 27 35" fill="url(#legendaryBodyGrad)">
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-
-      {/* Head */}
-      <circle cx="23" cy="15" r="6" fill={colors.body}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
-
-      {/* Crown feathers */}
       <g>
-        <line x1="23" y1="9" x2="21" y2="3" stroke="#673AB7" strokeWidth="2" />
-        <circle cx="21" cy="2" r="2" fill="#FFD700" />
-        <line x1="25" y1="9" x2="25" y2="2" stroke="#673AB7" strokeWidth="2" />
-        <circle cx="25" cy="1" r="2" fill="#FFD700" />
-        <line x1="27" y1="10" x2="29" y2="4" stroke="#673AB7" strokeWidth="2" />
-        <circle cx="29" cy="3" r="2" fill="#FFD700" />
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          values="-1 45 42;1 45 42;-1 45 42"
+          dur="2s"
+          begin={`${animationDelay}s`}
+          repeatCount="indefinite"
+        />
+
+        {/* Shadow */}
+        <ellipse cx="45" cy="65" rx="20" ry="4" fill="rgba(0,0,0,0.1)" />
+
+        {/* Peacock tail feathers */}
+        {[0, 1, 2, 3, 4].map((i) => {
+          const angle = -40 + i * 20;
+          const length = 25 + Math.abs(2 - i) * -3;
+          return (
+            <g key={i}>
+              <line x1="52" y1="40" x2={52 + Math.cos((angle * Math.PI) / 180) * length}
+                y2={40 + Math.sin((angle * Math.PI) / 180) * length}
+                stroke="url(#peacockFeather)" strokeWidth="3">
+                <animateTransform attributeName="transform" type="rotate"
+                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
+              </line>
+              <circle cx={52 + Math.cos((angle * Math.PI) / 180) * length}
+                cy={40 + Math.sin((angle * Math.PI) / 180) * length} r="4" fill="#3F51B5">
+                <animateTransform attributeName="transform" type="rotate"
+                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
+              </circle>
+              <circle cx={52 + Math.cos((angle * Math.PI) / 180) * length}
+                cy={40 + Math.sin((angle * Math.PI) / 180) * length} r="2" fill="#00BCD4">
+                <animateTransform attributeName="transform" type="rotate"
+                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
+              </circle>
+            </g>
+          );
+        })}
+
+        {/* Body */}
+        <ellipse cx="42" cy="43" rx="18" ry="12" fill="url(#legendaryBodyGrad)" />
+
+        {/* Body feather texture */}
+        <path d="M32 39 Q36 37 40 39" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.3" />
+        <path d="M35 43 Q39 41 43 43" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.3" />
+
+        {/* Wing */}
+        <path d="M39 37 Q54 33 56 41 Q54 47 39 49 Q34 45 39 37" fill="url(#legendaryWingGrad)" />
+        <path d="M42 39 Q48 37 52 40" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.4" />
+        <path d="M41 43 Q47 41 51 43" stroke={colors.bodyShade} strokeWidth="0.5" fill="none" opacity="0.4" />
+
+        {/* Neck */}
+        <path d="M28 39 Q22 31 24 21 Q26 15 29 21 Q32 29 30 39" fill="url(#legendaryBodyGrad)" />
+
+        {/* Head */}
+        <circle cx="26" cy="17" r="7" fill={colors.body} />
+
+        {/* Crown */}
+        <polygon points="20,10 22,4 24,9 26,3 28,9 30,5 32,10" fill="#FFD700" stroke="#FFA000" strokeWidth="0.5" />
+
+        {/* Beak */}
+        <path d="M19 17 L13 19.5 L19 20.5" fill={colors.beak} />
+
+        {/* Eye */}
+        <circle cx="23" cy="15" r="2.5" fill={colors.eye} />
+        <circle cx="22.5" cy="14.5" r="1" fill="white" />
+
+        {/* Cheek blush */}
+        <circle cx="21" cy="19" r="2" fill="#FFAB91" opacity="0.3" />
+
+        {/* Feet */}
+        <path d="M36 56 L32 61 L36 60 L40 61 L36 56" fill={colors.feet} opacity="0.9">
+          <animate attributeName="d"
+            values="M36 56 L32 61 L36 60 L40 61 L36 56;M34 56 L30 61 L34 60 L38 61 L34 56;M36 56 L32 61 L36 60 L40 61 L36 56"
+            dur="0.8s" begin={`${animationDelay}s`} repeatCount="indefinite" />
+        </path>
+        <path d="M46 56 L42 61 L46 60 L50 61 L46 56" fill={colors.feet} opacity="0.9">
+          <animate attributeName="d"
+            values="M46 56 L42 61 L46 60 L50 61 L46 56;M48 56 L44 61 L48 60 L52 61 L48 56;M46 56 L42 61 L46 60 L50 61 L46 56"
+            dur="0.8s" begin={`${animationDelay + 0.4}s`} repeatCount="indefinite" />
+        </path>
+
+        {/* Sparkles */}
+        {[{ x: 65, y: 25 }, { x: 70, y: 40 }, { x: 12, y: 12 }].map((pos, i) => (
+          <g key={i}>
+            <line x1={pos.x - 3} y1={pos.y} x2={pos.x + 3} y2={pos.y} stroke="#FFD700" strokeWidth="1.5">
+              <animate attributeName="opacity" values="0;1;0" dur="1.5s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+            </line>
+            <line x1={pos.x} y1={pos.y - 3} x2={pos.x} y2={pos.y + 3} stroke="#FFD700" strokeWidth="1.5">
+              <animate attributeName="opacity" values="0;1;0" dur="1.5s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+            </line>
+          </g>
+        ))}
       </g>
-
-      {/* Beak */}
-      <path d="M17 15 L12 17 L17 18" fill={colors.beak}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-
-      {/* Eye */}
-      <circle cx="20" cy="13" r="2" fill={colors.eye}>
-        <animateTransform
-          attributeName="transform"
-          type="rotate"
-          values="-2 35 38;2 35 38;-2 35 38"
-          dur="1.5s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </circle>
-      <circle cx="19.5" cy="12.5" r="0.5" fill="white" />
-
-      {/* Feet */}
-      <path d="M30 48 L27 52 M30 48 L30 52 M30 48 L33 52" stroke={colors.feet} strokeWidth="2" fill="none">
-        <animate
-          attributeName="d"
-          values="M30 48 L27 52 M30 48 L30 52 M30 48 L33 52;M28 48 L25 52 M28 48 L28 52 M28 48 L31 52;M30 48 L27 52 M30 48 L30 52 M30 48 L33 52"
-          dur="0.8s"
-          begin={`${animationDelay}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-      <path d="M40 48 L37 52 M40 48 L40 52 M40 48 L43 52" stroke={colors.feet} strokeWidth="2" fill="none">
-        <animate
-          attributeName="d"
-          values="M40 48 L37 52 M40 48 L40 52 M40 48 L43 52;M42 48 L39 52 M42 48 L42 52 M42 48 L45 52;M40 48 L37 52 M40 48 L40 52 M40 48 L43 52"
-          dur="0.8s"
-          begin={`${animationDelay + 0.4}s`}
-          repeatCount="indefinite"
-        />
-      </path>
-
-      {/* Sparkles */}
-      {[
-        { x: 55, y: 20 },
-        { x: 60, y: 35 },
-        { x: 10, y: 10 },
-      ].map((pos, i) => (
-        <g key={i}>
-          <line
-            x1={pos.x - 3}
-            y1={pos.y}
-            x2={pos.x + 3}
-            y2={pos.y}
-            stroke="#FFD700"
-            strokeWidth="1.5"
-          >
-            <animate
-              attributeName="opacity"
-              values="0;1;0"
-              dur="1.5s"
-              begin={`${i * 0.5}s`}
-              repeatCount="indefinite"
-            />
-          </line>
-          <line
-            x1={pos.x}
-            y1={pos.y - 3}
-            x2={pos.x}
-            y2={pos.y + 3}
-            stroke="#FFD700"
-            strokeWidth="1.5"
-          >
-            <animate
-              attributeName="opacity"
-              values="0;1;0"
-              dur="1.5s"
-              begin={`${i * 0.5}s`}
-              repeatCount="indefinite"
-            />
-          </line>
-        </g>
-      ))}
     </svg>
   );
 
