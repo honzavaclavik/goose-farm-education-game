@@ -9,104 +9,118 @@ function CoopSVG({ level }: { level: number }) {
   return (
     <svg viewBox="0 0 160 140" style={{ width: '100%', height: '100%' }}>
       <defs>
-        <linearGradient id="coop-wall-front" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#D4A574" />
-          <stop offset="50%" stopColor="#C9956A" />
+        <linearGradient id="coop-wood" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#C9956A" />
+          <stop offset="50%" stopColor="#D4A574" />
           <stop offset="100%" stopColor="#B8845A" />
         </linearGradient>
-        <linearGradient id="coop-wall-side" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#B8845A" />
-          <stop offset="100%" stopColor="#A07040" />
+        <linearGradient id="coop-wood-side" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#A07040" />
+          <stop offset="100%" stopColor="#8B6030" />
         </linearGradient>
-        <linearGradient id="coop-roof-front" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#C62828" />
-          <stop offset="100%" stopColor="#8B1A1A" />
+        <linearGradient id="coop-roof" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#8D6E63" />
+          <stop offset="100%" stopColor="#6D4C41" />
         </linearGradient>
         <linearGradient id="coop-roof-side" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#A02020" />
-          <stop offset="100%" stopColor="#701515" />
+          <stop offset="0%" stopColor="#7B5B3A" />
+          <stop offset="100%" stopColor="#5D4037" />
+        </linearGradient>
+        <linearGradient id="coop-straw" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#F0D078" />
+          <stop offset="100%" stopColor="#D4A840" />
         </linearGradient>
       </defs>
 
-      {/* Front wall */}
-      <polygon points="25,75 95,75 95,115 25,115" fill="url(#coop-wall-front)" />
-      {[82, 89, 96, 103, 110].map((y, i) => (
-        <line key={i} x1="25" y1={y} x2="95" y2={y} stroke="#A07040" strokeWidth="0.5" opacity="0.4" />
+      {/* Ground shadow */}
+      <ellipse cx="75" cy="125" rx="55" ry="8" fill="rgba(0,0,0,0.1)" />
+
+      {/* Raised platform / legs - coop is elevated off ground */}
+      <rect x="22" y="105" width="5" height="18" fill="#6D4C41" />
+      <rect x="87" y="105" width="5" height="18" fill="#6D4C41" />
+      <rect x="100" y="92" width="4" height="18" fill="#5D4037" />
+      <rect x="130" y="82" width="4" height="18" fill="#5D4037" />
+
+      {/* Main body - low, wide, rectangular (front face) */}
+      <polygon points="15,80 95,80 95,108 15,108" fill="url(#coop-wood)" />
+      {/* Horizontal plank lines */}
+      {[86, 92, 98, 104].map((y, i) => (
+        <line key={i} x1="15" y1={y} x2="95" y2={y} stroke="#A07040" strokeWidth="0.7" opacity="0.5" />
+      ))}
+      {/* Vertical plank joints */}
+      {[35, 55, 75].map((x, i) => (
+        <line key={`v${i}`} x1={x} y1="80" x2={x} y2="108" stroke="#A07040" strokeWidth="0.3" opacity="0.3" />
       ))}
 
-      {/* Side wall */}
-      <polygon points="95,75 135,55 135,95 95,115" fill="url(#coop-wall-side)" />
-      {[62, 69, 76, 83, 90].map((y, i) => (
-        <line key={i} x1="95" y1={y + 13} x2="135" y2={y} stroke="#8B6030" strokeWidth="0.5" opacity="0.4" />
+      {/* Side face (isometric right) */}
+      <polygon points="95,80 140,62 140,90 95,108" fill="url(#coop-wood-side)" />
+      {[68, 74, 80, 86].map((y, i) => (
+        <line key={i} x1="95" y1={y + 12} x2="140" y2={y} stroke="#7B5B3A" strokeWidth="0.5" opacity="0.4" />
       ))}
 
-      {/* Roof front */}
-      <polygon points="15,75 60,40 100,75" fill="url(#coop-roof-front)" />
-      {[0, 1, 2, 3].map((i) => {
-        const y = 48 + i * 8;
-        const leftX = 15 + (75 - y) * 0.56 + i * 2;
-        const rightX = 100 - (75 - y) * 0.56 - i * 2;
-        return <line key={i} x1={leftX} y1={y} x2={rightX} y2={y} stroke="#7B1010" strokeWidth="0.8" opacity="0.5" />;
-      })}
+      {/* Sloped roof - single slope (lean-to style, tilting back) */}
+      {/* Front overhang */}
+      <polygon points="10,80 100,80 100,72 10,72" fill="url(#coop-roof)" />
+      {/* Main roof surface (sloped back) */}
+      <polygon points="10,72 100,72 145,54 55,54" fill="url(#coop-roof)" />
+      {/* Roof side face */}
+      <polygon points="100,72 145,54 145,62 100,80" fill="url(#coop-roof-side)" />
+      {/* Roof edge highlight */}
+      <line x1="10" y1="72" x2="55" y2="54" stroke="#A1887F" strokeWidth="1" opacity="0.5" />
+      <line x1="10" y1="72" x2="100" y2="72" stroke="#A1887F" strokeWidth="1" opacity="0.4" />
 
-      {/* Roof side */}
-      <polygon points="100,75 60,40 100,20 140,55" fill="url(#coop-roof-side)" />
-      <line x1="60" y1="40" x2="100" y2="20" stroke="#901818" strokeWidth="2" />
-
-      {/* Main door */}
-      <rect x="42" y="92" width="22" height="23" fill="#5D3A1A" rx="2" />
-      <rect x="44" y="94" width="18" height="19" fill="#4A2E14" rx="1" />
-      <line x1="53" y1="94" x2="53" y2="113" stroke="#5D3A1A" strokeWidth="1" />
-      <line x1="44" y1="103" x2="62" y2="103" stroke="#5D3A1A" strokeWidth="1" />
-      <circle cx="58" cy="104" r="1.5" fill="#FFD54F" />
-
-      {/* Window left */}
-      <rect x="30" y="82" width="10" height="8" fill="#87CEEB" rx="1" stroke="#5D3A1A" strokeWidth="1.5" />
-      <line x1="35" y1="82" x2="35" y2="90" stroke="#5D3A1A" strokeWidth="1" />
-      <line x1="30" y1="86" x2="40" y2="86" stroke="#5D3A1A" strokeWidth="1" />
-      <rect x="29" y="90" width="12" height="3" fill="#8B6030" rx="0.5" />
-      <circle cx="32" cy="89" r="2" fill="#FF6B9D" />
-      <circle cx="38" cy="89" r="2" fill="#FFD93D" />
-
-      {/* Window right */}
-      <rect x="68" y="82" width="10" height="8" fill="#87CEEB" rx="1" stroke="#5D3A1A" strokeWidth="1.5" />
-      <line x1="73" y1="82" x2="73" y2="90" stroke="#5D3A1A" strokeWidth="1" />
-      <line x1="68" y1="86" x2="78" y2="86" stroke="#5D3A1A" strokeWidth="1" />
-      <rect x="67" y="90" width="12" height="3" fill="#8B6030" rx="0.5" />
-      <circle cx="70" cy="89" r="2" fill="#C77DFF" />
-      <circle cx="76" cy="89" r="2" fill="#FF6B9D" />
-
-      {/* Chicken door on side */}
-      <rect x="100" y="88" width="12" height="10" fill="#3E2723" rx="2" />
-      <rect x="101" y="89" width="10" height="8" fill="#2E1B0E" rx="1" />
-      <polygon points="100,98 112,98 118,102 106,102" fill="#A07040" />
-
-      {/* Hay bale */}
-      <ellipse cx="140" cy="100" rx="10" ry="7" fill="#E8C56D" />
-      <ellipse cx="140" cy="98" rx="10" ry="5" fill="#F0D078" />
-      {[133, 137, 143, 147].map((x, i) => (
-        <line key={i} x1={x} y1={i % 2 === 0 ? 98 : 97} x2={x} y2={i % 2 === 0 ? 102 : 103} stroke="#C8A040" strokeWidth="0.5" />
+      {/* Wire mesh / ventilation on front (chicken wire pattern) */}
+      <rect x="20" y="82" width="24" height="14" fill="#4A3520" rx="1" />
+      <rect x="21" y="83" width="22" height="12" fill="#2E1B0E" rx="1" opacity="0.6" />
+      {/* Wire mesh lines */}
+      {[0, 1, 2, 3].map((i) => (
+        <line key={`wh${i}`} x1="21" y1={84 + i * 3} x2="43" y2={84 + i * 3} stroke="#9E9E9E" strokeWidth="0.4" opacity="0.5" />
       ))}
+      {[0, 1, 2, 3, 4].map((i) => (
+        <line key={`wv${i}`} x1={23 + i * 5} y1="83" x2={23 + i * 5} y2="95" stroke="#9E9E9E" strokeWidth="0.4" opacity="0.5" />
+      ))}
+
+      {/* Small poultry door (pop hole) */}
+      <rect x="55" y="96" width="14" height="12" fill="#4A2E14" rx="1" />
+      <rect x="56" y="97" width="12" height="10" fill="#3E2420" rx="1" />
+
+      {/* Ramp from pop hole */}
+      <polygon points="55,108 69,108 78,122 45,122" fill="#A07040" />
+      <line x1="50" y1="117" x2="74" y2="117" stroke="#8B6030" strokeWidth="0.5" opacity="0.4" />
+      <line x1="52" y1="112" x2="72" y2="112" stroke="#8B6030" strokeWidth="0.5" opacity="0.4" />
+      {/* Ramp cleats (grip strips) */}
+      {[0, 1, 2, 3].map((i) => (
+        <line key={`rc${i}`} x1={50 + i * 6} y1={110 + i * 3} x2={54 + i * 6} y2={110 + i * 3} stroke="#6D4C41" strokeWidth="1" />
+      ))}
+
+      {/* Nesting boxes visible on side (3 compartments) */}
+      <rect x="102" y="72" width="28" height="18" fill="#8B6030" stroke="#6D4C41" strokeWidth="1" />
+      {/* Nest dividers */}
+      <line x1="111" y1="72" x2="111" y2="90" stroke="#6D4C41" strokeWidth="1" />
+      <line x1="121" y1="72" x2="121" y2="90" stroke="#6D4C41" strokeWidth="1" />
+      {/* Straw in nests */}
+      <ellipse cx="106" cy="86" rx="4" ry="3" fill="#E8C56D" />
+      <ellipse cx="116" cy="85" rx="4" ry="3" fill="#F0D078" />
+      <ellipse cx="126" cy="86" rx="4" ry="3" fill="#E8C56D" />
+      {/* Egg in middle nest */}
+      <ellipse cx="116" cy="83" rx="2.5" ry="3" fill="#FFF8E1" stroke="#FFE082" strokeWidth="0.5" />
+
+      {/* Perch/roost bar visible through mesh */}
+      <line x1="22" y1="93" x2="42" y2="93" stroke="#6D4C41" strokeWidth="1.5" />
+
+      {/* Hay/straw scattered at base */}
+      <ellipse cx="38" cy="122" rx="12" ry="3" fill="#E8C56D" opacity="0.6" />
+      <ellipse cx="80" cy="123" rx="8" ry="2" fill="#F0D078" opacity="0.5" />
+
+      {/* Small feathers scattered */}
+      <path d="M25 120 Q27 118 26 122" fill="white" opacity="0.5" />
+      <path d="M90 119 Q92 117 91 121" fill="white" opacity="0.4" />
 
       {/* Level stars */}
       {Array.from({ length: Math.min(level, 5) }).map((_, i) => (
-        <text key={i} x={38 + i * 14} y="36" fontSize="12" fill="#FFD700"
-          style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>&#9733;</text>
+        <text key={i} x={30 + i * 14} y="50" fontSize="12" fill="#FFD700"
+          style={{ filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.5))' }}>★</text>
       ))}
-
-      {/* Chimney smoke */}
-      <g opacity="0.3">
-        <circle cx="90" cy="25" r="4" fill="#ccc">
-          <animate attributeName="cy" values="25;15;5" dur="4s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.3;0.2;0" dur="4s" repeatCount="indefinite" />
-          <animate attributeName="r" values="4;6;8" dur="4s" repeatCount="indefinite" />
-        </circle>
-        <circle cx="92" cy="30" r="3" fill="#ccc">
-          <animate attributeName="cy" values="30;20;10" dur="4s" begin="1.5s" repeatCount="indefinite" />
-          <animate attributeName="opacity" values="0.3;0.2;0" dur="4s" begin="1.5s" repeatCount="indefinite" />
-          <animate attributeName="r" values="3;5;7" dur="4s" begin="1.5s" repeatCount="indefinite" />
-        </circle>
-      </g>
     </svg>
   );
 }
