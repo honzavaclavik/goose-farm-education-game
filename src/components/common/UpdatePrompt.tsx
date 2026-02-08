@@ -61,7 +61,7 @@ export function UpdatePrompt() {
   return (
     <>
       <div style={bannerStyle}>
-        <span>Nova verze!</span>
+        <span>Nová verze od Daddy Piga!</span>
         <button style={buttonStyle} onClick={() => updateServiceWorker(true)}>
           Aktualizovat
         </button>
