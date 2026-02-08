@@ -5,6 +5,7 @@ import { useGameStore } from '../../store/gameStore';
 import { useProgressStore } from '../../store/progressStore';
 import { useFarmStore } from '../../store/farmStore';
 import { useSound } from '../../hooks/useSound';
+import { GiphyGif } from '../common/GiphyGif';
 import { achievements, Achievement, checkAchievementUnlocked } from '../../data/achievements';
 
 /* ── SVG Components ── */
@@ -382,6 +383,9 @@ export function Achievements() {
             return (
               <div key={achievement.id} style={cardUnlockedStyle(isNew)}>
                 {isNew && <SparkleEffect />}
+                {isNew && achievement.id === newlyUnlocked[0] && (
+                  <GiphyGif tag="trophy celebration" fallbackEmoji="🏆" />
+                )}
                 <div style={cardEmojiStyle}>
                   <span style={{ fontSize: '32px' }}>{achievement.emoji}</span>
                 </div>

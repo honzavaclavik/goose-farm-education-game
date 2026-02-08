@@ -7,6 +7,7 @@ import { useCurrencyStore } from '../../../store/currencyStore';
 import { useProgressStore } from '../../../store/progressStore';
 import { useSound } from '../../../hooks/useSound';
 import { useGooseBonus } from '../../../hooks/useGooseBonus';
+import { GiphyGif } from '../../common/GiphyGif';
 import type { MinigameResult, ExerciseCategory } from '../../../types/farm';
 
 interface MinigameWrapperProps {
@@ -114,6 +115,7 @@ export function MinigameWrapper({
   const [isFinished, setIsFinished] = useState(false);
   const [result, setResult] = useState<MinigameResult | null>(null);
   const [answerHistory, setAnswerHistory] = useState<AnswerHistoryItem[]>([]);
+  const [wrongGifTag, setWrongGifTag] = useState<string | null>(null);
 
   // Delay konstanty
   const correctDelay = 1500;
@@ -205,12 +207,22 @@ export function MinigameWrapper({
     }
   };
 
+  const laughingAnimals = [
+    'dog laughing', 'cat laughing', 'horse laughing',
+    'monkey laughing', 'parrot laughing', 'goat laughing',
+  ];
+
   const handleWrong = () => {
     setStreak(0);
     setWrongAnswers((w) => w + 1);
     setConsecutiveWrong((c) => c + 1);
     updateStreak(false);
     play('wrong');
+
+    // Zobrazit smějící se zvíře
+    const tag = laughingAnimals[Math.floor(Math.random() * laughingAnimals.length)];
+    setWrongGifTag(tag);
+    setTimeout(() => setWrongGifTag(null), wrongDelay);
 
     // Nápověda po 2 chybách
     if (consecutiveWrong >= 1 && settings.hintsEnabled) {
@@ -486,6 +498,20 @@ export function MinigameWrapper({
             wrongDelay,
             addToHistory,
           })}
+
+          <AnimatePresence>
+            {wrongGifTag && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.5, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.5, y: -20 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}
+              >
+                <GiphyGif tag={wrongGifTag} fallbackEmoji="😂" size="large" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Pravý sloupec - chybné odpovědi (skrytý na mobilu) */}
@@ -527,6 +553,7 @@ export function MinigameWrapper({
           <GooseFeverSVG />
         </motion.div>
       )}
+
     </div>
   );
 }
@@ -672,6 +699,13 @@ function ResultScreen({ result, onClose, onPlayAgain }: ResultScreenProps) {
         transition={{ type: 'spring', stiffness: 200, damping: 15 }}
       >
         <TrophySVG percentage={percentage} />
+        {percentage >= 80 ? (
+          <GiphyGif tag="celebration dance" fallbackEmoji="🎉" size="large" />
+        ) : percentage >= 50 ? (
+          <GiphyGif tag="good job thumbs up" fallbackEmoji="👍" size="large" />
+        ) : (
+          <GiphyGif tag="try again funny" fallbackEmoji="💪" size="large" />
+        )}
         <div style={titleStyle}>Hotovo!</div>
 
         <div style={statsGridStyle}>

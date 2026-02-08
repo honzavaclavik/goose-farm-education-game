@@ -4,6 +4,7 @@ import { useGameStore } from '../../store/gameStore';
 import { useProgressStore } from '../../store/progressStore';
 import { useCurrencyStore } from '../../store/currencyStore';
 import { useSound } from '../../hooks/useSound';
+import { GiphyGif } from '../common/GiphyGif';
 
 interface DailyChallenge {
   id: string;
@@ -219,6 +220,7 @@ export function DailyChallenges() {
   const { play } = useSound();
 
   const today = new Date().toISOString().split('T')[0];
+  const [claimedNow, setClaimedNow] = useState<string[]>([]);
 
   const [state, setState] = useState<DailyChallengeState>(() => {
     const loaded = loadState();
@@ -268,6 +270,7 @@ export function DailyChallenges() {
     addXp(challenge.reward.xp);
     play('purchase');
 
+    setClaimedNow((prev) => [...prev, challenge.id]);
     setState((prev) => ({
       ...prev,
       claimed: [...prev.claimed, challenge.id],
@@ -504,6 +507,9 @@ export function DailyChallenges() {
                     <span style={{ position: 'relative', zIndex: 1 }}>Vyzvednout</span>
                   </button>
                 </div>
+              )}
+              {claimedNow.includes(challenge.id) && (
+                <GiphyGif tag="reward prize" fallbackEmoji="🎁" />
               )}
             </div>
           );

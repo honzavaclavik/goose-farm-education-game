@@ -55,8 +55,6 @@ export function FarmView() {
   const { viewportRef, camera, handlers } = useFarmCamera({
     worldWidth: WORLD_WIDTH,
     worldHeight: WORLD_HEIGHT,
-    initialX: -(WORLD_WIDTH / 2 - 500),
-    initialY: -(WORLD_HEIGHT / 2 - 250),
   });
 
   // Calculate coop centers for goose walking

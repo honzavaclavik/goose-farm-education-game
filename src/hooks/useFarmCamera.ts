@@ -25,11 +25,12 @@ export function useFarmCamera({
 }: UseFarmCameraOptions) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
-  const [camera, setCamera] = useState<CameraState>(() => ({
-    x: initialX ?? -(worldWidth / 2 - 400),
-    y: initialY ?? -(worldHeight / 2 - 300),
+  const [camera, setCamera] = useState<CameraState>({
+    x: initialX ?? 0,
+    y: initialY ?? 0,
     scale: 1,
-  }));
+  });
+  const hasInitialized = useRef(false);
 
   const isDragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
@@ -58,6 +59,30 @@ export function useFarmCamera({
       y: Math.max(minY, Math.min(maxY, y)),
     };
   }, [worldWidth, worldHeight]);
+
+  // Fit-to-view on mount: calculate scale and center based on actual viewport
+  useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp || hasInitialized.current) return;
+    hasInitialized.current = true;
+
+    const vpW = vp.clientWidth;
+    const vpH = vp.clientHeight;
+
+    // Scale to fit entire world in viewport with a small padding
+    const padding = 0.9; // 90% of viewport used
+    const fitScale = Math.min(
+      (vpW * padding) / worldWidth,
+      (vpH * padding) / worldHeight,
+    );
+    const scale = Math.max(minScale, Math.min(maxScale, fitScale));
+
+    // Center the world in the viewport
+    const x = (vpW - worldWidth * scale) / 2;
+    const y = (vpH - worldHeight * scale) / 2;
+
+    setCamera({ x, y, scale });
+  }, [worldWidth, worldHeight, minScale, maxScale]);
 
   // Mouse handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
