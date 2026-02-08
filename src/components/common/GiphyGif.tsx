@@ -1,17 +1,21 @@
 import { CSSProperties } from 'react';
-import { useGiphy } from '../../hooks/useGiphy';
+import { useRandomGif } from '../../hooks/useGiphy';
 
 interface GiphyGifProps {
-  tag: string;
-  fallbackEmoji: string;
+  /** Direct URL to display. If omitted, picks a random one. */
+  url?: string;
+  /** @deprecated No longer used, kept for API compat */
+  tag?: string;
+  /** @deprecated No longer used */
+  fallbackEmoji?: string;
   size?: 'small' | 'large';
 }
 
-export function GiphyGif({ tag, fallbackEmoji, size = 'small' }: GiphyGifProps) {
-  const { gifUrl, isLoading } = useGiphy(tag);
+export function GiphyGif({ url, size = 'small' }: GiphyGifProps) {
+  const randomUrl = useRandomGif();
+  const gifUrl = url ?? randomUrl;
 
   const maxW = size === 'large' ? '400px' : '300px';
-  const emojiSize = size === 'large' ? '80px' : '56px';
 
   const containerStyle: CSSProperties = {
     display: 'flex',
@@ -36,47 +40,10 @@ export function GiphyGif({ tag, fallbackEmoji, size = 'small' }: GiphyGifProps) 
     borderRadius: 'var(--radius-md, 8px)',
   };
 
-
-  if (isLoading) {
-    return (
-      <div style={containerStyle}>
-        <div style={{ ...frameStyle, padding: '20px 30px', textAlign: 'center' }}>
-          <span style={{ fontSize: '24px', animation: 'giphySpin 1s linear infinite', display: 'inline-block' }}>
-            ⏳
-          </span>
-        </div>
-        <style>{`
-          @keyframes giphySpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  if (!gifUrl) {
-    return (
-      <div style={containerStyle}>
-        <div style={{ ...frameStyle, padding: '12px 20px', textAlign: 'center' }}>
-          <span style={{ fontSize: emojiSize, display: 'inline-block', animation: 'giphyBounce 0.6s ease infinite alternate' }}>
-            {fallbackEmoji}
-          </span>
-        </div>
-        <style>{`
-          @keyframes giphyBounce {
-            0% { transform: scale(1) translateY(0); }
-            100% { transform: scale(1.15) translateY(-6px); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
   return (
     <div style={containerStyle}>
       <div style={frameStyle}>
-        <img src={gifUrl} alt={tag} style={imgStyle} />
+        <img src={gifUrl} alt="GIF" style={imgStyle} />
       </div>
     </div>
   );

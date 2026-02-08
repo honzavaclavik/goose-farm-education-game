@@ -8,6 +8,7 @@ import { useProgressStore } from '../../../store/progressStore';
 import { useSound } from '../../../hooks/useSound';
 import { useGooseBonus } from '../../../hooks/useGooseBonus';
 import { GiphyGif } from '../../common/GiphyGif';
+import { getRandomGifUrl } from '../../../hooks/useGiphy';
 import type { MinigameResult, ExerciseCategory } from '../../../types/farm';
 
 interface MinigameWrapperProps {
@@ -115,7 +116,7 @@ export function MinigameWrapper({
   const [isFinished, setIsFinished] = useState(false);
   const [result, setResult] = useState<MinigameResult | null>(null);
   const [answerHistory, setAnswerHistory] = useState<AnswerHistoryItem[]>([]);
-  const [wrongGifTag, setWrongGifTag] = useState<string | null>(null);
+  const [answerGifUrl, setAnswerGifUrl] = useState<string | null>(null);
 
   // Delay konstanty
   const correctDelay = 1500;
@@ -183,8 +184,10 @@ export function MinigameWrapper({
     setShowHint(false);
     updateStreak(true);
 
-    // Zvukové efekty
+    // Zvukové efekty + GIF
     play('correct');
+    setAnswerGifUrl(getRandomGifUrl());
+    setTimeout(() => setAnswerGifUrl(null), correctDelay);
     if (newStreak === 3 || newStreak === 5) {
       setTimeout(() => play('streak'), 200);
     }
@@ -207,11 +210,6 @@ export function MinigameWrapper({
     }
   };
 
-  const laughingAnimals = [
-    'dog laughing', 'cat laughing', 'horse laughing',
-    'monkey laughing', 'parrot laughing', 'goat laughing',
-  ];
-
   const handleWrong = () => {
     setStreak(0);
     setWrongAnswers((w) => w + 1);
@@ -219,10 +217,9 @@ export function MinigameWrapper({
     updateStreak(false);
     play('wrong');
 
-    // Zobrazit smějící se zvíře
-    const tag = laughingAnimals[Math.floor(Math.random() * laughingAnimals.length)];
-    setWrongGifTag(tag);
-    setTimeout(() => setWrongGifTag(null), wrongDelay);
+    // Zobrazit GIF
+    setAnswerGifUrl(getRandomGifUrl());
+    setTimeout(() => setAnswerGifUrl(null), wrongDelay);
 
     // Nápověda po 2 chybách
     if (consecutiveWrong >= 1 && settings.hintsEnabled) {
@@ -500,15 +497,16 @@ export function MinigameWrapper({
           })}
 
           <AnimatePresence>
-            {wrongGifTag && (
+            {answerGifUrl && (
               <motion.div
+                key={answerGifUrl}
                 initial={{ opacity: 0, scale: 0.5, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.5, y: -20 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}
               >
-                <GiphyGif tag={wrongGifTag} fallbackEmoji="😂" size="large" />
+                <GiphyGif url={answerGifUrl} size="large" />
               </motion.div>
             )}
           </AnimatePresence>

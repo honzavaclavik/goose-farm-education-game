@@ -1,9 +1,49 @@
-import { CSSProperties, useState, useEffect } from 'react';
+import { CSSProperties, useState, useEffect, ReactNode } from 'react';
 import { MinigameWrapper, MinigameChildProps } from '../shared/MinigameWrapper';
 import { useExerciseStore } from '../../../store/exerciseStore';
 import { useProgressStore } from '../../../store/progressStore';
 import { Button } from '../../common/Button';
 import type { Exercise } from '../../../types/farm';
+
+/** Renders a single fraction like "2/4" as stacked numerator / line / denominator */
+function FractionDisplay({ numerator, denominator, fontSize }: { numerator: string; denominator: string; fontSize?: string }) {
+  const size = fontSize ?? '1em';
+  const digitSize = `calc(${size} * 0.75)`;
+  return (
+    <span style={{
+      display: 'inline-flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      verticalAlign: 'middle',
+      lineHeight: 1.1,
+      margin: '0 2px',
+    }}>
+      <span style={{ fontSize: digitSize }}>{numerator}</span>
+      <span style={{
+        width: '100%',
+        minWidth: `calc(${digitSize} + 8px)`,
+        height: '2px',
+        background: 'currentColor',
+        borderRadius: '1px',
+      }} />
+      <span style={{ fontSize: digitSize }}>{denominator}</span>
+    </span>
+  );
+}
+
+/** Parses a text string and replaces fraction patterns (e.g. "1/2") with stacked fraction components */
+function renderFractions(text: string, fontSize?: string): ReactNode {
+  // Match fractions like 1/2, 12/34 but not inside longer words
+  const parts = text.split(/(\d+\/\d+)/g);
+  if (parts.length === 1) return text;
+  return parts.map((part, i) => {
+    const match = part.match(/^(\d+)\/(\d+)$/);
+    if (match) {
+      return <FractionDisplay key={i} numerator={match[1]} denominator={match[2]} fontSize={fontSize} />;
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
 
 const difficultyLabels: Record<number, { name: string; description: string }> = {
   1: { name: 'Začátečník', description: 'Sčítání a odčítání zlomků' },
@@ -411,7 +451,7 @@ function FractionFarmGame({
       <div style={{ position: 'relative', marginTop: '40px' }}>
         <div style={roofStyle} />
         <div style={barnStyle}>
-          <div style={questionStyle}>{exercise.word}</div>
+          <div style={questionStyle}>{renderFractions(exercise.word, 'clamp(18px, 5vw, 28px)')}</div>
           {isAnswered && (
             <div style={feedbackStyle}>{isCorrect ? '✓' : '✗'}</div>
           )}
@@ -419,10 +459,10 @@ function FractionFarmGame({
       </div>
 
       {showHint && !isAnswered && (
-        <div style={hintStyle}>💡 {exercise.hint}</div>
+        <div style={hintStyle}>💡 {renderFractions(exercise.hint, '14px')}</div>
       )}
 
-      {isAnswered && <div style={ruleStyle}>📚 {exercise.rule}</div>}
+      {isAnswered && <div style={ruleStyle}>📚 {renderFractions(exercise.rule, '14px')}</div>}
 
       <div style={optionsContainerStyle}>
         {exercise.options?.map((option) => (
@@ -431,7 +471,7 @@ function FractionFarmGame({
             style={getOptionStyle(option)}
             onClick={() => handleAnswer(option)}
           >
-            {option}
+            {renderFractions(option, 'clamp(16px, 4vw, 22px)')}
           </div>
         ))}
       </div>
