@@ -38,6 +38,38 @@ export function useGooseWalk({
   );
 
   const prevIdsRef = useRef<string[]>([]);
+  const prevCentersRef = useRef<Map<string, { x: number; y: number }>>(coopCenters);
+
+  // Snap geese to new center when their wander center changes significantly
+  // (happens when a goose or its coop is dragged)
+  useEffect(() => {
+    const prev = prevCentersRef.current;
+    prevCentersRef.current = coopCenters;
+
+    setPositions((posArr) => {
+      let changed = false;
+      const updated = posArr.map((pos) => {
+        const oldCenter = prev.get(pos.id);
+        const newCenter = coopCenters.get(pos.id);
+        if (!oldCenter || !newCenter) return pos;
+
+        const dx = newCenter.x - oldCenter.x;
+        const dy = newCenter.y - oldCenter.y;
+        // Only snap if center moved more than 30px (not just a tiny float change)
+        if (Math.abs(dx) > 30 || Math.abs(dy) > 30) {
+          changed = true;
+          return {
+            ...pos,
+            x: newCenter.x,
+            y: newCenter.y,
+            facingLeft: newCenter.x < pos.x,
+          };
+        }
+        return pos;
+      });
+      return changed ? updated : posArr;
+    });
+  }, [coopCenters]);
 
   // Update positions when goose list changes
   useEffect(() => {

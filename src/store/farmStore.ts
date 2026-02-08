@@ -6,6 +6,7 @@ interface FarmState {
   geese: Goose[];
   buildings: Building[];
   maxGooseCapacity: number;
+  positions: Record<string, { x: number; y: number }>;
 
   // Actions
   addGoose: (goose: Goose) => void;
@@ -13,6 +14,7 @@ interface FarmState {
   addBuilding: (building: Building) => void;
   upgradeBuilding: (id: string) => boolean;
   getGooseCapacity: () => number;
+  updatePosition: (id: string, x: number, y: number) => void;
   reset: () => void;
 }
 
@@ -45,6 +47,7 @@ export const useFarmStore = create<FarmState>()(
       geese: [starterGoose],
       buildings: [starterCoop],
       maxGooseCapacity: 3,
+      positions: {},
 
       addGoose: (goose) =>
         set((state) => {
@@ -95,6 +98,11 @@ export const useFarmStore = create<FarmState>()(
         return true;
       },
 
+      updatePosition: (id, x, y) =>
+        set((state) => ({
+          positions: { ...state.positions, [id]: { x, y } },
+        })),
+
       getGooseCapacity: () => {
         const state = get();
         return state.buildings
@@ -107,6 +115,7 @@ export const useFarmStore = create<FarmState>()(
           geese: [starterGoose],
           buildings: [starterCoop],
           maxGooseCapacity: 3,
+          positions: {},
         }),
     }),
     {

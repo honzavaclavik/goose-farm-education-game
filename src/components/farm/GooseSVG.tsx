@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useState } from 'react';
 
 interface GooseSVGProps {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
@@ -70,6 +70,8 @@ export function GooseSVG({
   };
 
   const colors = getColors();
+
+  const [hovered, setHovered] = useState(false);
 
   const containerStyle: CSSProperties = {
     width: '80px',
@@ -288,17 +290,45 @@ export function GooseSVG({
     </svg>
   );
 
+  const rarityLabel: Record<string, string> = {
+    common: 'Běžná',
+    rare: 'Vzácná',
+    epic: 'Epická',
+    legendary: 'Legendární',
+  };
+
+  const tooltipStyle: CSSProperties = {
+    position: 'absolute',
+    bottom: '-6px',
+    left: '50%',
+    transform: 'translateX(-50%) translateY(100%)',
+    background: 'rgba(30, 20, 10, 0.9)',
+    color: 'white',
+    padding: '6px 12px',
+    borderRadius: '8px',
+    fontSize: '11px',
+    fontFamily: 'var(--font-heading)',
+    whiteSpace: 'nowrap',
+    fontWeight: 'var(--font-bold)',
+    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+    border: '1px solid rgba(255,255,255,0.15)',
+    zIndex: 50,
+    pointerEvents: 'none',
+    opacity: hovered ? 1 : 0,
+    transition: 'opacity 0.2s',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2px',
+  };
+
   return (
     <div
       style={containerStyle}
       onClick={onClick}
-      title={name ? `${name} (+${eggProduction} 🥚)` : undefined}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.1)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
-      }}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
     >
       {rarity === 'legendary' ? renderLegendaryGoose() : renderCommonGoose()}
       {isCollecting && <div style={eggStyle}>🥚</div>}
@@ -310,6 +340,7 @@ export function GooseSVG({
             right: '-5px',
             fontSize: '16px',
             animation: 'hungryPulse 1s infinite',
+            pointerEvents: 'none',
           }}
         >
           😫
@@ -325,9 +356,18 @@ export function GooseSVG({
             fontSize: '20px',
             animation: 'eggReady 1s infinite',
             cursor: 'pointer',
+            pointerEvents: 'none',
           }}
         >
           🥚
+        </div>
+      )}
+      {name && (
+        <div style={tooltipStyle}>
+          <span>{name}</span>
+          <span style={{ color: '#FFD54F', fontSize: '10px' }}>
+            {rarityLabel[rarity] ?? rarity} · +{eggProduction} vejce
+          </span>
         </div>
       )}
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useLayoutEffect } from 'react';
 
 interface CameraState {
   x: number;
@@ -32,6 +32,9 @@ export function useFarmCamera({
   });
   const hasInitialized = useRef(false);
 
+  // When true, camera ignores all pan/zoom events (element drag in progress)
+  const dragLocked = useRef(false);
+
   const isDragging = useRef(false);
   const lastPos = useRef({ x: 0, y: 0 });
   const lastPinchDist = useRef(0);
@@ -47,12 +50,13 @@ export function useFarmCamera({
     const scaledW = worldWidth * scale;
     const scaledH = worldHeight * scale;
 
-    // Keep the world visible - allow modest overscroll (20%)
-    // but the infinite ground ensures no empty space
-    const minX = -(scaledW - vpW * 0.2);
-    const maxX = vpW * 0.2;
-    const minY = -(scaledH - vpH * 0.2);
-    const maxY = vpH * 0.2;
+    // Symmetric clamping: equal overscroll margin on all sides
+    const marginX = vpW * 0.3;
+    const marginY = vpH * 0.3;
+    const minX = vpW - scaledW - marginX;
+    const maxX = marginX;
+    const minY = vpH - scaledH - marginY;
+    const maxY = marginY;
 
     return {
       x: Math.max(minX, Math.min(maxX, x)),
@@ -61,13 +65,16 @@ export function useFarmCamera({
   }, [worldWidth, worldHeight]);
 
   // Fit-to-view on mount: calculate scale and center based on actual viewport
-  useEffect(() => {
+  // useLayoutEffect ensures we measure after DOM paint but before user sees it
+  useLayoutEffect(() => {
     const vp = viewportRef.current;
     if (!vp || hasInitialized.current) return;
-    hasInitialized.current = true;
 
     const vpW = vp.clientWidth;
     const vpH = vp.clientHeight;
+    if (vpW === 0 || vpH === 0) return; // not laid out yet
+
+    hasInitialized.current = true;
 
     // Scale to fit entire world in viewport with a small padding
     const padding = 0.9; // 90% of viewport used
@@ -86,6 +93,7 @@ export function useFarmCamera({
 
   // Mouse handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (dragLocked.current) return;
     isDragging.current = true;
     lastPos.current = { x: e.clientX, y: e.clientY };
     velocity.current = { x: 0, y: 0 };
@@ -93,7 +101,7 @@ export function useFarmCamera({
   }, []);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging.current) return;
+    if (dragLocked.current || !isDragging.current) return;
 
     const dx = e.clientX - lastPos.current.x;
     const dy = e.clientY - lastPos.current.y;
@@ -137,6 +145,7 @@ export function useFarmCamera({
 
   // Touch handlers
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    if (dragLocked.current) return;
     cancelAnimationFrame(animFrameRef.current);
 
     if (e.touches.length === 1) {
@@ -152,6 +161,7 @@ export function useFarmCamera({
   }, []);
 
   const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (dragLocked.current) return;
     if (e.touches.length === 1 && isDragging.current) {
       const dx = e.touches[0].clientX - lastPos.current.x;
       const dy = e.touches[0].clientY - lastPos.current.y;
@@ -223,6 +233,7 @@ export function useFarmCamera({
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
+      if (dragLocked.current) return;
       const zoomFactor = e.deltaY > 0 ? 0.95 : 1.05;
 
       setCamera(prev => {
@@ -241,9 +252,19 @@ export function useFarmCamera({
     return () => cancelAnimationFrame(animFrameRef.current);
   }, []);
 
+  // Programmatic pan (used by drag auto-scroll)
+  const panBy = useCallback((dx: number, dy: number) => {
+    setCamera(prev => {
+      const clamped = clampCamera(prev.x + dx, prev.y + dy, prev.scale);
+      return { ...prev, ...clamped };
+    });
+  }, [clampCamera]);
+
   return {
     viewportRef,
     camera,
+    dragLocked,
+    panBy,
     handlers: {
       onMouseDown: handleMouseDown,
       onMouseMove: handleMouseMove,

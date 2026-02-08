@@ -1,4 +1,4 @@
-import { CSSProperties, useState, useCallback, useMemo } from 'react';
+import { CSSProperties, useState, useCallback, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../common/Button';
 import { CurrencyDisplay } from '../common/CurrencyDisplay';
@@ -13,15 +13,25 @@ import { useEggProduction } from '../../hooks/useEggProduction';
 import { useSound } from '../../hooks/useSound';
 import { useFarmCamera } from '../../hooks/useFarmCamera';
 import { useGooseWalk } from '../../hooks/useGooseWalk';
+import { useDragElement } from '../../hooks/useDragElement';
 import { FarmBackground } from './FarmBackground';
 import { FarmGround } from './FarmGround';
 import { FarmBuildings } from './FarmBuildings';
 import { GooseSVG } from './GooseSVG';
 
-const WORLD_WIDTH = 1400;
-const WORLD_HEIGHT = 1000;
+const WORLD_WIDTH = 2200;
+const WORLD_HEIGHT = 1600;
 
-// Building layout positions on the world map
+const BUILDING_BOXES: Record<string, { width: number; height: number }> = {
+  coop: { width: 160, height: 150 },
+  field: { width: 200, height: 180 },
+  mill: { width: 140, height: 180 },
+  market: { width: 180, height: 140 },
+};
+
+const GOOSE_BOX = { width: 80, height: 80 };
+
+// Default building layout positions (used for initial placement)
 function getBuildingWorldPosition(type: string, index: number): { x: number; y: number } {
   switch (type) {
     case 'coop':
@@ -39,7 +49,7 @@ function getBuildingWorldPosition(type: string, index: number): { x: number; y: 
 
 export function FarmView() {
   const { setScreen } = useGameStore();
-  const { geese, buildings, getGooseCapacity } = useFarmStore();
+  const { geese, buildings, getGooseCapacity, positions, updatePosition } = useFarmStore();
   const { level, xp, xpToNextLevel } = useProgressStore();
   const { grain } = useCurrencyStore();
   const { feedingCost, feedGeese } = useFarmProduction();
@@ -52,26 +62,85 @@ export function FarmView() {
   const [feedMessage, setFeedMessage] = useState<string | null>(null);
 
   // Camera (drag & zoom)
-  const { viewportRef, camera, handlers } = useFarmCamera({
+  const { viewportRef, camera, dragLocked, panBy, handlers } = useFarmCamera({
     worldWidth: WORLD_WIDTH,
     worldHeight: WORLD_HEIGHT,
   });
 
-  // Calculate coop centers for goose walking
+  // Initialize positions for buildings that don't have one yet
+  useEffect(() => {
+    buildings.forEach((building) => {
+      if (!positions[building.id]) {
+        const buildingIndex = buildings
+          .filter((b) => b.type === building.type)
+          .indexOf(building);
+        const pos = getBuildingWorldPosition(building.type, buildingIndex);
+        updatePosition(building.id, pos.x, pos.y);
+      }
+    });
+  }, [buildings, positions, updatePosition]);
+
+  // Get resolved position for a building (from store or default)
+  const getBuildingPos = useCallback(
+    (buildingId: string, type: string, index: number) => {
+      if (positions[buildingId]) return positions[buildingId];
+      return getBuildingWorldPosition(type, index);
+    },
+    [positions],
+  );
+
+  // Build entries list for collision detection
+  const buildingEntries = useMemo(
+    () =>
+      buildings.map((building) => {
+        const buildingIndex = buildings
+          .filter((b) => b.type === building.type)
+          .indexOf(building);
+        const pos = getBuildingPos(building.id, building.type, buildingIndex);
+        const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
+        return { id: building.id, x: pos.x, y: pos.y, box };
+      }),
+    [buildings, getBuildingPos],
+  );
+
+  // Drag handler
+  const handleDrop = useCallback(
+    (id: string, x: number, y: number) => {
+      updatePosition(id, x, y);
+    },
+    [updatePosition],
+  );
+
+  const { drag, createHandlers } = useDragElement({
+    cameraScale: camera.scale,
+    cameraLock: dragLocked,
+    onDrop: handleDrop,
+    buildings: buildingEntries,
+    worldWidth: WORLD_WIDTH,
+    worldHeight: WORLD_HEIGHT,
+    viewportRef,
+    panBy,
+  });
+
+  // Calculate coop centers for goose walking — use dynamic positions
+  // If a goose was manually dragged, use its stored position as wander center
   const coopCenters = useMemo(() => {
     const map = new Map<string, { x: number; y: number }>();
     const coops = buildings.filter((b) => b.type === 'coop');
 
     geese.forEach((goose, gooseIndex) => {
-      // Assign each goose to a coop (round-robin)
+      // If goose has a stored position (was manually placed), use it as wander center
+      const storedPos = positions[goose.id];
+      if (storedPos) {
+        map.set(goose.id, { x: storedPos.x + 40, y: storedPos.y + 40 });
+        return;
+      }
+
       const coopIndex = coops.length > 0 ? gooseIndex % coops.length : 0;
       const coop = coops[coopIndex];
       if (coop) {
         const buildingIndex = buildings.filter((b) => b.type === 'coop').indexOf(coop);
-        const pos = getBuildingWorldPosition('coop', buildingIndex);
-        // Building center is at (pos.x + 80, pos.y + 75) and is ~160x150
-        // Place each goose's wander center in a ring around the building
-        // using golden angle for even distribution
+        const pos = getBuildingPos(coop.id, 'coop', buildingIndex);
         const angle = ((gooseIndex * 137.5 + 200) % 360) * Math.PI / 180;
         const dist = 180 + (gooseIndex % 3) * 40;
         map.set(goose.id, {
@@ -84,7 +153,7 @@ export function FarmView() {
     });
 
     return map;
-  }, [geese, buildings]);
+  }, [geese, buildings, getBuildingPos, positions]);
 
   const goosePositions = useGooseWalk({
     gooseIds: geese.map((g) => g.id),
@@ -106,6 +175,8 @@ export function FarmView() {
   }, [feedGeese, play]);
 
   const handleCollectEgg = useCallback((gooseId: string) => {
+    // Don't collect egg during drag
+    if (drag.draggedId) return;
     if (collectingEggs.includes(gooseId)) return;
 
     const eggsCollected = collectEgg(gooseId);
@@ -120,14 +191,16 @@ export function FarmView() {
       setCollectingEggs((prev) => prev.filter((id) => id !== gooseId));
       setFeedMessage(null);
     }, 600);
-  }, [collectingEggs, collectEgg, addEggs, play]);
+  }, [collectingEggs, collectEgg, addEggs, play, drag.draggedId]);
 
   const capacity = getGooseCapacity();
+
+  const isDragging = drag.draggedId !== null;
 
   const containerStyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
-    height: '100vh',
+    height: '100dvh',
     position: 'relative',
     overflow: 'hidden',
   };
@@ -143,6 +216,7 @@ export function FarmView() {
     gap: 'var(--space-3)',
     boxShadow: '0 4px 12px rgba(90, 62, 34, 0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
     zIndex: 10,
+    flexShrink: 0,
   };
 
   const levelBadgeStyle: CSSProperties = {
@@ -165,9 +239,10 @@ export function FarmView() {
 
   const viewportStyle: CSSProperties = {
     flex: 1,
+    minHeight: 0,
     position: 'relative',
     overflow: 'hidden',
-    cursor: 'grab',
+    cursor: isDragging ? 'grabbing' : 'grab',
     touchAction: 'none',
   };
 
@@ -230,6 +305,7 @@ export function FarmView() {
     borderTop: '3px solid var(--color-stone-dark)',
     zIndex: 10,
     boxShadow: '0 -4px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
+    flexShrink: 0,
   };
 
   const statusBarStyle: CSSProperties = {
@@ -290,20 +366,71 @@ export function FarmView() {
             const buildingIndex = buildings
               .filter((b) => b.type === building.type)
               .indexOf(building);
-            const pos = getBuildingWorldPosition(building.type, buildingIndex);
+            const pos = getBuildingPos(building.id, building.type, buildingIndex);
+            const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
+
+            const isBeingDragged = drag.draggedId === building.id;
+            const displayX = isBeingDragged ? drag.dragX : pos.x;
+            const displayY = isBeingDragged ? drag.dragY : pos.y;
+
+            const dragHandlers = createHandlers(
+              building.id,
+              pos.x,
+              pos.y,
+              true,
+              box,
+            );
+
             return (
               <div
                 key={building.id}
                 style={{
                   position: 'absolute',
-                  left: pos.x,
-                  top: pos.y,
-                  width: '160px',
-                  height: '150px',
-                  zIndex: 2,
-                  transition: 'transform 0.2s',
+                  left: displayX,
+                  top: displayY,
+                  width: `${box.width}px`,
+                  height: `${box.height}px`,
+                  zIndex: isBeingDragged ? 100 : 2,
+                  transition: isBeingDragged ? 'none' : 'left 0.3s ease-out, top 0.3s ease-out',
+                  transform: isBeingDragged ? 'scale(1.1)' : 'scale(1)',
+                  filter: isBeingDragged
+                    ? drag.hasCollision
+                      ? 'drop-shadow(0 4px 8px rgba(255,0,0,0.5))'
+                      : 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
+                    : isDragging
+                      ? 'opacity(0.6)'
+                      : 'none',
+                  opacity: isDragging && !isBeingDragged ? 0.6 : 1,
+                  cursor: 'pointer',
+                  touchAction: 'none',
                 }}
+                {...dragHandlers}
               >
+                {/* Collision indicator */}
+                {isBeingDragged && drag.hasCollision && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: -4,
+                      border: '3px solid rgba(255, 60, 60, 0.7)',
+                      borderRadius: '8px',
+                      pointerEvents: 'none',
+                      animation: 'shake 0.3s ease-in-out infinite',
+                    }}
+                  />
+                )}
+                {/* Valid position indicator */}
+                {isBeingDragged && !drag.hasCollision && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: -4,
+                      border: '3px solid rgba(76, 175, 80, 0.6)',
+                      borderRadius: '8px',
+                      pointerEvents: 'none',
+                    }}
+                  />
+                )}
                 <FarmBuildings buildings={[building]} />
               </div>
             );
@@ -314,19 +441,44 @@ export function FarmView() {
             const pos = goosePositions.find((p) => p.id === goose.id);
             if (!pos) return null;
 
+            const isBeingDragged = drag.draggedId === goose.id;
+            const displayX = isBeingDragged ? drag.dragX : pos.x - 40;
+            const displayY = isBeingDragged ? drag.dragY : pos.y - 40;
+
+            const dragHandlers = createHandlers(
+              goose.id,
+              pos.x - 40,
+              pos.y - 40,
+              false,
+              GOOSE_BOX,
+            );
+
             return (
               <div
                 key={goose.id}
                 style={{
                   position: 'absolute',
-                  left: pos.x - 40,
-                  top: pos.y - 40,
+                  left: displayX,
+                  top: displayY,
                   width: '80px',
                   height: '80px',
-                  zIndex: 3,
-                  transition: 'left 2.5s ease-in-out, top 2.5s ease-in-out',
-                  transform: pos.facingLeft ? 'scaleX(-1)' : 'scaleX(1)',
+                  zIndex: isBeingDragged ? 100 : 3,
+                  transition: isBeingDragged
+                    ? 'none'
+                    : 'left 2.5s ease-in-out, top 2.5s ease-in-out',
+                  transform: isBeingDragged
+                    ? 'scale(1.15)'
+                    : pos.facingLeft
+                      ? 'scaleX(-1)'
+                      : 'scaleX(1)',
+                  filter: isBeingDragged
+                    ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
+                    : undefined,
+                  opacity: isDragging && !isBeingDragged ? 0.6 : 1,
+                  cursor: 'pointer',
+                  touchAction: 'none',
                 }}
+                {...dragHandlers}
               >
                 <GooseSVG
                   rarity={goose.rarity}
@@ -433,6 +585,15 @@ export function FarmView() {
           🏠 Menu
         </Button>
       </div>
+
+      {/* CSS animation for collision shake */}
+      <style>{`
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-3px); }
+          75% { transform: translateX(3px); }
+        }
+      `}</style>
     </div>
   );
 }

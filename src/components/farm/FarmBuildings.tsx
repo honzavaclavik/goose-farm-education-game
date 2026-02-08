@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import { CSSProperties, useState } from 'react';
 import { Building } from '../../types/farm';
 
 interface FarmBuildingsProps {
@@ -388,61 +388,10 @@ function MarketSVG({ level }: { level: number }) {
   );
 }
 
-export function FarmBuildings({ buildings }: FarmBuildingsProps) {
-  const containerStyle: CSSProperties = {
-    display: 'flex',
-    gap: 'var(--space-5)',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    padding: 'var(--space-4)',
-  };
+function BuildingCard({ building }: { building: Building }) {
+  const [hovered, setHovered] = useState(false);
 
-  const buildingContainerStyle: CSSProperties = {
-    width: '140px',
-    height: '130px',
-    position: 'relative',
-    transition: 'all var(--transition-base)',
-    cursor: 'pointer',
-    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.25))',
-  };
-
-  const labelStyle: CSSProperties = {
-    position: 'absolute',
-    bottom: '-28px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    background: 'var(--texture-wood)',
-    color: 'white',
-    padding: 'var(--space-1) var(--space-3)',
-    borderRadius: 'var(--radius-sm)',
-    fontSize: 'var(--text-xs)',
-    fontFamily: 'var(--font-heading)',
-    whiteSpace: 'nowrap',
-    fontWeight: 'var(--font-bold)',
-    textShadow: 'var(--text-outline-brown)',
-    boxShadow: 'var(--shadow-wood-panel)',
-    border: '2px solid var(--color-wood-border)',
-  };
-
-  const effectStyle: CSSProperties = {
-    position: 'absolute',
-    bottom: '-48px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    background: 'linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%)',
-    color: 'white',
-    fontSize: 'var(--text-xs)',
-    fontFamily: 'var(--font-heading)',
-    whiteSpace: 'nowrap',
-    fontWeight: 'var(--font-bold)',
-    textShadow: 'var(--text-outline-dark)',
-    padding: 'var(--space-1) var(--space-3)',
-    borderRadius: 'var(--radius-sm)',
-    boxShadow: '0 2px 8px rgba(212, 160, 23, 0.4)',
-    border: '2px solid var(--color-gold-dark)',
-  };
-
-  const getBuildingComponent = (building: Building) => {
+  const getBuildingComponent = () => {
     switch (building.type) {
       case 'coop': return <CoopSVG level={building.level} />;
       case 'field': return <FieldSVG level={building.level} />;
@@ -452,47 +401,95 @@ export function FarmBuildings({ buildings }: FarmBuildingsProps) {
     }
   };
 
-  const getBuildingEffect = (building: Building): string | null => {
+  const getBuildingEffect = (): string | null => {
     switch (building.type) {
-      case 'field': return `+${building.effect} 🌾/min`;
-      case 'coop': return `+${building.effect} 🪿 kapacita`;
+      case 'field': return `+${building.effect} zrní/min`;
+      case 'coop': return `kapacita: ${building.effect} hus`;
+      case 'mill': return `+${building.effect}% efektivita`;
+      case 'market': return `+${building.effect}% cena`;
       default: return null;
     }
+  };
+
+  const containerStyle: CSSProperties = {
+    width: '140px',
+    height: '130px',
+    position: 'relative',
+    cursor: 'pointer',
+    filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.25))',
+  };
+
+  const tooltipStyle: CSSProperties = {
+    position: 'absolute',
+    bottom: '-8px',
+    left: '50%',
+    transform: 'translateX(-50%) translateY(100%)',
+    background: 'rgba(30, 20, 10, 0.9)',
+    color: 'white',
+    padding: '6px 12px',
+    borderRadius: '8px',
+    fontSize: '11px',
+    fontFamily: 'var(--font-heading)',
+    whiteSpace: 'nowrap',
+    fontWeight: 'var(--font-bold)',
+    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+    border: '1px solid rgba(255,255,255,0.15)',
+    zIndex: 50,
+    pointerEvents: 'none',
+    opacity: hovered ? 1 : 0,
+    transition: 'opacity 0.2s',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '2px',
+  };
+
+  const effect = getBuildingEffect();
+
+  return (
+    <div
+      style={containerStyle}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+    >
+      {getBuildingComponent()}
+      {building.level >= 3 && (
+        <div style={{
+          position: 'absolute',
+          top: '-5px',
+          right: '-5px',
+          fontSize: '20px',
+          animation: 'pulse 2s ease-in-out infinite',
+          filter: 'drop-shadow(0 0 4px rgba(255,215,0,0.8))',
+          pointerEvents: 'none',
+        }}>
+          &#10024;
+        </div>
+      )}
+      <div style={tooltipStyle}>
+        <span>{building.name} (Lv.{building.level})</span>
+        {effect && (
+          <span style={{ color: '#FFD54F', fontSize: '10px' }}>{effect}</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export function FarmBuildings({ buildings }: FarmBuildingsProps) {
+  const containerStyle: CSSProperties = {
+    display: 'flex',
+    gap: 'var(--space-5)',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    padding: 'var(--space-4)',
   };
 
   return (
     <div style={containerStyle}>
       {buildings.map((building) => (
-        <div
-          key={building.id}
-          style={buildingContainerStyle}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-8px) scale(1.05)';
-            (e.currentTarget as HTMLDivElement).style.filter = 'drop-shadow(0 8px 20px rgba(0,0,0,0.3))';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0) scale(1)';
-            (e.currentTarget as HTMLDivElement).style.filter = 'drop-shadow(0 4px 12px rgba(0,0,0,0.25))';
-          }}
-        >
-          {getBuildingComponent(building)}
-          {building.level >= 3 && (
-            <div style={{
-              position: 'absolute',
-              top: '-5px',
-              right: '-5px',
-              fontSize: '20px',
-              animation: 'pulse 2s ease-in-out infinite',
-              filter: 'drop-shadow(0 0 4px rgba(255,215,0,0.8))',
-            }}>
-              &#10024;
-            </div>
-          )}
-          <div style={labelStyle}>{building.name}</div>
-          {getBuildingEffect(building) && (
-            <div style={effectStyle}>{getBuildingEffect(building)}</div>
-          )}
-        </div>
+        <BuildingCard key={building.id} building={building} />
       ))}
     </div>
   );
