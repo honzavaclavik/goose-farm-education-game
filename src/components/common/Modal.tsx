@@ -27,9 +27,10 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
   };
 
   const modalStyle: CSSProperties = {
-    background: 'var(--color-bg-card)',
-    borderRadius: 'var(--radius-2xl)',
-    boxShadow: 'var(--shadow-xl)',
+    background: 'var(--texture-parchment)',
+    borderRadius: 'var(--radius-lg)',
+    border: 'var(--border-gold-frame)',
+    boxShadow: '0 12px 48px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3)',
     maxWidth: '500px',
     width: '100%',
     maxHeight: '90vh',
@@ -39,26 +40,28 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
   };
 
   const headerStyle: CSSProperties = {
-    padding: 'var(--space-6)',
-    borderBottom: '2px solid rgba(0, 0, 0, 0.05)',
+    padding: 'var(--space-4) var(--space-6)',
+    background: 'var(--texture-wood)',
+    borderBottom: '2px solid var(--color-wood-border)',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 100%)',
-    borderTopLeftRadius: 'var(--radius-2xl)',
-    borderTopRightRadius: 'var(--radius-2xl)',
+    borderTopLeftRadius: 'var(--radius-lg)',
+    borderTopRightRadius: 'var(--radius-lg)',
   };
 
   const titleStyle: CSSProperties = {
     fontSize: 'var(--text-2xl)',
+    fontFamily: 'var(--font-heading)',
     fontWeight: 'var(--font-bold)',
-    color: 'var(--color-text-primary)',
+    color: 'white',
+    textShadow: 'var(--text-outline-dark)',
     margin: 0,
   };
 
   const closeButtonStyle: CSSProperties = {
-    background: 'rgba(0, 0, 0, 0.1)',
-    border: 'none',
+    background: 'var(--color-wood-dark)',
+    border: '2px solid var(--color-wood-border)',
     borderRadius: 'var(--radius-full)',
     width: '32px',
     height: '32px',
@@ -66,10 +69,10 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
     alignItems: 'center',
     justifyContent: 'center',
     cursor: 'pointer',
-    fontSize: 'var(--text-xl)',
-    color: 'var(--color-text-secondary)',
+    fontSize: 'var(--text-base)',
+    color: 'var(--color-parchment)',
     transition: 'all var(--transition-base)',
-    boxShadow: 'var(--shadow-sm)',
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 4px rgba(0,0,0,0.2)',
   };
 
   const contentStyle: CSSProperties = {
@@ -86,11 +89,11 @@ export function Modal({ isOpen, onClose, children, title }: ModalProps) {
               style={closeButtonStyle}
               onClick={onClose}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.background = '#8b5e3c';
                 e.currentTarget.style.transform = 'scale(1.1)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.background = 'var(--color-wood-dark)';
                 e.currentTarget.style.transform = 'scale(1)';
               }}
             >

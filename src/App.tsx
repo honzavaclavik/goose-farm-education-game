@@ -1,4 +1,5 @@
 import { useGameStore } from './store/gameStore';
+import { ScreenTransition } from './components/common/ScreenTransition';
 import { MainMenu } from './components/screens/MainMenu';
 import { MinigameSelector } from './components/screens/MinigameSelector';
 import { FarmView } from './components/farm/FarmView';
@@ -16,6 +17,10 @@ import './App.css';
 
 function App() {
   const { currentScreen, currentMinigame } = useGameStore();
+
+  const screenKey = currentScreen === 'minigame' && currentMinigame
+    ? `minigame-${currentMinigame}`
+    : currentScreen;
 
   const renderScreen = () => {
     // Minigame routing
@@ -57,7 +62,9 @@ function App() {
 
   return (
     <>
-      {renderScreen()}
+      <ScreenTransition screenKey={screenKey}>
+        {renderScreen()}
+      </ScreenTransition>
       <SecretDebugPanel />
     </>
   );

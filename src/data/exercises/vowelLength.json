@@ -67,11 +67,11 @@
     {
       "id": "vowel-008",
       "word": "kn_ha",
-      "answer": "í",
+      "answer": "i",
       "options": ["i", "í"],
       "difficulty": 1,
       "hint": "Čteme z ní",
-      "rule": "Dlouhé Í ve slově kniha"
+      "rule": "Krátké I ve slově kniha"
     },
     {
       "id": "vowel-009",

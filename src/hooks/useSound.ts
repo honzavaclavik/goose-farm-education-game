@@ -10,7 +10,14 @@ type SoundEffect =
   | 'purchase'
   | 'levelUp'
   | 'streak'
-  | 'gooseFever';
+  | 'gooseFever'
+  | 'screenTransition'
+  | 'buttonHover'
+  | 'panelOpen'
+  | 'panelClose'
+  | 'claimReward'
+  | 'achievementUnlock'
+  | 'coinDrop';
 
 // Web Audio API zvuky (syntetizované)
 const audioContext = typeof window !== 'undefined' ? new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)() : null;
@@ -63,6 +70,35 @@ function playMelody(notes: { freq: number; dur: number }[], type: OscillatorType
     oscillator.stop(time + dur);
     time += dur * 0.8;
   });
+}
+
+function playNoise(duration: number, volume = 0.1) {
+  if (!audioContext) return;
+
+  const bufferSize = audioContext.sampleRate * duration;
+  const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = (Math.random() * 2 - 1) * 0.3;
+  }
+
+  const source = audioContext.createBufferSource();
+  source.buffer = buffer;
+
+  const gainNode = audioContext.createGain();
+  const filter = audioContext.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 800;
+
+  source.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  gainNode.gain.value = volume;
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+  source.start(audioContext.currentTime);
+  source.stop(audioContext.currentTime + duration);
 }
 
 const soundEffects: Record<SoundEffect, () => void> = {
@@ -125,6 +161,50 @@ const soundEffects: Record<SoundEffect, () => void> = {
       { freq: 880, dur: 0.1 },
       { freq: 1047, dur: 0.3 },
     ], 'square');
+  },
+  screenTransition: () => {
+    // Soft whoosh - šumivý přechod
+    playNoise(0.15, 0.06);
+    playTone(400, 0.08, 'sine', 0.05);
+  },
+  buttonHover: () => {
+    // Jemný tick
+    playTone(1200, 0.03, 'sine', 0.04);
+  },
+  panelOpen: () => {
+    // Dřevěný creak - stoupající
+    playTone(180, 0.1, 'sawtooth', 0.08);
+    setTimeout(() => playTone(260, 0.08, 'sine', 0.06), 60);
+  },
+  panelClose: () => {
+    // Dřevěný thud - klesající
+    playTone(220, 0.08, 'sawtooth', 0.07);
+    setTimeout(() => playTone(150, 0.1, 'sine', 0.05), 50);
+  },
+  claimReward: () => {
+    // Triumfální zvonění
+    playMelody([
+      { freq: 784, dur: 0.08 },
+      { freq: 988, dur: 0.08 },
+      { freq: 1175, dur: 0.12 },
+      { freq: 1318, dur: 0.2 },
+    ]);
+  },
+  achievementUnlock: () => {
+    // Epická fanfára
+    playMelody([
+      { freq: 523, dur: 0.12 },
+      { freq: 659, dur: 0.12 },
+      { freq: 784, dur: 0.12 },
+      { freq: 1047, dur: 0.15 },
+      { freq: 1318, dur: 0.3 },
+    ]);
+  },
+  coinDrop: () => {
+    // Metalický zvuk mince
+    playTone(2400, 0.04, 'square', 0.08);
+    setTimeout(() => playTone(1800, 0.06, 'sine', 0.06), 40);
+    setTimeout(() => playTone(2200, 0.04, 'square', 0.04), 80);
   },
 };
 

@@ -17,7 +17,7 @@ body {
 body {
   overflow-y: auto;
   overflow-x: hidden;
-  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   background: linear-gradient(180deg, var(--color-sky-start) 0%, var(--color-grass-end) 100%);
   touch-action: pan-y;
   color: var(--color-text-primary);
@@ -25,4 +25,37 @@ body {
 
 #root {
   height: 100%;
+}
+
+/* Responsive: Mobile (<480px) */
+@media (max-width: 480px) {
+  :root {
+    --text-xs: 0.7rem;
+    --text-sm: 0.8rem;
+    --text-base: 0.9rem;
+    --text-lg: 1rem;
+    --text-xl: 1.1rem;
+    --text-2xl: 1.3rem;
+    --text-3xl: 1.6rem;
+    --space-4: 12px;
+    --space-5: 16px;
+    --space-6: 18px;
+    --space-8: 24px;
+  }
+}
+
+/* Responsive: Tablet (481-768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --text-xs: 0.75rem;
+    --text-sm: 0.85rem;
+    --text-base: 0.95rem;
+  }
+}
+
+/* Responsive: Desktop (>768px) - hover effects active */
+@media (min-width: 769px) {
+  button:hover {
+    filter: brightness(1.05);
+  }
 }

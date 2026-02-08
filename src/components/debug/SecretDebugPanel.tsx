@@ -19,6 +19,8 @@ export function SecretDebugPanel() {
   const { lastFeeding, setLastFeeding } = useProductionStore();
 
   const [now, setNow] = useState(Date.now());
+  const [selfDestruct, setSelfDestruct] = useState(false);
+  const [countdown, setCountdown] = useState(5);
 
   // Aktualizovat čas každou sekundu když je panel otevřený
   useEffect(() => {
@@ -28,6 +30,14 @@ export function SecretDebugPanel() {
     }, 1000);
     return () => clearInterval(interval);
   }, [isOpen]);
+
+  // Self-destruct countdown prank
+  useEffect(() => {
+    if (!selfDestruct) return;
+    if (countdown <= 0) return;
+    const timer = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [selfDestruct, countdown]);
 
   // Reset tap count po 2 sekundách
   useEffect(() => {
@@ -229,6 +239,57 @@ export function SecretDebugPanel() {
             }}>
               🗑️ Smazat vše a reload
             </button>
+          </div>
+
+          {/* Self-destruct prank */}
+          <div style={{ ...sectionStyle, borderColor: selfDestruct ? '#f00' : '#333' }}>
+            <h3 style={{ color: '#f00', margin: '0 0 10px 0' }}>☢️ Nebezpečná zóna</h3>
+            {!selfDestruct ? (
+              <button
+                style={{ ...buttonStyle, color: '#f00', borderColor: '#f00' }}
+                onClick={() => { setSelfDestruct(true); setCountdown(5); }}
+              >
+                💣 Autodestrukce farmy
+              </button>
+            ) : countdown > 0 ? (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '48px',
+                  color: '#f00',
+                  fontWeight: 'bold',
+                  animation: 'blink 0.5s infinite',
+                }}>
+                  {countdown}
+                </div>
+                <div style={{ color: '#f00' }}>MAZÁNÍ VŠECH DAT...</div>
+                <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }`}</style>
+                <button
+                  style={{ ...buttonStyle, marginTop: '10px' }}
+                  onClick={() => { setSelfDestruct(false); setCountdown(5); }}
+                >
+                  ❌ Zrušit
+                </button>
+              </div>
+            ) : (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: '18px', color: '#0f0', marginBottom: '12px' }}>
+                  Jen si dělám srandu 🐶
+                </div>
+                <img
+                  src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWpscm5rcHR0NGRuYXBsMW1pMmY4NzV3cW80N2NmdmxsejM0M3JkeCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/gKHGnB1ml0moQdjhEJ/giphy.gif"
+                  alt="prank dog"
+                  style={{ maxWidth: '300px', borderRadius: '8px', border: '2px solid #0f0' }}
+                />
+                <div style={{ marginTop: '12px' }}>
+                  <button
+                    style={buttonStyle}
+                    onClick={() => { setSelfDestruct(false); setCountdown(5); }}
+                  >
+                    😅 OK, dobře jsi mě dostal
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
