@@ -61,10 +61,44 @@ export function FarmView() {
   const [collectingEggs, setCollectingEggs] = useState<string[]>([]);
   const [feedMessage, setFeedMessage] = useState<string | null>(null);
 
+  // Compute center of all objects for initial camera focus
+  const objectsCenter = useMemo(() => {
+    const allPositions: { x: number; y: number }[] = [];
+
+    buildings.forEach((building) => {
+      const pos = positions[building.id];
+      if (pos) {
+        const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
+        allPositions.push({ x: pos.x + box.width / 2, y: pos.y + box.height / 2 });
+      } else {
+        const buildingIndex = buildings
+          .filter((b) => b.type === building.type)
+          .indexOf(building);
+        const defaultPos = getBuildingWorldPosition(building.type, buildingIndex);
+        const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
+        allPositions.push({ x: defaultPos.x + box.width / 2, y: defaultPos.y + box.height / 2 });
+      }
+    });
+
+    geese.forEach((goose) => {
+      const pos = positions[goose.id];
+      if (pos) {
+        allPositions.push({ x: pos.x + 40, y: pos.y + 40 });
+      }
+    });
+
+    if (allPositions.length === 0) return null;
+
+    const sumX = allPositions.reduce((acc, p) => acc + p.x, 0);
+    const sumY = allPositions.reduce((acc, p) => acc + p.y, 0);
+    return { x: sumX / allPositions.length, y: sumY / allPositions.length };
+  }, [buildings, geese, positions]);
+
   // Camera (drag & zoom)
   const { viewportRef, camera, dragLocked, panBy, handlers } = useFarmCamera({
     worldWidth: WORLD_WIDTH,
     worldHeight: WORLD_HEIGHT,
+    focusCenter: objectsCenter,
   });
 
   // Initialize positions for buildings that don't have one yet
@@ -155,9 +189,19 @@ export function FarmView() {
     return map;
   }, [geese, buildings, getBuildingPos, positions]);
 
+  // Set of goose IDs that have been manually placed (have stored positions)
+  const manuallyPlacedGooseIds = useMemo(() => {
+    const set = new Set<string>();
+    geese.forEach((g) => {
+      if (positions[g.id]) set.add(g.id);
+    });
+    return set;
+  }, [geese, positions]);
+
   const goosePositions = useGooseWalk({
     gooseIds: geese.map((g) => g.id),
     coopCenters,
+    manuallyPlacedIds: manuallyPlacedGooseIds,
     wanderRadius: 150,
     interval: 3500,
   });
@@ -277,21 +321,32 @@ export function FarmView() {
     textShadow: '0 1px 2px rgba(255,255,255,0.8)',
   };
 
-  const feedMessageStyle: CSSProperties = {
+  const toastContainerStyle: CSSProperties = {
     position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    background: 'var(--texture-parchment)',
-    color: 'var(--color-wood-dark)',
-    padding: 'var(--space-5) var(--space-8)',
-    borderRadius: 'var(--radius-lg)',
-    fontSize: 'var(--text-xl)',
+    top: 0,
+    left: 0,
+    right: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    pointerEvents: 'none',
+    zIndex: 1000,
+    padding: 'var(--space-3)',
+    paddingTop: '70px',
+  };
+
+  const toastStyle: CSSProperties = {
+    background: 'linear-gradient(180deg, rgba(40,30,15,0.92) 0%, rgba(55,40,20,0.95) 100%)',
+    color: '#f5e6c8',
+    padding: 'var(--space-3) var(--space-6)',
+    borderRadius: 'var(--radius-full)',
+    fontSize: 'var(--text-base)',
     fontFamily: 'var(--font-heading)',
     fontWeight: 'var(--font-bold)',
-    zIndex: 1000,
-    boxShadow: '0 12px 48px rgba(0,0,0,0.3)',
-    border: 'var(--border-gold-frame)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)',
+    border: '1px solid rgba(212,160,23,0.4)',
+    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+    pointerEvents: 'auto',
+    whiteSpace: 'nowrap',
   };
 
   const bottomBarStyle: CSSProperties = {
@@ -552,18 +607,20 @@ export function FarmView() {
         </div>
       </div>
 
-      {/* Feed message popup */}
+      {/* Toast notification */}
       <AnimatePresence>
         {feedMessage && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: -10 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            style={feedMessageStyle}
-          >
-            {feedMessage}
-          </motion.div>
+          <div style={toastContainerStyle}>
+            <motion.div
+              initial={{ opacity: 0, y: -30, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              style={toastStyle}
+            >
+              {feedMessage}
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 

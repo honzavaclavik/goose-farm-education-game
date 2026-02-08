@@ -13,6 +13,8 @@ interface UseFarmCameraOptions {
   maxScale?: number;
   initialX?: number;
   initialY?: number;
+  /** World-space point to center camera on at startup */
+  focusCenter?: { x: number; y: number } | null;
 }
 
 export function useFarmCamera({
@@ -22,6 +24,7 @@ export function useFarmCamera({
   maxScale = 1.5,
   initialX,
   initialY,
+  focusCenter,
 }: UseFarmCameraOptions) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
@@ -84,12 +87,24 @@ export function useFarmCamera({
     );
     const scale = Math.max(minScale, Math.min(maxScale, fitScale));
 
-    // Center the world in the viewport
-    const x = (vpW - worldWidth * scale) / 2;
-    const y = (vpH - worldHeight * scale) / 2;
+    let x: number;
+    let y: number;
+
+    if (focusCenter) {
+      // Center camera on the given world-space point
+      x = vpW / 2 - focusCenter.x * scale;
+      y = vpH / 2 - focusCenter.y * scale;
+      const clamped = clampCamera(x, y, scale);
+      x = clamped.x;
+      y = clamped.y;
+    } else {
+      // Center the entire world in the viewport
+      x = (vpW - worldWidth * scale) / 2;
+      y = (vpH - worldHeight * scale) / 2;
+    }
 
     setCamera({ x, y, scale });
-  }, [worldWidth, worldHeight, minScale, maxScale]);
+  }, [worldWidth, worldHeight, minScale, maxScale, focusCenter, clampCamera]);
 
   // Mouse handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -173,15 +188,26 @@ export function useFarmCamera({
         return { ...prev, ...clamped };
       });
     } else if (e.touches.length === 2) {
-      const dx = e.touches[0].clientX - e.touches[1].clientX;
-      const dy = e.touches[0].clientY - e.touches[1].clientY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
+      const tdx = e.touches[0].clientX - e.touches[1].clientX;
+      const tdy = e.touches[0].clientY - e.touches[1].clientY;
+      const dist = Math.sqrt(tdx * tdx + tdy * tdy);
 
       if (lastPinchDist.current > 0) {
         const scaleFactor = dist / lastPinchDist.current;
+
+        // Pinch center (midpoint between two fingers)
+        const vp = viewportRef.current;
+        const rect = vp?.getBoundingClientRect();
+        const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - (rect?.left ?? 0);
+        const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - (rect?.top ?? 0);
+
         setCamera(prev => {
           const newScale = Math.max(minScale, Math.min(maxScale, prev.scale * scaleFactor));
-          const clamped = clampCamera(prev.x, prev.y, newScale);
+          const worldX = (midX - prev.x) / prev.scale;
+          const worldY = (midY - prev.y) / prev.scale;
+          const newX = midX - worldX * newScale;
+          const newY = midY - worldY * newScale;
+          const clamped = clampCamera(newX, newY, newScale);
           return { ...clamped, scale: newScale };
         });
       }
@@ -236,9 +262,21 @@ export function useFarmCamera({
       if (dragLocked.current) return;
       const zoomFactor = e.deltaY > 0 ? 0.95 : 1.05;
 
+      // Zoom towards cursor position
+      const rect = vp.getBoundingClientRect();
+      const cursorX = e.clientX - rect.left;
+      const cursorY = e.clientY - rect.top;
+
       setCamera(prev => {
         const newScale = Math.max(minScale, Math.min(maxScale, prev.scale * zoomFactor));
-        const clamped = clampCamera(prev.x, prev.y, newScale);
+        // Keep the world point under the cursor fixed:
+        // cursorX = worldX * oldScale + oldX  =>  worldX = (cursorX - oldX) / oldScale
+        // cursorX = worldX * newScale + newX  =>  newX = cursorX - worldX * newScale
+        const worldX = (cursorX - prev.x) / prev.scale;
+        const worldY = (cursorY - prev.y) / prev.scale;
+        const newX = cursorX - worldX * newScale;
+        const newY = cursorY - worldY * newScale;
+        const clamped = clampCamera(newX, newY, newScale);
         return { ...clamped, scale: newScale };
       });
     };

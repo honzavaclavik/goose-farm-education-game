@@ -11,6 +11,8 @@ interface UseGooseWalkOptions {
   gooseIds: string[];
   /** Center position of the coop each goose belongs to */
   coopCenters: Map<string, { x: number; y: number }>;
+  /** IDs of geese that have been manually placed (dragged) */
+  manuallyPlacedIds?: Set<string>;
   /** Radius of wandering area around coop */
   wanderRadius?: number;
   /** Interval between position changes (ms) */
@@ -20,6 +22,7 @@ interface UseGooseWalkOptions {
 export function useGooseWalk({
   gooseIds,
   coopCenters,
+  manuallyPlacedIds,
   wanderRadius = 90,
   interval = 4000,
 }: UseGooseWalkOptions): GoosePosition[] {
@@ -40,8 +43,8 @@ export function useGooseWalk({
   const prevIdsRef = useRef<string[]>([]);
   const prevCentersRef = useRef<Map<string, { x: number; y: number }>>(coopCenters);
 
-  // Snap geese to new center when their wander center changes significantly
-  // (happens when a goose or its coop is dragged)
+  // Snap geese to new center when THEY were manually dragged.
+  // When a coop moves, don't snap — let geese wander naturally to new center.
   useEffect(() => {
     const prev = prevCentersRef.current;
     prevCentersRef.current = coopCenters;
@@ -55,8 +58,8 @@ export function useGooseWalk({
 
         const dx = newCenter.x - oldCenter.x;
         const dy = newCenter.y - oldCenter.y;
-        // Only snap if center moved more than 30px (not just a tiny float change)
-        if (Math.abs(dx) > 30 || Math.abs(dy) > 30) {
+        // Only snap if goose was manually placed AND center moved significantly
+        if (manuallyPlacedIds?.has(pos.id) && (Math.abs(dx) > 30 || Math.abs(dy) > 30)) {
           changed = true;
           return {
             ...pos,
@@ -69,7 +72,7 @@ export function useGooseWalk({
       });
       return changed ? updated : posArr;
     });
-  }, [coopCenters]);
+  }, [coopCenters, manuallyPlacedIds]);
 
   // Update positions when goose list changes
   useEffect(() => {
