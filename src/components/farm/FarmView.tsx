@@ -61,44 +61,47 @@ export function FarmView() {
   const [collectingEggs, setCollectingEggs] = useState<string[]>([]);
   const [feedMessage, setFeedMessage] = useState<string | null>(null);
 
-  // Compute center of all objects for initial camera focus
-  const objectsCenter = useMemo(() => {
-    const allPositions: { x: number; y: number }[] = [];
+  // Compute bounding box of all objects for initial camera fit
+  const objectsBounds = useMemo(() => {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    let count = 0;
 
     buildings.forEach((building) => {
-      const pos = positions[building.id];
-      if (pos) {
-        const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
-        allPositions.push({ x: pos.x + box.width / 2, y: pos.y + box.height / 2 });
-      } else {
+      const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
+      let pos = positions[building.id];
+      if (!pos) {
         const buildingIndex = buildings
           .filter((b) => b.type === building.type)
           .indexOf(building);
-        const defaultPos = getBuildingWorldPosition(building.type, buildingIndex);
-        const box = BUILDING_BOXES[building.type] ?? { width: 160, height: 150 };
-        allPositions.push({ x: defaultPos.x + box.width / 2, y: defaultPos.y + box.height / 2 });
+        pos = getBuildingWorldPosition(building.type, buildingIndex);
       }
+      minX = Math.min(minX, pos.x);
+      minY = Math.min(minY, pos.y);
+      maxX = Math.max(maxX, pos.x + box.width);
+      maxY = Math.max(maxY, pos.y + box.height);
+      count++;
     });
 
     geese.forEach((goose) => {
       const pos = positions[goose.id];
       if (pos) {
-        allPositions.push({ x: pos.x + 40, y: pos.y + 40 });
+        minX = Math.min(minX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxX = Math.max(maxX, pos.x + 80);
+        maxY = Math.max(maxY, pos.y + 80);
+        count++;
       }
     });
 
-    if (allPositions.length === 0) return null;
-
-    const sumX = allPositions.reduce((acc, p) => acc + p.x, 0);
-    const sumY = allPositions.reduce((acc, p) => acc + p.y, 0);
-    return { x: sumX / allPositions.length, y: sumY / allPositions.length };
+    if (count === 0) return null;
+    return { minX, minY, maxX, maxY };
   }, [buildings, geese, positions]);
 
   // Camera (drag & zoom)
   const { viewportRef, camera, dragLocked, panBy, handlers } = useFarmCamera({
     worldWidth: WORLD_WIDTH,
     worldHeight: WORLD_HEIGHT,
-    focusCenter: objectsCenter,
+    focusBounds: objectsBounds,
   });
 
   // Initialize positions for buildings that don't have one yet

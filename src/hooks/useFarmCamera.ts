@@ -6,6 +6,13 @@ interface CameraState {
   scale: number;
 }
 
+interface FocusBounds {
+  minX: number;
+  minY: number;
+  maxX: number;
+  maxY: number;
+}
+
 interface UseFarmCameraOptions {
   worldWidth: number;
   worldHeight: number;
@@ -13,8 +20,8 @@ interface UseFarmCameraOptions {
   maxScale?: number;
   initialX?: number;
   initialY?: number;
-  /** World-space point to center camera on at startup */
-  focusCenter?: { x: number; y: number } | null;
+  /** Bounding box of all objects — camera will fit & center on this area */
+  focusBounds?: FocusBounds | null;
 }
 
 export function useFarmCamera({
@@ -24,7 +31,7 @@ export function useFarmCamera({
   maxScale = 1.5,
   initialX,
   initialY,
-  focusCenter,
+  focusBounds,
 }: UseFarmCameraOptions) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
@@ -79,32 +86,42 @@ export function useFarmCamera({
 
     hasInitialized.current = true;
 
-    // Scale to fit entire world in viewport with a small padding
-    const padding = 0.9; // 90% of viewport used
-    const fitScale = Math.min(
-      (vpW * padding) / worldWidth,
-      (vpH * padding) / worldHeight,
-    );
-    const scale = Math.max(minScale, Math.min(maxScale, fitScale));
-
+    let scale: number;
     let x: number;
     let y: number;
 
-    if (focusCenter) {
-      // Center camera on the given world-space point
-      x = vpW / 2 - focusCenter.x * scale;
-      y = vpH / 2 - focusCenter.y * scale;
+    if (focusBounds) {
+      const boundsW = focusBounds.maxX - focusBounds.minX;
+      const boundsH = focusBounds.maxY - focusBounds.minY;
+      const centerX = (focusBounds.minX + focusBounds.maxX) / 2;
+      const centerY = (focusBounds.minY + focusBounds.maxY) / 2;
+
+      // Fit objects bounding box into viewport with generous padding
+      const padding = 0.75; // 75% of viewport used — leaves room around objects
+      const fitW = boundsW > 0 ? (vpW * padding) / boundsW : maxScale;
+      const fitH = boundsH > 0 ? (vpH * padding) / boundsH : maxScale;
+      scale = Math.max(minScale, Math.min(maxScale, Math.min(fitW, fitH)));
+
+      // Center on bounds center
+      x = vpW / 2 - centerX * scale;
+      y = vpH / 2 - centerY * scale;
       const clamped = clampCamera(x, y, scale);
       x = clamped.x;
       y = clamped.y;
     } else {
-      // Center the entire world in the viewport
+      // Fallback: fit entire world
+      const padding = 0.9;
+      const fitScale = Math.min(
+        (vpW * padding) / worldWidth,
+        (vpH * padding) / worldHeight,
+      );
+      scale = Math.max(minScale, Math.min(maxScale, fitScale));
       x = (vpW - worldWidth * scale) / 2;
       y = (vpH - worldHeight * scale) / 2;
     }
 
     setCamera({ x, y, scale });
-  }, [worldWidth, worldHeight, minScale, maxScale, focusCenter, clampCamera]);
+  }, [worldWidth, worldHeight, minScale, maxScale, focusBounds, clampCamera]);
 
   // Mouse handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
