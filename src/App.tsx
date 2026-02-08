@@ -13,6 +13,7 @@ import { FenceBuilder } from './components/minigames/FenceBuilder/FenceBuilder';
 import { GooseDetective } from './components/minigames/GooseDetective/GooseDetective';
 import { FractionFarm } from './components/minigames/FractionFarm/FractionFarm';
 import { SecretDebugPanel } from './components/debug/SecretDebugPanel';
+import { UpdatePrompt } from './components/common/UpdatePrompt';
 import './App.css';
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
         {renderScreen()}
       </ScreenTransition>
       <SecretDebugPanel />
+      <UpdatePrompt />
     </>
   );
 }
