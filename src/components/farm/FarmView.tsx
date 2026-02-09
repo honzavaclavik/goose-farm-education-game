@@ -94,7 +94,9 @@ export function FarmView() {
     });
 
     if (count === 0) return null;
-    return { minX, minY, maxX, maxY };
+    // Add padding so the camera doesn't frame objects too tightly
+    const pad = 120;
+    return { minX: minX - pad, minY: minY - pad, maxX: maxX + pad, maxY: maxY + pad };
   }, [buildings, geese, positions]);
 
   // Camera (drag & zoom)
@@ -516,19 +518,16 @@ export function FarmView() {
                 key={goose.id}
                 style={{
                   position: 'absolute',
-                  left: displayX,
-                  top: displayY,
+                  left: 0,
+                  top: 0,
                   width: '80px',
                   height: '80px',
                   zIndex: isBeingDragged ? 100 : 3,
-                  transition: isBeingDragged
-                    ? 'none'
-                    : 'left 2.5s ease-in-out, top 2.5s ease-in-out',
                   transform: isBeingDragged
-                    ? 'scale(1.15)'
-                    : pos.facingLeft
-                      ? 'scaleX(-1)'
-                      : 'scaleX(1)',
+                    ? `translate(${displayX}px, ${displayY}px) scale(1.15)`
+                    : `translate(${displayX}px, ${displayY}px)`,
+                  transition: isBeingDragged ? 'none' : 'transform 2.5s ease-in-out',
+                  willChange: 'transform',
                   filter: isBeingDragged
                     ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
                     : undefined,

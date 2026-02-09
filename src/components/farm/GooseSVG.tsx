@@ -1,4 +1,27 @@
-import { CSSProperties, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
+
+// Inject shared keyframes once instead of per-goose <style> tags
+let keyframesInjected = false;
+function injectKeyframes() {
+  if (keyframesInjected) return;
+  keyframesInjected = true;
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes eggFloat {
+      0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
+    }
+    @keyframes hungryPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    @keyframes eggReady {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-3px); }
+    }
+  `;
+  document.head.appendChild(style);
+}
 
 interface GooseSVGProps {
   rarity: 'common' | 'rare' | 'epic' | 'legendary';
@@ -43,7 +66,7 @@ export function GooseSVG({
           feet: '#FF5722',
           eye: '#212121',
           wing: '#E1F5FE',
-          glow: 'drop-shadow(0 0 8px rgba(33, 150, 243, 0.5))',
+          glow: '0 0 8px rgba(33, 150, 243, 0.5)',
         };
       case 'epic':
         return {
@@ -53,7 +76,7 @@ export function GooseSVG({
           feet: '#FF9800',
           eye: '#212121',
           wing: '#A5D6A7',
-          glow: 'drop-shadow(0 0 10px rgba(76, 175, 80, 0.6))',
+          glow: '0 0 10px rgba(76, 175, 80, 0.6)',
         };
       case 'legendary':
         return {
@@ -66,22 +89,25 @@ export function GooseSVG({
           tail1: '#3F51B5',
           tail2: '#2196F3',
           tail3: '#00BCD4',
-          glow: 'drop-shadow(0 0 15px rgba(103, 58, 183, 0.7))',
+          glow: '0 0 15px rgba(103, 58, 183, 0.7)',
         };
     }
   };
 
   const colors = getColors();
 
+  useEffect(() => { injectKeyframes(); }, []);
   const [hovered, setHovered] = useState(false);
 
   const containerStyle: CSSProperties = {
     width: '80px',
     height: '80px',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
-    filter: isHungry ? `grayscale(50%) ${colors.glow}` : colors.glow,
     position: 'relative',
+    transform: facingLeft ? 'scaleX(-1)' : undefined,
+    filter: isHungry ? 'grayscale(50%)' : undefined,
+    boxShadow: colors.glow !== 'none' ? colors.glow : undefined,
+    borderRadius: '50%',
   };
 
   const svgStyle: CSSProperties = {
@@ -208,31 +234,25 @@ export function GooseSVG({
         {/* Shadow */}
         <ellipse cx="45" cy="65" rx="20" ry="4" fill="rgba(0,0,0,0.1)" />
 
-        {/* Peacock tail feathers */}
-        {[0, 1, 2, 3, 4].map((i) => {
-          const angle = -40 + i * 20;
-          const length = 25 + Math.abs(2 - i) * -3;
-          return (
-            <g key={i}>
-              <line x1="52" y1="40" x2={52 + Math.cos((angle * Math.PI) / 180) * length}
-                y2={40 + Math.sin((angle * Math.PI) / 180) * length}
-                stroke="url(#peacockFeather)" strokeWidth="3">
-                <animateTransform attributeName="transform" type="rotate"
-                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
-              </line>
-              <circle cx={52 + Math.cos((angle * Math.PI) / 180) * length}
-                cy={40 + Math.sin((angle * Math.PI) / 180) * length} r="4" fill="#3F51B5">
-                <animateTransform attributeName="transform" type="rotate"
-                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
-              </circle>
-              <circle cx={52 + Math.cos((angle * Math.PI) / 180) * length}
-                cy={40 + Math.sin((angle * Math.PI) / 180) * length} r="2" fill="#00BCD4">
-                <animateTransform attributeName="transform" type="rotate"
-                  values={`-5 52 40;5 52 40;-5 52 40`} dur="2s" begin={`${i * 0.1}s`} repeatCount="indefinite" />
-              </circle>
-            </g>
-          );
-        })}
+        {/* Peacock tail feathers — single shared animation */}
+        <g>
+          <animateTransform attributeName="transform" type="rotate"
+            values="-5 52 40;5 52 40;-5 52 40" dur="2s" repeatCount="indefinite" />
+          {[0, 1, 2, 3, 4].map((i) => {
+            const angle = -40 + i * 20;
+            const length = 25 + Math.abs(2 - i) * -3;
+            const ex = 52 + Math.cos((angle * Math.PI) / 180) * length;
+            const ey = 40 + Math.sin((angle * Math.PI) / 180) * length;
+            return (
+              <g key={i}>
+                <line x1="52" y1="40" x2={ex} y2={ey}
+                  stroke="url(#peacockFeather)" strokeWidth="3" />
+                <circle cx={ex} cy={ey} r="4" fill="#3F51B5" />
+                <circle cx={ex} cy={ey} r="2" fill="#00BCD4" />
+              </g>
+            );
+          })}
+        </g>
 
         {/* Body */}
         <ellipse cx="42" cy="43" rx="18" ry="12" fill="url(#legendaryBodyGrad)" />
@@ -373,20 +393,6 @@ export function GooseSVG({
         </div>
       )}
 
-      <style>{`
-        @keyframes eggFloat {
-          0% { opacity: 1; transform: translateX(-50%) translateY(0); }
-          100% { opacity: 0; transform: translateX(-50%) translateY(-30px); }
-        }
-        @keyframes hungryPulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.2); }
-        }
-        @keyframes eggReady {
-          0%, 100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(-3px); }
-        }
-      `}</style>
     </div>
   );
 }
