@@ -547,6 +547,7 @@ export function FarmView() {
                   eggProduction={goose.eggProduction}
                   isHungry={isAnyGooseHungry}
                   hasEgg={hasEgg(goose.id)}
+                  facingLeft={pos.facingLeft}
                 />
               </div>
             );

@@ -9,6 +9,7 @@ interface GooseSVGProps {
   eggProduction?: number;
   isHungry?: boolean;
   hasEgg?: boolean;
+  facingLeft?: boolean;
 }
 
 export function GooseSVG({
@@ -20,6 +21,7 @@ export function GooseSVG({
   eggProduction,
   isHungry = false,
   hasEgg = false,
+  facingLeft = false,
 }: GooseSVGProps) {
   const getColors = () => {
     switch (rarity) {
@@ -301,7 +303,7 @@ export function GooseSVG({
     position: 'absolute',
     bottom: '-6px',
     left: '50%',
-    transform: 'translateX(-50%) translateY(100%)',
+    transform: `translateX(-50%) translateY(100%)${facingLeft ? ' scaleX(-1)' : ''}`,
     background: 'rgba(30, 20, 10, 0.9)',
     color: 'white',
     padding: '6px 12px',
